@@ -1,4 +1,5 @@
 export interface MyGeneratorGeneratorSchema {
-  name: string;
-  directory: string;
+    name: string;
+    directory: string;
+    pathToRoot?: string;
 }

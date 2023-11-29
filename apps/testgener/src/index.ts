@@ -1,1 +1,0 @@
-const variable = 'testgener';

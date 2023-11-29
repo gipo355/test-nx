@@ -1,3 +1,10 @@
+# todo
+
+- linters
+- esm
+- generators with auto roots
+- uses ejs
+
 # my-plugin
 
 This library was generated with [Nx](https://nx.dev).
