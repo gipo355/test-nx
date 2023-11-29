@@ -10,11 +10,13 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["ESNext", "dom", "DOM.Iterable", "Decorators", "ScriptHost"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@test-nx/my-plugin": ["libs/my-plugin/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
