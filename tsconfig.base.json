@@ -23,7 +23,7 @@
     "paths": {
       "@gipo355/my-plugin": [
         "libs/my-plugin/src/index.ts"
-      ],
+      ]
     }
   },
   "exclude": [

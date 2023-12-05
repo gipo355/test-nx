@@ -21,7 +21,11 @@
       ]
     },
     "e2e": {
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production"
+      ]
     },
     "@nx/jest:jest": {
       "cache": true,
@@ -75,6 +79,7 @@
   },
   "nxCloudAccessToken": "YWI1MWFlNzktZDIwYy00M2EwLWJjMGItNjQ3MTg1ZTg1YmMzfHJlYWQtd3JpdGU=",
   "plugins": [
-    "@nx-dotnet/core"
+    "@nx-dotnet/core",
+    "@nxext/svelte"
   ]
 }
