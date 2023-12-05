@@ -9,7 +9,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
-    "module": "esnext",
+    "module": "CommonJS",
     "lib": [
       "ESNext",
       "dom",
@@ -24,9 +24,6 @@
       "@gipo355/my-plugin": [
         "libs/my-plugin/src/index.ts"
       ],
-      "@gipo355/test-js-normal": [
-        "libs/test-js-normal/src/index.ts"
-      ]
     }
   },
   "exclude": [
