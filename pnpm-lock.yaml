@@ -151,8 +151,6 @@ importers:
         specifier: ~5.2.2
         version: 5.2.2
 
-  apps/test2g: {}
-
   libs/my-plugin:
     dependencies:
       '@nx/devkit':
