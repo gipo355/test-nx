@@ -30,6 +30,13 @@
           "codeCoverage": true
         }
       }
+    },
+    "stylelint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.stylelintrc(.(json|yml|yaml|js))?"
+      ],
+      "cache": true
     }
   },
   "namedInputs": {
@@ -42,9 +49,11 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js"
+      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/.stylelintrc(.(json|yml|yaml|js))?"
     ],
     "sharedGlobals": []
   },
-  "nxCloudAccessToken": "YWI1MWFlNzktZDIwYy00M2EwLWJjMGItNjQ3MTg1ZTg1YmMzfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "YWI1MWFlNzktZDIwYy00M2EwLWJjMGItNjQ3MTg1ZTg1YmMzfHJlYWQtd3JpdGU=",
+  "plugins": ["@nx-dotnet/core"]
 }
