@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "sveltekit-generator": {
+      "factory": "./src/generators/sveltekit-generator/generator",
+      "schema": "./src/generators/sveltekit-generator/schema.json",
+      "description": "sveltekit-generator generator"
+    }
+  }
+}

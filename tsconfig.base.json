@@ -23,6 +23,9 @@
     "paths": {
       "@gipo355/my-plugin": [
         "libs/my-plugin/src/index.ts"
+      ],
+      "@gipo355/sveltekit": [
+        "libs/sveltekit/src/index.ts"
       ]
     }
   },
