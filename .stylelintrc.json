@@ -1,6 +1,17 @@
 {
   "ignoreFiles": ["**/*"],
+  "extends": ["stylelint-config-idiomatic-order"],
   "overrides": [
+    {
+      "files": ["**/*.vue"],
+      "extends": ["stylelint-config-recommended-vue"],
+      "rules": {}
+    },
+    {
+      "files": ["**/*.html"],
+      "extends": ["stylelint-config-html"],
+      "rules": {}
+    },
     {
       "files": ["**/*.css"],
       "extends": ["stylelint-config-standard"],
@@ -8,8 +19,25 @@
     },
     {
       "files": ["**/*.scss"],
-      "extends": ["stylelint-config-standard-scss"],
+      "extends": [
+        "stylelint-config-standard-scss",
+        "stylelint-config-recommended-scss",
+        "stylelint-config-prettier-scss"
+      ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx",
+        "*.cjs",
+        "*.mjs",
+        "*.cts",
+        "*.mts"
+      ],
+      "customSyntax": "postcss-lit"
     }
   ],
   "rules": {}
