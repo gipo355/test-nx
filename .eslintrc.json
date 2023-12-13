@@ -1,8 +1,6 @@
 {
-  "root": true,
   "ignorePatterns": ["**/*"],
-  "extends": ["./libs/eslint-config-base"],
-  "plugins": ["@nx"],
+  "extends": ["./packages/eslint-config-base", "./.eslintrc.base.json"],
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [
@@ -55,7 +53,6 @@
       ".html"
     ]
   },
-
   "overrides": [
     {
       "files": "*.json",
@@ -84,12 +81,10 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
       "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
     {

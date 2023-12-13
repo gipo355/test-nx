@@ -1,5 +1,5 @@
 {
-  "extends": ["../../.eslintrc.json", "../../.eslintrc.base.json"],
+  "extends": ["../../.eslintrc.base.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
@@ -18,14 +18,12 @@
       "files": ["*.json"],
       "parser": "jsonc-eslint-parser",
       "rules": {
-        "@nx/dependency-checks": "error"
-      }
-    },
-    {
-      "files": ["./package.json", "./generators.json"],
-      "parser": "jsonc-eslint-parser",
-      "rules": {
-        "@nx/nx-plugin-checks": "error"
+        "@nx/dependency-checks": [
+          "error",
+          {
+            "ignoredFiles": ["{projectRoot}/vite.config.{js,ts,mjs,mts}"]
+          }
+        ]
       }
     }
   ]
