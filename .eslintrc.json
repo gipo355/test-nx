@@ -1,12 +1,68 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
+  "extends": ["./libs/eslint-config-base"],
   "plugins": ["@nx"],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx",
+        ".js",
+        ".jsx",
+        ".cjs",
+        ".mjs",
+        ".mts",
+        ".cts"
+      ]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".cjs",
+          ".mjs",
+          ".ts",
+          ".tsx",
+          ".mts",
+          ".cts"
+        ]
+      },
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.eslint.json"
+      }
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "tsconfigRootDir": ".",
+    "sourceType": "module",
+    "project": ["./tsconfig.eslint.json"],
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "extraFileExtensions": [
+      ".svelte",
+      ".astro",
+      ".vue",
+      ".cjs",
+      ".mjs",
+      ".mts",
+      ".cts",
+      ".html"
+    ]
+  },
+
   "overrides": [
     {
       "files": "*.json",
       "parser": "jsonc-eslint-parser",
-      "rules": {}
+      "rules": {
+        "@nx/dependency-checks": "error"
+      }
     },
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

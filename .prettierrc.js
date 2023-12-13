@@ -12,21 +12,21 @@ module.exports = {
   bracketSameLine: false,
   proseWrap: 'always',
   endOfLine: 'lf',
-  plugins: [
-    '@prettier/plugin-pug',
-    'prettier-plugin-astro',
-    'prettier-plugin-svelte',
-    'prettier-plugin-tailwindcss',
-  ],
+  // plugins: [
+  //   '@prettier/plugin-pug',
+  //   'prettier-plugin-astro',
+  //   'prettier-plugin-svelte',
+  //   'prettier-plugin-tailwindcss',
+  // ],
   // pluginSearchDirs: false,
   overrides: [
-    {
-      files: '*.svelte',
-      options: {
-        parser: 'svelte',
-        plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
-      },
-    },
+    // {
+    //   files: '*.svelte',
+    //   options: {
+    //     parser: 'svelte',
+    //     plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
+    //   },
+    // },
     {
       files: '*.css',
       options: {
@@ -39,12 +39,12 @@ module.exports = {
         parser: 'html',
       },
     },
-    {
-      files: '*.astro',
-      options: {
-        parser: 'astro',
-      },
-    },
+    // {
+    //   files: '*.astro',
+    //   options: {
+    //     parser: 'astro',
+    //   },
+    // },
   ],
   tailwindFunctions: ['tw'],
 };

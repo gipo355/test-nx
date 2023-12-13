@@ -81,5 +81,13 @@
   "plugins": [
     "@nx-dotnet/core",
     "@nxext/svelte"
-  ]
+  ],
+  "generators": {
+    "@nx/web:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "vitest",
+      "e2eTestRunner": "none"
+    }
+  }
 }

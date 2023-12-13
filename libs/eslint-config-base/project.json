@@ -1,0 +1,41 @@
+{
+  "name": "libs/eslint-config-base",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/eslint-config-base/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/eslint-config-base",
+        "main": "libs/eslint-config-base/src/index.js",
+        "tsConfig": "libs/eslint-config-base/tsconfig.lib.json",
+        "assets": ["libs/eslint-config-base/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs libs/eslint-config-base {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/eslint-config-base/**/*.js",
+          "libs/eslint-config-base/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/libs/eslint-config-base"
+      }
+    }
+  },
+  "tags": []
+}
