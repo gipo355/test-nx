@@ -1,6 +1,9 @@
 {
   "ignoreFiles": ["**/*"],
-  "extends": ["stylelint-config-idiomatic-order"],
+  "extends": [
+    "./packages/stylelint-config",
+    "stylelint-config-idiomatic-order"
+  ],
   "overrides": [
     {
       "files": ["**/*.vue"],

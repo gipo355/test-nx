@@ -18,6 +18,7 @@
     "paths": {
       "@gipo355/eslint-config-base": ["libs/eslint-config-base/src/index.js"],
       "@gipo355/my-plugin": ["libs/my-plugin/src/index.ts"],
+      "@gipo355/stylelint-config": ["packages/stylelint-config/src/index.js"],
       "@gipo355/testlib": ["libs/testlib/src/index.ts"]
     }
   },
