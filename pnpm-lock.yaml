@@ -204,12 +204,39 @@ importers:
       stylelint:
         specifier: 15.11.0
         version: 15.11.0(typescript@5.2.2)
+      stylelint-config-html:
+        specifier: 1.1.0
+        version: 1.1.0(postcss-html@1.5.0)(stylelint@15.11.0)
+      stylelint-config-idiomatic-order:
+        specifier: 9.0.0
+        version: 9.0.0(stylelint@15.11.0)
+      stylelint-config-prettier:
+        specifier: 9.0.5
+        version: 9.0.5(stylelint@15.11.0)
+      stylelint-config-prettier-scss:
+        specifier: 1.0.0
+        version: 1.0.0(stylelint@15.11.0)
+      stylelint-config-recommended-scss:
+        specifier: 13.1.0
+        version: 13.1.0(postcss@8.4.31)(stylelint@15.11.0)
+      stylelint-config-recommended-vue:
+        specifier: 1.5.0
+        version: 1.5.0(postcss-html@1.5.0)(stylelint@15.11.0)
       stylelint-config-standard:
         specifier: 34.0.0
         version: 34.0.0(stylelint@15.11.0)
       stylelint-config-standard-scss:
         specifier: 11.1.0
         version: 11.1.0(postcss@8.4.31)(stylelint@15.11.0)
+      stylelint-prettier:
+        specifier: 4.0.2
+        version: 4.0.2(prettier@3.1.0)(stylelint@15.11.0)
+      stylelint-scss:
+        specifier: 5.3.1
+        version: 5.3.1(stylelint@15.11.0)
+      stylelint-webpack-plugin:
+        specifier: 4.1.1
+        version: 4.1.1(stylelint@15.11.0)(webpack@5.89.0)
       svelte:
         specifier: 4.2.1
         version: 4.2.1
@@ -279,9 +306,6 @@ importers:
       '@html-eslint/parser':
         specifier: 0.20.0
         version: 0.20.0
-      '@prettier/plugin-pug':
-        specifier: 3.0.0
-        version: 3.0.0(prettier@3.1.0)
       '@types/eslint':
         specifier: 8.44.7
         version: 8.44.7
@@ -387,24 +411,33 @@ importers:
       eslint-webpack-plugin:
         specifier: 4.0.1
         version: 4.0.1(eslint@8.53.0)(webpack@5.89.0)
-      prettier:
-        specifier: 3.1.0
-        version: 3.1.0
+      standard-version:
+        specifier: 9.5.0
+        version: 9.5.0
+      tslib:
+        specifier: 2.3.0
+        version: 2.3.0
+
+  packages/prettier-config:
+    dependencies:
+      '@prettier/plugin-pug':
+        specifier: 3.0.0
+        version: 3.0.0(prettier@3.1.0)
       prettier-plugin-astro:
         specifier: 0.12.2
         version: 0.12.2
       prettier-plugin-svelte:
         specifier: 3.1.0
-        version: 3.1.0(prettier@3.1.0)(svelte@3.59.2)
+        version: 3.1.0(prettier@3.1.0)(svelte@4.2.1)
       prettier-plugin-tailwindcss:
         specifier: 0.5.7
         version: 0.5.7(@prettier/plugin-pug@3.0.0)(prettier-plugin-astro@0.12.2)(prettier-plugin-svelte@3.1.0)(prettier@3.1.0)
-      standard-version:
-        specifier: 9.5.0
-        version: 9.5.0
-      stylelint:
-        specifier: 15.11.0
-        version: 15.11.0(typescript@5.2.2)
+      tslib:
+        specifier: 2.3.0
+        version: 2.3.0
+
+  packages/stylelint-config:
+    dependencies:
       stylelint-config-html:
         specifier: 1.1.0
         version: 1.1.0(postcss-html@1.5.0)(stylelint@15.11.0)
@@ -438,30 +471,6 @@ importers:
       stylelint-webpack-plugin:
         specifier: 4.1.1
         version: 4.1.1(stylelint@15.11.0)(webpack@5.89.0)
-      tslib:
-        specifier: 2.3.0
-        version: 2.3.0
-
-  packages/prettier-config:
-    dependencies:
-      '@prettier/plugin-pug':
-        specifier: 3.0.0
-        version: 3.0.0(prettier@3.1.0)
-      prettier-plugin-astro:
-        specifier: 0.12.2
-        version: 0.12.2
-      prettier-plugin-svelte:
-        specifier: 3.1.0
-        version: 3.1.0(prettier@3.1.0)(svelte@4.2.1)
-      prettier-plugin-tailwindcss:
-        specifier: 0.5.7
-        version: 0.5.7(@prettier/plugin-pug@3.0.0)(prettier-plugin-astro@0.12.2)(prettier-plugin-svelte@3.1.0)(prettier@3.1.0)
-      tslib:
-        specifier: 2.3.0
-        version: 2.3.0
-
-  packages/stylelint-config:
-    dependencies:
       tslib:
         specifier: 2.3.0
         version: 2.3.0
@@ -9751,7 +9760,6 @@ packages:
 
   /fast-diff@1.3.0:
     resolution: {integrity: sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==}
-    dev: false
 
   /fast-glob@3.2.12:
     resolution: {integrity: sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==}
@@ -10624,7 +10632,6 @@ packages:
       domhandler: 5.0.3
       domutils: 3.1.0
       entities: 4.5.0
-    dev: false
 
   /http-cache-semantics@4.1.1:
     resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
@@ -11801,7 +11808,6 @@ packages:
 
   /js-tokens@8.0.2:
     resolution: {integrity: sha512-Olnt+V7xYdvGze9YTbGFZIfQXuGV4R3nQwwl8BrtgaPE/wq8UFpUHWuTNc05saowhSr1ZO6tx+V6RjE9D5YQog==}
-    dev: false
 
   /js-yaml@3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
@@ -14004,7 +14010,6 @@ packages:
       js-tokens: 8.0.2
       postcss: 8.4.31
       postcss-safe-parser: 6.0.0(postcss@8.4.31)
-    dev: false
 
   /postcss-import@14.1.0(postcss@8.4.31):
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
@@ -14365,7 +14370,6 @@ packages:
       postcss: ^8.3.9
     dependencies:
       postcss: 8.4.31
-    dev: false
 
   /postcss-svgo@6.0.0(postcss@8.4.31):
     resolution: {integrity: sha512-r9zvj/wGAoAIodn84dR/kFqwhINp5YsJkLoujybWG59grR/IHx+uQ2Zo+IcOwM0jskfYX3R0mo+1Kip1VSNcvw==}
@@ -14427,7 +14431,6 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       fast-diff: 1.3.0
-    dev: false
 
   /prettier-plugin-astro@0.12.2:
     resolution: {integrity: sha512-1OXSEht27zrnX7rCa0bEpLdspeumFW4hnj4+JzPuG5bRlSOAhD0rbXBNZfRD9q0Qbr00EcCcnjd6k6M8q+GfTA==}
@@ -14436,15 +14439,6 @@ packages:
       '@astrojs/compiler': 1.8.2
       prettier: 3.1.0
       sass-formatter: 0.7.8
-
-  /prettier-plugin-svelte@3.1.0(prettier@3.1.0)(svelte@3.59.2):
-    resolution: {integrity: sha512-96+AZxs2ESqIFA9j+o+DHqY+BsUglezfl553LQd6VOtTyJq5GPuBEb3ElxF2cerFzKlYKttlH/VcVmRNj5oc3A==}
-    peerDependencies:
-      prettier: ^3.0.0
-      svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
-    dependencies:
-      prettier: 3.1.0
-      svelte: 3.59.2
 
   /prettier-plugin-svelte@3.1.0(prettier@3.1.0)(svelte@4.2.1):
     resolution: {integrity: sha512-96+AZxs2ESqIFA9j+o+DHqY+BsUglezfl553LQd6VOtTyJq5GPuBEb3ElxF2cerFzKlYKttlH/VcVmRNj5oc3A==}
@@ -14510,7 +14504,7 @@ packages:
       '@prettier/plugin-pug': 3.0.0(prettier@3.1.0)
       prettier: 3.1.0
       prettier-plugin-astro: 0.12.2
-      prettier-plugin-svelte: 3.1.0(prettier@3.1.0)(svelte@3.59.2)
+      prettier-plugin-svelte: 3.1.0(prettier@3.1.0)(svelte@4.2.1)
 
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
@@ -16106,7 +16100,6 @@ packages:
     dependencies:
       postcss-html: 1.5.0
       stylelint: 15.11.0(typescript@5.2.2)
-    dev: false
 
   /stylelint-config-idiomatic-order@9.0.0(stylelint@15.11.0):
     resolution: {integrity: sha512-+LtfPycY1Paayf1MaERyh6BzVPnZxemX5NtzdUPqi4u8hyAR7859f/4EL02+Kr9va76iX7mbYC4HendocXKJZQ==}
@@ -16116,7 +16109,6 @@ packages:
     dependencies:
       stylelint: 15.11.0(typescript@5.2.2)
       stylelint-order: 5.0.0(stylelint@15.11.0)
-    dev: false
 
   /stylelint-config-prettier-scss@1.0.0(stylelint@15.11.0):
     resolution: {integrity: sha512-Gr2qLiyvJGKeDk0E/+awNTrZB/UtNVPLqCDOr07na/sLekZwm26Br6yYIeBYz3ulsEcQgs5j+2IIMXCC+wsaQA==}
@@ -16126,7 +16118,6 @@ packages:
       stylelint: '>=15.0.0'
     dependencies:
       stylelint: 15.11.0(typescript@5.2.2)
-    dev: false
 
   /stylelint-config-prettier@9.0.5(stylelint@15.11.0):
     resolution: {integrity: sha512-U44lELgLZhbAD/xy/vncZ2Pq8sh2TnpiPvo38Ifg9+zeioR+LAkHu0i6YORIOxFafZoVg0xqQwex6e6F25S5XA==}
@@ -16136,7 +16127,6 @@ packages:
       stylelint: '>= 11.x < 15'
     dependencies:
       stylelint: 15.11.0(typescript@5.2.2)
-    dev: false
 
   /stylelint-config-recommended-scss@13.1.0(postcss@8.4.31)(stylelint@15.11.0):
     resolution: {integrity: sha512-8L5nDfd+YH6AOoBGKmhH8pLWF1dpfY816JtGMePcBqqSsLU+Ysawx44fQSlMOJ2xTfI9yTGpup5JU77c17w1Ww==}
@@ -16165,7 +16155,6 @@ packages:
       stylelint: 15.11.0(typescript@5.2.2)
       stylelint-config-html: 1.1.0(postcss-html@1.5.0)(stylelint@15.11.0)
       stylelint-config-recommended: 13.0.0(stylelint@15.11.0)
-    dev: false
 
   /stylelint-config-recommended@13.0.0(stylelint@15.11.0):
     resolution: {integrity: sha512-EH+yRj6h3GAe/fRiyaoO2F9l9Tgg50AOFhaszyfov9v6ayXJ1IkSHwTxd7lB48FmOeSGDPLjatjO11fJpmarkQ==}
@@ -16206,7 +16195,6 @@ packages:
       postcss: 8.4.31
       postcss-sorting: 7.0.1(postcss@8.4.31)
       stylelint: 15.11.0(typescript@5.2.2)
-    dev: false
 
   /stylelint-prettier@4.0.2(prettier@3.1.0)(stylelint@15.11.0):
     resolution: {integrity: sha512-EoHnR2PiaWgpGtoI4VW7AzneMfwmwQsNwQ+3/E2k/a+ju5yO6rfPfop4vzPQKcJN4ZM1YbspEOPu88D8538sbg==}
@@ -16218,7 +16206,6 @@ packages:
       prettier: 3.1.0
       prettier-linter-helpers: 1.0.0
       stylelint: 15.11.0(typescript@5.2.2)
-    dev: false
 
   /stylelint-scss@5.3.1(stylelint@15.11.0):
     resolution: {integrity: sha512-5I9ZDIm77BZrjOccma5WyW2nJEKjXDd4Ca8Kk+oBapSO4pewSlno3n+OyimcyVJJujQZkBN2D+xuMkIamSc6hA==}
@@ -16246,7 +16233,6 @@ packages:
       schema-utils: 4.2.0
       stylelint: 15.11.0(typescript@5.2.2)
       webpack: 5.89.0(@swc/core@1.3.85)(esbuild@0.19.2)
-    dev: false
 
   /stylelint@15.11.0(typescript@5.2.2):
     resolution: {integrity: sha512-78O4c6IswZ9TzpcIiQJIN49K3qNoXTM8zEJzhaTE/xRTCZswaovSEVIa/uwbOltZrk16X4jAxjaOhzz/hTm1Kw==}
@@ -16571,6 +16557,7 @@ packages:
   /svelte@3.59.2:
     resolution: {integrity: sha512-vzSyuGr3eEoAtT/A6bmajosJZIUWySzY2CzB3w2pgPvnkUjGqlDnsNnA0PMO+mMAhuyMul6C2uuZzY6ELSkzyA==}
     engines: {node: '>= 8'}
+    dev: false
 
   /svelte@4.2.1:
     resolution: {integrity: sha512-LpLqY2Jr7cRxkrTc796/AaaoMLF/1ax7cto8Ot76wrvKQhrPmZ0JgajiWPmg9mTSDqO16SSLiD17r9MsvAPTmw==}
