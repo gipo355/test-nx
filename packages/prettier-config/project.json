@@ -1,0 +1,33 @@
+{
+  "name": "prettier-config",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/prettier-config/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/prettier-config",
+        "main": "packages/prettier-config/src/index.js",
+        "tsConfig": "packages/prettier-config/tsconfig.lib.json",
+        "assets": ["packages/prettier-config/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs prettier-config {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/prettier-config/**/*.js",
+          "packages/prettier-config/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -10,17 +10,37 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "CommonJS",
-    "lib": ["ESNext", "dom", "DOM.Iterable", "Decorators", "ScriptHost"],
+    "lib": [
+      "ESNext",
+      "dom",
+      "DOM.Iterable",
+      "Decorators",
+      "ScriptHost"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strict": true,
     "paths": {
-      "@gipo355/eslint-config-base": ["libs/eslint-config-base/src/index.js"],
-      "@gipo355/my-plugin": ["libs/my-plugin/src/index.ts"],
-      "@gipo355/stylelint-config": ["packages/stylelint-config/src/index.js"],
-      "@gipo355/testlib": ["libs/testlib/src/index.ts"]
+      "@gipo355/eslint-config-base": [
+        "packages/eslint-config-base/src/index.js"
+      ],
+      "@gipo355/my-plugin": [
+        "libs/my-plugin/src/index.ts"
+      ],
+      "@gipo355/prettier-config": [
+        "packages/prettier-config/src/index.js"
+      ],
+      "@gipo355/stylelint-config": [
+        "packages/stylelint-config/src/index.js"
+      ],
+      "@gipo355/testlib": [
+        "libs/testlib/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
