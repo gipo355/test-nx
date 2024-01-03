@@ -153,6 +153,9 @@ importers:
       cypress:
         specifier: 13.0.0
         version: 13.0.0
+      cz-git:
+        specifier: ^1.8.0
+        version: 1.8.0
       esbuild:
         specifier: 0.19.2
         version: 0.19.2
@@ -8046,6 +8049,11 @@ packages:
       tmp: 0.2.1
       untildify: 4.0.0
       yauzl: 2.10.0
+    dev: true
+
+  /cz-git@1.8.0:
+    resolution: {integrity: sha512-XL5nXiqbW10YswQqWODrbwyWhydw3mLhP8OBrXyl8u4sIjTf/6mhGsizd6FA2VgPc4tZaNGguFoUyDj7vIBouw==}
+    engines: {node: '>=v12.20.0'}
     dev: true
 
   /d@1.0.1:
