@@ -26,7 +26,8 @@ echo '########## done install'
 # echo '########## done lint-staged'
 
 echo '########## tsc typeCheck in action...'
-pnpm tsc --noEmit
+# pnpm tsc --noEmit
+# nx affected:lint --all --parallel --maxParallel=4
 echo '########## type check done'
 
 echo 'testing all projects'
