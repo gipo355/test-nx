@@ -1,4 +1,11 @@
 {
+  "root": true,
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "extends": [
+    "./packages/eslint-config-base"
+  ],
   "plugins": [
     "@nx"
   ],
@@ -40,6 +47,15 @@
     },
     {
       "files": [
+        "*.ts",
+        "*.mts",
+        "*.cts",
+        "*.tsx"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
         "*.js",
         "*.jsx"
       ],
@@ -54,6 +70,18 @@
       "rules": {
         "@nx/dependency-checks": "error"
       }
+    },
+    {
+      "files": [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
     }
   ]
 }

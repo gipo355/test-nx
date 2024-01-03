@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['../../.eslintrc.json', '../../.eslintrc.base.json'],
+  extends: ['../../.eslintrc.base.json'],
   settings: {
     'import/resolver': {
       typescript: {
