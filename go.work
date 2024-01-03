@@ -1,3 +1,2 @@
 go 1.21.0
 
-use apps/gin-app
