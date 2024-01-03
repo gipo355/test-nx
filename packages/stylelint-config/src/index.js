@@ -1,1 +1,1 @@
-export * from './lib/StylelintConfig';
+module.exports = require('./lib/StylelintConfig');

@@ -1,9 +1,10 @@
 /// <reference types='vitest' />
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { defineConfig } from 'vite';
 
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/test-web',
+  cacheDir: '../../node_modules/.vite/test2',
 
   server: {
     port: 4200,
