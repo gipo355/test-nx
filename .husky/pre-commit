@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo '########## lint-staged...'
+pnpm lint-staged
+echo '########## done lint-staged'

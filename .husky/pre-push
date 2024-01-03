@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo '########## fixing packages semver...'
+# pnpm syncpack lint-semver-ranges
+# pnpm syncpack set-semver-ranges
+echo '########## fixed packages semver'
+
+echo '########## finding mismatches in package.json...'
+# pnpm syncpack list-mismatches
+# pnpm syncpack fix-mismatches
+echo '########## no mismatches'
+
+echo '########## formatting package.json files...'
+# pnpm syncpack format --indent "  "
+echo '########## formatted package.json files'
+
+echo '########## pnpm install to fix lockfile...'
+# pnpm syncpack list-mismatches
+# pnpm install -w
+# pnpm install -r
+echo '########## done install'
+
+# echo '########## lint-staged...'
+# pnpm lint-staged
+# echo '########## done lint-staged'
+
+echo '########## tsc typeCheck in action...'
+pnpm tsc --noEmit
+echo '########## type check done'
+
+echo 'testing all projects'
+nx affected:test --all --parallel --maxParallel=4
+echo 'all projects tested'

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# trying to fix rebase problem, not preserving messages
+# check [https://github.com/commitizen/cz-cli/issues/672]
+if [ -z "$2" ]; then
+  # exec </dev/tty && npx git-cz --hook
+  exec </dev/tty && pnpm commit --hook
+fi
+# exec </dev/tty && npx cz --hook || true
