@@ -1,0 +1,7 @@
+coverage/**/*.css
+node_modules/**/*.scss
+node_modules/**/*.css
+logs/**/*.css
+logs/**/*.scss
+dist/**/*.css
+dist/**/*.scss

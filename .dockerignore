@@ -1,0 +1,16 @@
+node_modules
+node_modules/
+npm-debug.log
+dist/
+dist
+.git
+**/.next
+**/build
+**/dist
+**/dist/
+**/node_modules
+**/node_modules/
+**/.DS_Store
+Dockerfile
+docs
+*.log
