@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "hb0+mUn8OZb6HF0NJNI4y41ae+RoqjGpIOCRjxIOX3zpqmBI3dmdXDTkjvBvM9P7c1y7QtZiRb9D36MAfMLjbQ==",
+  "success": true,
+  "projectFilePath": "/home/wolf/tests/test-nx/apps/testdotnet/Gipo355.Testdotnet.csproj",
+  "expectedPackageFiles": [
+    "/home/wolf/.nuget/packages/microsoft.dotnet.ilcompiler/8.0.0/microsoft.dotnet.ilcompiler.8.0.0.nupkg.sha512",
+    "/home/wolf/.nuget/packages/microsoft.net.illink.tasks/8.0.0/microsoft.net.illink.tasks.8.0.0.nupkg.sha512",
+    "/home/wolf/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.0/microsoft.aspnetcore.app.ref.8.0.0.nupkg.sha512",
+    "/home/wolf/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/runtime.linux-x64.microsoft.dotnet.ilcompiler.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
