@@ -295,21 +295,6 @@ importers:
         specifier: 2.3.0
         version: 2.3.0
 
-  libs/sveltekit:
-    dependencies:
-      '@nx/devkit':
-        specifier: 17.1.3
-        version: 17.1.3(nx@17.1.3)
-      tslib:
-        specifier: 2.3.0
-        version: 2.3.0
-
-  libs/testlib:
-    dependencies:
-      tslib:
-        specifier: 2.3.0
-        version: 2.3.0
-
   packages/eslint-config-base:
     dependencies:
       '@html-eslint/eslint-plugin':
