@@ -1,0 +1,122 @@
+/* stylelint-disable*/
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+// font: set it in tailwind config
+@import 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap'); */
+
+// or here
+// @layer base {
+//     html {
+//         font-family: Roboto, sans-serif;
+//     }
+// }
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  .text-shadow-md {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  .text-shadow-lg {
+    text-shadow: 15px 15px 30px rgba(0, 0, 0, 0.5);
+  }
+  .text-shadow-none {
+    text-shadow: none;
+  }
+
+  .h-screen-5 {
+    height: 5vh;
+  }
+  .h-screen-10 {
+    height: 10vh;
+  }
+  .h-screen-15 {
+    height: 15vh;
+  }
+  .h-screen-20 {
+    height: 20vh;
+  }
+  .h-screen-25 {
+    height: 25vh;
+  }
+  .h-screen-30 {
+    height: 30vh;
+  }
+  .h-screen-35 {
+    height: 35vh;
+  }
+  .h-screen-40 {
+    height: 40vh;
+  }
+  .h-screen-45 {
+    height: 45vh;
+  }
+  .h-screen-50 {
+    height: 50vh;
+  }
+  .h-screen-55 {
+    height: 55vh;
+  }
+  .h-screen-60 {
+    height: 60vh;
+  }
+  .h-screen-65 {
+    height: 65vh;
+  }
+  .h-screen-70 {
+    height: 70vh;
+  }
+  .h-screen-75 {
+    height: 75vh;
+  }
+  .h-screen-80 {
+    height: 80vh;
+  }
+  .h-screen-85 {
+    height: 85vh;
+  }
+  .h-screen-90 {
+    height: 90vh;
+  }
+  .h-screen-95 {
+    height: 95vh;
+  }
+  .container-fluid {
+    @apply w-full px-1;
+  }
+  .container-sm {
+    @apply container md:max-w-screen-sm lg:max-w-screen-sm xl:max-w-screen-sm;
+  }
+  .container-md {
+    @apply container lg:max-w-screen-md xl:max-w-screen-md;
+  }
+  .container-lg {
+    @apply container xl:max-w-screen-lg;
+  }
+  .container-xl {
+    @apply container xl:max-w-screen-xl;
+  }
+  .container-2xl {
+    @apply container;
+  }
+  .all-center {
+    @apply items-center justify-center text-center;
+  }
+}
+
+@layer components {
+  .select2-dropdown {
+    @apply rounded-b-lg shadow-md;
+  }
+  .select2-search {
+    @apply border-gray-300 rounded border;
+  }
+  .select2-results__group {
+    @apply text-gray-900 text-lg font-bold;
+  }
+  /* ... */
+}

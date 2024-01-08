@@ -1,0 +1,44 @@
+/* stylelint-disable*/
+// ! can import bootstrap here instead of index js
+
+// * frameworks
+// @import './bootstrap_config/custom_bs';
+@import './tailwind/tailwind';
+
+// * fontawesome (here or in index.js - choose if using css or js+svg)
+// @use '../../node_modules/@fortawesome/fontawesome-free/scss/';
+
+// * personal imports
+
+// optimizers, reset, normalize
+// @import "./libraries/meyer_reset";
+// @import "./libraries/normalize";
+
+// pay attention to the order
+@import './common/variables';
+@import './common/config';
+@import './common/global';
+@import './common/buttons';
+@import './common/utilities';
+
+// can use flow text or fluid type with tailwindcss https://github.com/davidhellmann/tailwindcss-fluid-type
+// @import "./utilities/flow_text_materialize";
+// @import "./utilities/bootstrap_containers"
+
+// * custom css
+// CAN USE NESTED IMPORTS IN SASS TO BUILD CLASSES FROM CLASSES WITH POSTCSS IMPORT PLUGIN
+// .bg-col {
+//   background-color: navy;
+// }
+// .text-col {
+//   color: purple;
+// }
+// .sizes {
+//   padding: 1rem 3rem;
+// }
+// .inblock {
+//   display: inline-block;
+// }
+// .btn-custom {
+//   @apply sizes bg-col text-col inblock;
+// }

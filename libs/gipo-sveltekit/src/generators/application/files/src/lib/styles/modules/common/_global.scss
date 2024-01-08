@@ -1,0 +1,71 @@
+// @font-face {
+//   font-family: "Hack-Regular";
+//   src: url("../assets/fonts/Hack-Regular.ttf");
+// }
+
+$primary-color: #333;
+$secondary-color: #f5c42f;
+$bg-color-1: #333;
+$text-color: #ccc;
+$link-color: #333;
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  overflow: hidden;
+  box-sizing: border-box; /* thanks redditindisguise */
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  // font-family: "Hack-Regular", sans-serif;
+  background-color: $bg-color-1;
+  color: $text-color;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-bottom: 0.5rem;
+}
+
+/* ! SCROLLBAR */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(124 124 124);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(165 165 165);
+}
