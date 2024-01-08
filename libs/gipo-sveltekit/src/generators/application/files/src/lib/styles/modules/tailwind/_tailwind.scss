@@ -113,10 +113,10 @@
     @apply rounded-b-lg shadow-md;
   }
   .select2-search {
-    @apply border-gray-300 rounded border;
+    @apply rounded border border-gray-300;
   }
   .select2-results__group {
-    @apply text-gray-900 text-lg font-bold;
+    @apply text-lg font-bold text-gray-900;
   }
   /* ... */
 }

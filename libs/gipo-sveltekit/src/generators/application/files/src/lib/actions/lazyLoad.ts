@@ -6,8 +6,8 @@
  * @param observer
  * @returns
  */
-export const lazyLoad = (image: HTMLImageElement, src: string | undefined) => {
-  if (!src) return;
+export const lazyLoad = (image: HTMLImageElement, source: string | undefined) => {
+  if (!source) return;
   const loaded = (event?: Event) => {
     // image.classList.add('visible'); // doesn't work in REPL
     image.style.opacity = '1'; // REPL hack to apply loading animation
@@ -20,7 +20,7 @@ export const lazyLoad = (image: HTMLImageElement, src: string | undefined) => {
       if (!entry.isIntersecting) return; // if the image isn't in view, do nothing (return
       if (entry.isIntersecting) {
         console.log('an image has loaded'); // console log for REPL
-        image.src = src; // replace placeholder src with the image src on observe
+        image.src = source; // replace placeholder src with the image src on observe
         if (image.complete) {
           // check if instantly loaded
           loaded();

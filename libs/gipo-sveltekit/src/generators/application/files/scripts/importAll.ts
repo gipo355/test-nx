@@ -5,11 +5,11 @@
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import type { TObject } from '@sinclair/typebox';
 // const filename = fileURLToPath(import.meta.url);
 // const dirname = path.dirname(filename);
 import { glob } from 'glob';
-
-import type { TObject } from '@sinclair/typebox';
 
 // import { type UserModelType } from './plugins/mongo/models/User.js';
 
@@ -31,19 +31,19 @@ export const importAll = async (
   const filename = fileURLToPath(import.meta.url);
   const dirname = path.dirname(filename);
 
-  const destPath = `${dirname}/${relativePathWithGlobs}`;
+  const destinationPath = `${dirname}/${relativePathWithGlobs}`;
 
-  console.log(`Importing all *${propertyNameToMatch}* exports from:`, destPath);
+  console.log(`Importing all *${propertyNameToMatch}* exports from:`, destinationPath);
 
-  const res = await glob(destPath);
+  const res = await glob(destinationPath);
 
   const modules: TObject<any>[] = await Promise.all(
-    res.map(async (file) => {
+    res.map(async (file) => 
       // console.log(file); // file path
 
       // import(file.replace(dirname, '.').replace('.js', ''))
-      return import(file);
-    })
+       import(file)
+    )
   );
 
   const schemas: Record<string, TObject<any>> = {};
@@ -63,11 +63,11 @@ export const importAll = async (
     // e.g. schemas = { todoSchema: todoSchema, userSchema: userSchema }
     // schemas[module.PropertyName] = module.PropertyName;
 
-    Object.keys(module).forEach((key) => {
+    for (const key of Object.keys(module)) {
       if (key.includes(propertyNameToMatch)) {
         schemas[key] = module[key];
       }
-    });
+    }
   }
 
   // console.log('schemas', schemas);

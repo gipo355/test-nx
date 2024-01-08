@@ -7,7 +7,6 @@ import standaloneCode from 'ajv/dist/standalone';
 import addFormats from 'ajv-formats';
 
 // import { schemas } from '../src/lib/types/schemas';
-
 import { importAll } from './importAll';
 
 const compileAjv = async () => {

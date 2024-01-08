@@ -2,30 +2,30 @@ import type { TAjvValidateFunction } from '$lib/types/ajv';
 
 // use ajv
 export const validateAjv = (
-    validator: TAjvValidateFunction,
-    data: unknown
+  validator: TAjvValidateFunction,
+  data: unknown
 ): boolean => {
-    const valid = validator(data);
+  const valid = validator(data);
 
-    if (validator.errors !== null && validator.errors !== undefined) {
-        //   const messages = ((validator.errors ?? []) as TAjvError[])
-        //     .map((error_) => error_.message)
-        //     .join('\n');
+  if (validator.errors !== null && validator.errors !== undefined) {
+    //   const messages = ((validator.errors ?? []) as TAjvError[])
+    //     .map((error_) => error_.message)
+    //     .join('\n');
 
-        const messages = validator.errors
-            .map((error_) => {
-                const { message, instancePath, keyword } = error_;
+    const messages = validator.errors
+      .map((error_) => {
+        const { message, instancePath, keyword } = error_;
 
-                const property = instancePath.split('/').at(-1);
+        const property = instancePath.split('/').at(-1);
 
-                return `${keyword} error: ${property} ${message}`;
-            })
-            .join('\n');
+        return `${keyword} error: ${property} ${message}`;
+      })
+      .join('\n');
 
-        // console.log(validator.errors);
-        throw new Error(messages);
-    }
-    return valid;
+    // console.log(validator.errors);
+    throw new Error(messages);
+  }
+  return valid;
 };
 // validateTodo(newTodo);
 
