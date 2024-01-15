@@ -7,13 +7,18 @@ import {
   Tree,
 } from '@nx/devkit';
 
-import { ApplicationGeneratorSchema } from './schema';
+import { MyGeneratorGeneratorSchema } from './schema';
 
-export async function applicationGenerator(
+export async function myGeneratorGenerator(
   tree: Tree,
-  options: ApplicationGeneratorSchema
+  options: MyGeneratorGeneratorSchema
 ) {
-  const projectRoot = `libs/${options.name}`;
+  const projectRoot = `${options.directory}/${options.name}`;
+
+  const pathToRoot = path.relative(projectRoot, tree.root);
+
+  options.pathToRoot = `${pathToRoot}/`;
+
   addProjectConfiguration(tree, options.name, {
     root: projectRoot,
     projectType: 'library',
@@ -24,4 +29,4 @@ export async function applicationGenerator(
   await formatFiles(tree);
 }
 
-export default applicationGenerator;
+export default myGeneratorGenerator;

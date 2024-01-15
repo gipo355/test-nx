@@ -1,3 +1,5 @@
-export interface ApplicationGeneratorSchema {
+export interface MyGeneratorGeneratorSchema {
   name: string;
+  directory: string;
+  pathToRoot?: string;
 }

@@ -1,19 +1,22 @@
 import { readProjectConfiguration, Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 
-import { applicationGenerator } from './generator';
-import { ApplicationGeneratorSchema } from './schema';
+import { myGeneratorGenerator } from './generator';
+import { MyGeneratorGeneratorSchema } from './schema';
 
-describe('application generator', () => {
+describe('my-generator generator', () => {
   let tree: Tree;
-  const options: ApplicationGeneratorSchema = { name: 'test' };
+  const options: MyGeneratorGeneratorSchema = {
+    name: 'test',
+    directory: 'my-plugin',
+  };
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace();
   });
 
   it('should run successfully', async () => {
-    await applicationGenerator(tree, options);
+    await myGeneratorGenerator(tree, options);
     const config = readProjectConfiguration(tree, 'test');
     expect(config).toBeDefined();
   });

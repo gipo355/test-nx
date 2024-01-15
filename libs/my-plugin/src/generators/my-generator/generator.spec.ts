@@ -5,19 +5,19 @@ import { myGeneratorGenerator } from './generator';
 import { MyGeneratorGeneratorSchema } from './schema';
 
 describe('my-generator generator', () => {
-    let tree: Tree;
-    const options: MyGeneratorGeneratorSchema = {
-        name: 'test',
-        directory: 'my-plugin',
-    };
+  let tree: Tree;
+  const options: MyGeneratorGeneratorSchema = {
+    name: 'test',
+    directory: 'my-plugin',
+  };
 
-    beforeEach(() => {
-        tree = createTreeWithEmptyWorkspace();
-    });
+  beforeEach(() => {
+    tree = createTreeWithEmptyWorkspace();
+  });
 
-    it('should run successfully', async () => {
-        await myGeneratorGenerator(tree, options);
-        const config = readProjectConfiguration(tree, 'test');
-        expect(config).toBeDefined();
-    });
+  it('should run successfully', async () => {
+    await myGeneratorGenerator(tree, options);
+    const config = readProjectConfiguration(tree, 'test');
+    expect(config).toBeDefined();
+  });
 });
