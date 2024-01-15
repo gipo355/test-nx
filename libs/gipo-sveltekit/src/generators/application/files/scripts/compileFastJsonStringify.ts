@@ -39,9 +39,12 @@ const compileFastJsonStringify = async () => {
 
   console.log('######### Preparing FastJsonStringify standalone code...');
 
-  const codes = Object.entries(schemas).map(([key, value]) => `\nexport const stringify${
-      key.at(0).toUpperCase() + key.slice(1)
-    } = fastJson(${JSON.stringify(value)})\n`);
+  const codes = Object.entries(schemas).map(
+    ([key, value]) =>
+      `\nexport const stringify${
+        key.at(0).toUpperCase() + key.slice(1)
+      } = fastJson(${JSON.stringify(value)})\n`
+  );
 
   const moduleCode = `import fastJson from 'fast-json-stringify';\n ${codes.join(
     ''

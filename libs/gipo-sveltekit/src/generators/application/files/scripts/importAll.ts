@@ -33,16 +33,20 @@ export const importAll = async (
 
   const destinationPath = `${dirname}/${relativePathWithGlobs}`;
 
-  console.log(`Importing all *${propertyNameToMatch}* exports from:`, destinationPath);
+  console.log(
+    `Importing all *${propertyNameToMatch}* exports from:`,
+    destinationPath
+  );
 
   const res = await glob(destinationPath);
 
   const modules: TObject<any>[] = await Promise.all(
-    res.map(async (file) => 
-      // console.log(file); // file path
+    res.map(
+      async (file) =>
+        // console.log(file); // file path
 
-      // import(file.replace(dirname, '.').replace('.js', ''))
-       import(file)
+        // import(file.replace(dirname, '.').replace('.js', ''))
+        import(file)
     )
   );
 

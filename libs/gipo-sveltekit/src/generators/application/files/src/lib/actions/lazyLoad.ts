@@ -6,7 +6,10 @@
  * @param observer
  * @returns
  */
-export const lazyLoad = (image: HTMLImageElement, source: string | undefined) => {
+export const lazyLoad = (
+  image: HTMLImageElement,
+  source: string | undefined
+) => {
   if (!source) return;
   const loaded = (event?: Event) => {
     // image.classList.add('visible'); // doesn't work in REPL
