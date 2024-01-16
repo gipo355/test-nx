@@ -5,6 +5,16 @@
   "sourceRoot": "<%- directory %>/<%- name %>/src",
   "tags": [],
   "targets": {
+    "check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "svelte-check",
+        "cwd": "apps/kkiill"
+      }
+    },
+    "echo": {
+      "command": "echo 'hello world'"
+    },
     "build": {
       "executor": "@nx/vite:build",
       "outputs": [
