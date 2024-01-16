@@ -1,7 +1,0 @@
-{
-  "extends": "../../../../../../.eslintrc.base.json",
-  "ignorePatterns": ["!**/*"],
-  "parserOptions": {
-    "project": ["./tsconfig.*?.json"]
-  }
-}

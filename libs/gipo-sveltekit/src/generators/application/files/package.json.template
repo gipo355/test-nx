@@ -1,5 +1,5 @@
 {
-  "name": "@courses-pnpm/template-sveltekit-empty",
+  "name": "@courses-pnpm/<%- name %>",
   "version": "0.0.2",
   "dependencies": {
     "@sinclair/typebox": "0.27.8",

@@ -1,0 +1,11 @@
+{
+  "extends": "<%- pathToRoot %>.eslintrc.json",
+  "ignorePatterns": [
+    "!**/*"
+  ],
+  "parserOptions": {
+    "project": [
+      "./tsconfig.*?.json"
+    ]
+  }
+}
