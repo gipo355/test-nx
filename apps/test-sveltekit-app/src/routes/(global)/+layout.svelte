@@ -17,7 +17,6 @@
   // import { onNavigate } from '$app/navigation';
 
   const x = 3;
-  console.log(x);
 
   /**
    * ! IMP!: Context and stores, prevent global state and data leaks

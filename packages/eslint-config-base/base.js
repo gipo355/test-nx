@@ -27,7 +27,7 @@ module.exports = {
   overrides: [
     {
       files: ['*.js', '*.mjs', '*.cjs'],
-      extends: ['airbnb-base'],
+      extends: ['airbnb-base', 'prettier'],
     },
     {
       files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
@@ -39,6 +39,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:import/typescript',
         'plugin:@typescript-eslint/strict',
+        'airbnb-base',
         'airbnb-typescript/base',
         'prettier',
       ],
