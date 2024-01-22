@@ -11,10 +11,13 @@
   } from 'svelte/store';
 
   import { dev } from '$app/environment';
-
-  import { ContextStore } from '../../lib/stores/ContextStore';
+  import { ContextStore } from '$lib/stores/ContextStore';
+  // import { ContextStore } from '$lib/stores/ContextStore';
   // import { createContext } from '../../lib/utils/context';
   // import { onNavigate } from '$app/navigation';
+
+  const x = 3;
+  console.log(x);
 
   /**
    * ! IMP!: Context and stores, prevent global state and data leaks

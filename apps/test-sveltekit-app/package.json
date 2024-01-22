@@ -91,11 +91,12 @@
   "scripts": {
     "build": "run-s compile-ajv compile-fast-json build:vite",
     "build:vite": "NODE_ENV=production vite build",
+    "prepare": "svelte-kit sync",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "compile-ajv": "tsx ./scripts/compileAjv.ts",
     "compile-fast-json": "tsx ./scripts/compileFastJsonStringify.ts",
-    "dev": "infisical run --path=\"/spotify\" -- npm-run-all --parallel compile-ajv compile-fast-json --sequential dev:svelte",
+    "dev": "svelte-kit sync && infisical run --path=\"/spotify\" -- npm-run-all --parallel compile-ajv compile-fast-json --sequential dev:svelte",
     "dev:storybook": "storybook dev -p 6006",
     "dev:svelte": "vite dev",
     "format": "prettier --plugin-search-dir . --write .",

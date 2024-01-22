@@ -17,14 +17,18 @@ module.exports = {
   extends: [
     'plugin:tailwindcss/recommended',
     'eslint:recommended',
-    'airbnb-base',
-    'plugin:import/recommended',
+    // 'airbnb-base',
+    // 'plugin:import/recommended',
     'plugin:security/recommended',
     'plugin:unicorn/recommended',
     'plugin:lit/recommended',
     'prettier',
   ],
   overrides: [
+    {
+      files: ['*.js', '*.mjs', '*.cjs'],
+      extends: ['airbnb-base'],
+    },
     {
       files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
       parser: '@typescript-eslint/parser',
@@ -35,10 +39,13 @@ module.exports = {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:import/typescript',
         'plugin:@typescript-eslint/strict',
-        'airbnb-typescript',
+        'airbnb-typescript/base',
         'prettier',
       ],
       settings: {
+        'import/parsers': {
+          '@typescript-eslint/parser': ['.ts', '.tsx'],
+        },
         'import/resolver': {
           typescript: {
             alwaysTryTypes: true,
@@ -125,6 +132,10 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
       },
+    },
+    {
+      files: ['*.tsx'],
+      extends: ['airbnb-typescript'],
     },
     {
       files: ['*.html'],
