@@ -16,8 +16,6 @@
   // import { createContext } from '../../lib/utils/context';
   // import { onNavigate } from '$app/navigation';
 
-  const x = 3;
-
   /**
    * ! IMP!: Context and stores, prevent global state and data leaks
    */

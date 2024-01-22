@@ -4,8 +4,8 @@
   // import { hello } from '$lib/hello';
   // import { stringifyExample } from '$lib/types/fastJson';
   // import { createContext } from '$lib/utils/context';
-  import { hello } from '../../lib/hello';
-  import { createContext } from '../../lib/utils/context';
+  import { hello } from '$lib/hello';
+  import { createContext } from '$lib/utils/context';
 
   console.log(hello.name);
 
