@@ -1,5 +1,6 @@
 {
-  "eslint.validate": [
-    "json"
-  ]
+  "eslint.validate": ["json"],
+  "deno.enablePaths": ["apps/test-deno-app"],
+  "deno.unstable": true,
+  "deno.importMap": "./import_map.json"
 }

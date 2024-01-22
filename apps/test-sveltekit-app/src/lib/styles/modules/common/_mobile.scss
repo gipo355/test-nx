@@ -1,0 +1,56 @@
+// * mobile
+// @import "./common/mobile";
+// We define the mixins for two major breakpoints mobile and tablet
+
+// $breakpoint is the variable that can have several values
+@mixin devices($breakpoint) {
+  /* the name of the mixin is devices */
+
+  @if $breakpoint == tablet {
+    @media only screen and (width <= 680px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == mobile {
+    @media only screen and (width <= 481px) {
+      @content;
+    }
+  }
+}
+
+// Handling the responsiveness
+.responsive {
+  background: yellow;
+
+  // The normal background color is set to yellow
+
+  @include devices(tablet) {
+    background: lightblue;
+
+    // code set for tablet
+  }
+
+  @include devices(mobile) {
+    background: aquamarine;
+
+    h1 {
+      color: red;
+    }
+
+    // code set for mobile
+  }
+}
+
+// OR
+$mobile-bp: 640px;
+$tablet-bp: 1024px;
+$desktop-bp: 1280px;
+
+.random-div {
+  background: aquamarine;
+
+  @media only screen and (min-width: $mobile-bp) {
+    background: white;
+  }
+}

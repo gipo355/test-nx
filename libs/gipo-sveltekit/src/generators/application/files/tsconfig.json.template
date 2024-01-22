@@ -2,7 +2,7 @@
   // must copy manually from ./.svelte-kit/tsconfig.json
   // else ts eslint will cry
   "extends": [
-    "<%- pathToRoot %>.tsconfig.json",
+    "<%- pathToRoot %>tsconfig.base.json",
     "./.svelte-kit/tsconfig.json"
   ],
   "compilerOptions": {

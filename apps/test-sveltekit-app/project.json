@@ -1,0 +1,82 @@
+{
+  "name": "test-sveltekit-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/test-sveltekit-app/src",
+  "tags": [],
+  "targets": {
+    "check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "svelte-check",
+        "cwd": "apps/kkiill"
+      }
+    },
+    "echo": {
+      "command": "echo 'hello world'"
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/test-sveltekit-app"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "test-sveltekit-app:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "test-sveltekit-app:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "test-sveltekit-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "test-sveltekit-app:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "test-sveltekit-app:build:development"
+        },
+        "production": {
+          "buildTarget": "test-sveltekit-app:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/apps/test-sveltekit-app"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/test-sveltekit-app/**/*.ts"]
+      }
+    }
+  }
+}
