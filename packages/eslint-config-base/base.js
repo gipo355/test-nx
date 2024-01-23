@@ -7,15 +7,50 @@ module.exports = {
       jsx: true,
     },
     // project: true,
-    extraFileExtensions: ['.svelte', '.astro', '.vue', '.html'],
+    extraFileExtensions: [
+      '.svelte',
+      '.astro',
+      '.vue',
+      '.cjs',
+      '.mjs',
+      '.mts',
+      '.cts',
+      '.json',
+      '.jsonc',
+      '.json5',
+      '.html',
+    ],
   },
   settings: {
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx'],
-    },
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
+      },
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': [
+        '.ts',
+        '.tsx',
+        '.js',
+        '.jsx',
+        '.cjs',
+        '.mjs',
+        '.mts',
+        '.cts',
+      ],
+    },
+    'import/resolver': {
+      node: {
+        extensions: [
+          '.js',
+          '.jsx',
+          '.cjs',
+          '.mjs',
+          '.ts',
+          '.tsx',
+          '.mts',
+          '.cts',
+        ],
       },
     },
   },
