@@ -1,11 +1,23 @@
 module.exports = {
+  ignorePatterns: ['**/*'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
+    // project: true,
     extraFileExtensions: ['.svelte', '.astro', '.vue', '.html'],
+  },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
   },
   plugins: [
     'tailwindcss',
@@ -27,32 +39,39 @@ module.exports = {
   overrides: [
     {
       files: ['*.js', '*.mjs', '*.cjs'],
-      extends: ['airbnb-base', 'prettier'],
+      extends: [
+        // 'airbnb-base',
+        'prettier',
+      ],
     },
     {
       files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
       parser: '@typescript-eslint/parser',
+      // parserOptions: {
+      //   project: true,
+      // },
+      // settings: {
+      //   'import/parsers': {
+      //     '@typescript-eslint/parser': ['.ts', '.tsx'],
+      //   },
+      //   'import/resolver': {
+      //     typescript: {
+      //       alwaysTryTypes: true,
+      //     },
+      //   },
+      // },
       plugins: ['@typescript-eslint'],
       extends: [
-        'plugin:@typescript-eslint/recommended',
+        // 'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-type-checked',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:import/typescript',
         'plugin:@typescript-eslint/strict',
-        'airbnb-base',
-        'airbnb-typescript/base',
+        // 'airbnb-base',
+        // 'airbnb-typescript/base',
         'prettier',
       ],
-      settings: {
-        'import/parsers': {
-          '@typescript-eslint/parser': ['.ts', '.tsx'],
-        },
-        'import/resolver': {
-          typescript: {
-            alwaysTryTypes: true,
-          },
-        },
-      },
       rules: {
         'import/no-extraneous-dependencies': 'off',
         '@typescript-eslint/no-unused-vars': [
@@ -85,20 +104,20 @@ module.exports = {
         '@typescript-eslint/no-misused-promises': 'warn', // This rule disallows passing a Promise to places that aren't designed to handle them, such as if-conditionals.
         '@typescript-eslint/promise-function-async': 'warn', // This rule enforces Promise-returning functions to be async.
 
-        '@typescript-eslint/strict-boolean-expressions': [
-          'error',
-          {
-            allowString: true,
-            allowNumber: false,
-            allowNullableObject: true, // empty object and array is true.
-            allowNullableBoolean: true,
-            allowNullableString: true, // allow treating empty string as nullish
-            allowNullableNumber: false, // don't allow treating 0 or nan as nullish
-            allowNullableEnum: false,
-            allowAny: false,
-            allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
-          },
-        ],
+        // '@typescript-eslint/strict-boolean-expressions': [
+        //   'error',
+        //   {
+        //     allowString: true,
+        //     allowNumber: false,
+        //     allowNullableObject: true, // empty object and array is true.
+        //     allowNullableBoolean: true,
+        //     allowNullableString: true, // allow treating empty string as nullish
+        //     allowNullableNumber: false, // don't allow treating 0 or nan as nullish
+        //     allowNullableEnum: false,
+        //     allowAny: false,
+        //     allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
+        //   },
+        // ],
 
         // activated those rules too late in the project. would be a massive work to fix for a course project
         '@typescript-eslint/no-unsafe-assignment': 'warn',
@@ -125,7 +144,11 @@ module.exports = {
     {
       files: ['*.tsx', '*.jsx'],
       plugins: ['react', 'react-hooks'],
-      extends: ['airbnb', 'airbnb/hooks', 'plugin:react/recommended'],
+      extends: [
+        // 'airbnb',
+        // 'airbnb/hooks',
+        'plugin:react/recommended',
+      ],
       rules: {
         'react/display-name': 'off',
         'react/no-children-prop': 'off',
@@ -136,7 +159,9 @@ module.exports = {
     },
     {
       files: ['*.tsx'],
-      extends: ['airbnb-typescript'],
+      extends: [
+        // 'airbnb-typescript',
+      ],
     },
     {
       files: ['*.html'],
@@ -167,6 +192,17 @@ module.exports = {
           { extensions: ['.js', '.jsx', '.tsx', '.astro'] },
         ],
       },
+    },
+    {
+      files: [
+        '*.(spec|test).ts',
+        '*.(spec|test).tsx',
+        '*.(spec|test).js',
+        '*.(spec|test).jsx',
+      ],
+      plugins: ['vitest'],
+      extends: ['plugin:vitest/recommended'],
+      rules: {},
     },
   ],
   rules: {

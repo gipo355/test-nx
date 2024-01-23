@@ -1,0 +1,17 @@
+meta {
+  name: create animal
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{HOST}}/v1/animals
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "snake"
+  }
+}

@@ -1,0 +1,18 @@
+meta {
+  name: animals
+  type: http
+  seq: 1
+}
+
+options {
+  url: {{HOST}}/api/v1/animals
+  body: none
+  auth: none
+}
+
+headers {
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: content-type,access-control-allow-headers,access-control-allow-origin
+  Origin: http://localhost:3000/
+  Referer: http://localhost:3000
+}

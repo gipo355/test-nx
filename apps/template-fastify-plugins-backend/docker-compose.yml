@@ -1,0 +1,241 @@
+version: '3.9' # optional since v1.27.0
+services:
+  ########## server
+  # templatefastify:
+  #     env_file: ./.env
+  #     restart: unless-stopped
+  #     depends_on:
+  #         - postgresdev
+  #         - mongodev
+  #         - redisdev
+  #     environment:
+  #         - DEV_DB_PW=${DEV_DB_PW}
+  #         - MONGO_URL=${MONGO_URL}
+  #         - REDIS_URL=${REDIS_URL}
+  #         - PSQL_URL=${PSQL_URL}
+  #         - PORT=${PORT}
+  #         - INFISICAL_TOKEN=''
+  #     build:
+  #         context: .
+  #         dockerfile: dev.Dockerfile
+  #         # platforms:
+  #         #     - 'linux/amd64'
+  #         #     - 'linux/arm64'
+  #         # args:
+  #         #     - 'DOC_NODE_PW=${DOC_NODE_PW}'
+  #         #     - 'DOC_ROOT_PW=${DOC_ROOT_PW}'
+  #         #     - APP
+  #     image: templatefastify
+  #     container_name: templatefastify
+  #     # command: npm run dev $app --reload # uses docker file but replaces dockerfile command, overrides
+  #     # command: pnpm $cmd $app
+  #     # command: infisical run -- pnpm $cmd $app # it will read both infisical and .env files if dotenv is imported
+  #     # command: pm2 start --attach ./infisical-run.sh
+  #     # command: pm2 start --attach pnpm -- $cmd $app
+  #     # command: tail -F anything # this keeps the container up to enter shell
+  #     network_mode: host # DOESN'T WORK WITHOUT NETWORK HOST?
+  #     ports:
+  #         # - 3000:3000
+  #         - 127.0.0.1:3000:3000
+  #     volumes:
+  #         # - .:/home/docker/app # if we change anything in my folder, --reload app, overrides copy  behavior on dockerfile, sycs this folder to app folder
+  #         - .:/home/node/app # if we change anything in my folder, --reload app, overrides copy  behavior on dockerfile, sycs this folder to app folder
+  #           # exclude node modules from watch and rebuild
+  #         - /home/node/app/node_modules/
+
+  #    web:
+  #        build: .
+  #        ports:
+  #            - '8000:5000'
+  #        volumes:
+  #            - .:/code
+  #            - logvolume01:/var/log
+  #        depends_on:
+  #            - redis
+  #    redis:
+  #        image: redis
+  # volumes:
+  #    logvolume01: {}
+
+  ########## mongo
+  mongodev:
+    env_file: ./.env
+    image: mongo:latest
+    # user: mongoadmin
+    restart: unless-stopped
+    container_name: mongodev
+    # network_mode: host
+    ports:
+      - 127.0.0.1:27017:27017
+      # - 27017:27017
+    volumes:
+      # - ~/data/mongodb:/data/db
+      - /tmp/db/mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin # defaults to mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: ${DEV_DB_PW}
+      # the db name is in the connection string ENV, created by mongoose if not exist
+  mongo-express:
+    env_file: ./.env
+    image: mongo-express:latest
+    restart: unless-stopped
+    # user: mongoadmin
+    container_name: mongodevexpress
+    # network_mode: host
+    ports:
+      - 127.0.0.1:9000:8081
+      # - 9000:8081
+    depends_on:
+      - mongodev
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mongoadmin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DEV_DB_PW}
+      # ME_CONFIG_MONGODB_URL: mongodb://mongoadmin:${DEV_DB_PW}@127.0.0.1:27017
+      ME_CONFIG_MONGODB_URL: mongodb://mongoadmin:${DEV_DB_PW}@mongodev:27017
+
+  ########## postgres
+  postgresdev:
+    env_file: ./.env
+    image: postgres:latest
+    restart: unless-stopped
+    # user: postgres
+    # network_mode: host
+    ports:
+      - 127.0.0.1:5432:5432
+      # - 5432:5432
+    container_name: postgresdev
+    volumes:
+      #     - ~/data/postgres:/var/lib/postgresql/data
+      - /tmp/db/psql:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres # default
+      POSTGRES_PASSWORD: ${DEV_DB_PW}
+      POSTGRES_DB: templatefastify
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4:latest
+    restart: unless-stopped
+    # network_mode: host
+    depends_on:
+      - postgresdev
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+      # PGADMIN_LISTEN_PORT: 9001
+    ports:
+      - 127.0.0.1:9001:80
+      # - 9001:80
+
+  ########## redis
+  redisdev:
+    env_file: ./.env
+    image: redis/redis-stack:latest
+    # user: redis
+    restart: unless-stopped
+    # network_mode: host
+    ports:
+      - 127.0.0.1:6379:6379
+      # - 6379:6379
+      # - 9002:8001
+      - 127.0.0.1:9002:8001 # redis insight
+      # - 9002:8001 # redis insight
+    container_name: redisdev
+    volumes:
+      #     - ~/data/redis:/data
+      - /tmp/db/redis:/data
+    environment:
+      # default user is: default
+      - REDIS_ARGS=--save 60 1000 --appendonly yes --loglevel warning
+        --requirepass ${DEV_DB_PW}
+
+  ########## loki and grafana
+  loki:
+    image: grafana/loki:2.9.0
+    ports:
+      - '3100:3100'
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    volumes:
+      - /tmp/loki/promtail/var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+
+  grafana:
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /etc/grafana/provisioning/datasources
+        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
+        apiVersion: 1
+        datasources:
+        - name: Loki
+          type: loki
+          access: proxy
+          orgId: 1
+          url: http://loki:3100
+          basicAuth: false
+          isDefault: true
+          version: 1
+          editable: false
+        EOF
+        /run.sh
+    image: grafana/grafana:latest
+    ports:
+      - '127.0.0.1:3200:3000'
+
+  ########## rabbitMQ
+  # rabbitdev:
+  #     env_file: ./.env
+  #     image: rabbitmq:3.12-management
+  #     restart: unless-stopped
+  #     container_name: rabbitdev
+  #     ports:
+  #         - 127.0.0.1:5672:5675
+  #         - 127.0.0.1:9003:15672
+
+  # elasticsearchdev:
+  #     env_file: ./.env
+  #     # image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+  #     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+  #     # user: redis
+  #     restart: unless-stopped
+  #     # network_mode: host
+  #     ports:
+  #         - 127.0.0.1:9200:9200
+  #         - 127.0.0.1:9300:9300
+  #     container_name: elasticsearchdev
+  #     volumes:
+  #         - /tmp/db/elastics:/usr/share/elasticsearch/data
+  #         # - /tmp/db/elastics/logs:/var/log/elasticsearch
+  #     environment:
+  #         - discovery.type=single-node
+  #         - xpack.security.enabled=false # don't use https for dev
+  #         - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+  #     ulimits:
+  #         memlock:
+  #             soft: -1
+  #             hard: -1
+  #         nofile:
+  #             soft: 65536
+  #             hard: 65536
+  #     cap_add:
+  #         - IPC_LOCK
+  #     # deploy:
+  #     #     resources:
+  #     #         limits:
+  #     #             # cpus: '0.001'
+  #     #             memory: 1GB
+  #     #         # reservations:
+  #     #         #     cpus: '0.0001'
+  #     #         #     memory: 20M
+#
+# GLOBAL CONFIGS: use those for production
+# secrets:
+
+# volumes:

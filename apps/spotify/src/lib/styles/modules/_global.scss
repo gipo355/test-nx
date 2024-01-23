@@ -1,0 +1,93 @@
+@import 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap';
+
+:root {
+  --bg-color: #191414;
+  --sidebar-color: #000;
+  --header-color: #000;
+  --text-color: #fff;
+  --accent-color: #1db954;
+  --menu-background-color: #2e2e2e;
+  --light-gray: #a7a7a7;
+  --medium-gray: #2e2e2e;
+  --dark-gray: #181818;
+  --menu-text-color: #fff;
+  --border: rgb(255 255 255 / 15%);
+  --sidebar-width: 250px;
+  --header-height: 64px;
+  --error: #c24141;
+  --warning: #e7a917;
+}
+
+html {
+  // font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Roboto, sans-serif;
+}
+
+// style mouse selections
+::selection {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: functions.to-rem(36);
+}
+
+h2 {
+  font-size: functions.to-rem(32);
+}
+
+h3 {
+  font-size: functions.to-rem(28);
+}
+
+h4 {
+  font-size: functions.to-rem(24);
+}
+
+h5 {
+  font-size: functions.to-rem(20);
+}
+
+h6 {
+  font-size: functions.to-rem(16);
+}
+
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: functions.to-rem(16);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--accent-color);
+}
+
+select,
+input,
+button,
+a {
+  &:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+}

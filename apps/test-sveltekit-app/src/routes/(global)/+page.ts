@@ -1,3 +1,4 @@
+import { SPOTIFY_API_URL } from '$env/static/private';
 // since there's no dynamic data here, we can prerender
 // it so that it gets served as a static asset in production
 export const prerender = true; // when true, this page will be prerendered (statically) on each build

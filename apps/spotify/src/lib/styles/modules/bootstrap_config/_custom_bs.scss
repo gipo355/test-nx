@@ -1,0 +1,50 @@
+/* stylelint-disable*/
+// ! 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+// @import "/node_modules/bootstrap/scss/functions";
+
+// ! 2. Include any default variable overrides here
+//  https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss
+// @import "./custom_bs_variables";
+// @import "./custom_fonts";
+
+// * for bootswatch
+// @import "~bootswatch/dist/[theme]/variables";
+// @import "./slate_variables.scss";
+
+// ! 3. Include remainder of required Bootstrap stylesheets
+// @import "/node_modules/bootstrap/scss/variables";
+// @import "/node_modules/bootstrap/scss/mixins";
+// @import "/node_modules/bootstrap/scss/root";
+
+// ! 4. Include any optional Bootstrap CSS as needed
+// @import "/node_modules/bootstrap/scss/utilities";
+// @import "/node_modules/bootstrap/scss/reboot";
+// @import "/node_modules/bootstrap/scss/type";
+// @import "/node_modules/bootstrap/scss/images";
+// @import "/node_modules/bootstrap/scss/containers";
+// @import "/node_modules/bootstrap/scss/grid";
+// @import "/node_modules/bootstrap/scss/helpers";
+
+// ! 5. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+// @import "/node_modules/bootstrap/scss/utilities/api";
+
+// ! alternatively import all bs and #2 variable override only
+@import '/node_modules/bootstrap/scss/bootstrap';
+
+// ! 6. Add additional custom code here
+
+// * bootswatch
+// @import "~bootswatch/dist/[theme]/bootswatch";
+// @import "./slate_bootswatch.scss";
+
+/* * create new custom classes from existing classes */
+// .row-dark {
+//   @extend .row;
+//   background-color: #333333;
+//   color: #ffffff;
+// }
+
+// /* use @mixins */
+// .btn-custom {
+//   @include button-variant(red, white, red, red);
+// }

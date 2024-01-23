@@ -2,15 +2,17 @@
 // export const csr = false;
 // export const ssr = false;
 
+import { redirect } from '@sveltejs/kit';
 // import { addTranslations, setLocale, setRoute } from '$lib/translations';
 
-import type { LayoutLoad } from './$types';
-
-export const load = async function load() {
+export const load = async function load({ url }) {
+  if (url.pathname === '/login') {
+    redirect(307, '/');
+  }
   // const { i18n, translations } = data;
   // const { locale, route } = i18n;
   // addTranslations(translations);
   // await setRoute(route);
   // await setLocale(locale);
   // return i18n;
-} satisfies LayoutLoad;
+};

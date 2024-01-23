@@ -1,0 +1,210 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["postgresqlExtensions", "fullTextSearch"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("PSQL_URL")
+}
+
+model Animal {
+    id       String @id @default(uuid()) @db.Uuid
+    name     String @unique
+    author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId String @unique @db.Uuid
+    comments Json?  @db.JsonB
+
+    @@map("Animals")
+}
+
+model User {
+    id            String    @id @default(uuid()) @db.Uuid
+    email         String    @unique
+    emailVerified DateTime?
+    firstName     String?   @db.VarChar(255)
+    lastName      String?   @db.VarChar(255)
+    image         String?
+    bio           String?
+
+    role Role @default(USER)
+
+    animals Animal[]
+
+    accounts Account[]
+
+    // verificationTokens VerificationToken[]
+    // refreshTokens      RefreshToken[]
+
+    @@index([email])
+    @@map("Users")
+}
+
+model Account {
+    id     String  @id @default(uuid()) @db.Uuid
+    active Boolean @default(true)
+
+    User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String @db.Uuid
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt // usually later than createdAt - prisma made
+    deletedAt DateTime?
+
+    strategy Strategy // @default(LOCAL) // local, google, facebook, etc
+
+    // if strategy is not local
+    providerUid String? @db.Text
+
+    // we don't need to save the provider access token
+    // it is only used to retrieve email when signing in
+    // we store the session in a jwt as a refresh token instead
+    // providerAccessTokens ProviderAccessToken[]
+
+    // for local strategy only
+    password          String? @db.Text
+    passwordConfirm   String? @db.Text
+    // passwordLastUpdated DateTime?
+    verificationToken String? @db.Text
+
+    // main feature of access-refresh token
+    // there can be multiple refresh tokens per strategy
+    // one can be logged in in multiple devices
+    // everytime we use a refresh token, it gets deleted here and replaced
+    // we check the database if refresh token is here. this is how we revoke
+    //
+    // how we revoke:
+    // if refresh token is used, we delete it from db and issue new one pushing to db
+    // if refresh token is expired through jwt verification, we delete it from db upon verification
+    // if refresh token is not in db, it won't work
+    // to be valid a refresh token must be in db + be verified positively
+    //
+    // downsided: massive read/write to db
+    // alternatives:
+    // - change db
+    // - make a blacklist table to manually revoke
+    // - don't reissue refresh on every new access token
+    // refreshTokens String[] @db.Text
+    // refreshTokens RefreshToken[]
+
+    refreshToken String @db.Text
+
+    // we don't save the access token to db, can't revoke
+    // use lower expiry time for it
+    // accessToken         String?   @db.Text
+
+    // we don't need refresh token expiry
+    // if it exists in database, it is valid
+    // expiresAt           Int?
+    // RefreshToken RefreshToken[]
+
+    @@unique([strategy, providerUid])
+    @@index([userId])
+    @@map("Accounts")
+}
+
+// we don't need to save the provider access token, see above
+// model ProviderAccessToken {
+//     Account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+//     accountId String  @db.Uuid
+
+//     token     String   @unique
+//     expiresAt DateTime
+
+//     @@unique([accountId, token])
+//     @@index([accountId, token])
+//     @@map("ProviderAccessTokens")
+// }
+
+// we instead allow multiple accounts with the same strategy
+// model RefreshToken {
+//     Account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+//     accountId String  @db.Uuid
+
+//     User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     userId String @db.Uuid
+
+//     strategy Strategy
+
+//     token     String    @unique
+//     expiresAt DateTime?
+
+//     @@index([token])
+//     @@index([accountId, token])
+//     @@index([userId, token])
+//     @@map("RefreshTokens")
+// }
+
+// model VerificationToken {
+//     User       User   @relation(fields: [identifier], references: [email], onDelete: Cascade)
+//     identifier String
+
+//     token     String   @unique
+//     expiresAt DateTime
+
+//     @@unique([identifier, token])
+//     @@index([identifier, token])
+//     @@map("VerificationTokens")
+// }
+
+enum Role {
+    USER
+    ADMIN
+    SUPERADMIN
+}
+
+enum Strategy {
+    LOCAL
+    GOOGLE
+    GITHUB
+}
+
+// FROM T3 STACK
+
+// Necessary for Next auth
+// model Account {
+//     id                String  @id @default(cuid())
+//     userId            String
+//     type              String
+//     provider          String
+//     providerAccountId String
+//     refresh_token     String? @db.Text
+//     access_token      String? @db.Text
+//     expires_at        Int?
+//     token_type        String?
+//     scope             String?
+//     id_token          String? @db.Text
+//     session_state     String?
+//     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//     @@unique([provider, providerAccountId])
+// }
+
+// model Session {
+//     id           String   @id @default(cuid())
+//     sessionToken String   @unique
+//     userId       String
+//     expires      DateTime
+//     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
+
+// model User {
+//     id            String    @id @default(cuid())
+//     name          String?
+//     email         String?   @unique
+//     emailVerified DateTime?
+//     image         String?
+//     accounts      Account[]
+//     sessions      Session[]
+// }
+
+// model VerificationToken {
+//     identifier String
+//     token      String   @unique
+//     expires    DateTime
+
+//     @@unique([identifier, token])
+// }

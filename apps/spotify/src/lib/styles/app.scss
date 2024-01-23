@@ -1,0 +1,25 @@
+/* stylelint-disable scss/at-rule-no-unknown */
+
+/* Write your global styles here, in PostCSS syntax */
+
+/* fonts and other assets */
+
+/* @import 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'; */
+
+/* import modules */
+
+/* @import './modules/tailwind/tailwind'; */
+
+@import './modules/libraries/';
+
+@import './modules/reset';
+
+@import './modules/global';
+
+// @import './modules/variables';
+// @import './modules/global';
+// @import './modules/scrollbar';
+
+// @import './modules/reset';
+
+/* or write global scss */
