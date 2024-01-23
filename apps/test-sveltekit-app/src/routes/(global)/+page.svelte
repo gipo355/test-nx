@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
 
-  import {} from '$env/static/private';
   // import { hello } from '$lib/hello';
   // import { stringifyExample } from '$lib/types/fastJson';
   // import { createContext } from '$lib/utils/context';
