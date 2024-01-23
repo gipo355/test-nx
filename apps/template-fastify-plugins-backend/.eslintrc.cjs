@@ -3,12 +3,27 @@
 
 module.exports = {
   // plugins: ['security-node'],
+  ignorePatterns: ['!**/*'],
   extends: [
     `../../.eslintrc.json`,
     // 'plugin:node/recommended-module',
     'plugin:n/recommended',
     // 'plugin:security-node/recommended',
   ],
+  env: {
+    node: true,
+  },
+  parserOptions: {
+    project: ['./tsconfig.*?.json'],
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: ['./tsconfig.*?.json'],
+        tsconfigRootDir: __dirname,
+      },
+    },
+  },
   rules: {
     'unicorn/no-process-exit': 'off',
 
