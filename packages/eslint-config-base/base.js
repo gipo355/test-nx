@@ -22,11 +22,6 @@ module.exports = {
     ],
   },
   settings: {
-    'import/resolver': {
-      typescript: {
-        alwaysTryTypes: true,
-      },
-    },
     'import/parsers': {
       '@typescript-eslint/parser': [
         '.ts',
@@ -40,6 +35,9 @@ module.exports = {
       ],
     },
     'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
       node: {
         extensions: [
           '.js',
