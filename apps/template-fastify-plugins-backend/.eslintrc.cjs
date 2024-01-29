@@ -1,17 +1,19 @@
 module.exports = {
+  extends: [
+    '../../.eslintrc.json',
+    '../../packages/eslint-config-base/node.js',
+    // 'plugin:node/recommended-module',
+    // 'plugin:n/recommended',
+    // // 'plugin:security-node/recommended',
+  ],
   // plugins: ['security-node'],
   ignorePatterns: ['!**/*'],
-  extends: [
-    `../../.eslintrc.json`,
-    // 'plugin:node/recommended-module',
-    'plugin:n/recommended',
-    // 'plugin:security-node/recommended',
-  ],
   env: {
     node: true,
   },
   parserOptions: {
-    project: ['./tsconfig.*?.json'],
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json'],
   },
   settings: {
     'import/resolver': {
@@ -22,8 +24,7 @@ module.exports = {
     },
   },
   rules: {
-    'unicorn/no-process-exit': 'off',
-
+    // 'unicorn/no-process-exit': 'off',
     // 'node/no-missing-import': 'off',
     // 'node/no-missing-import': [
     //     'error',
@@ -33,13 +34,11 @@ module.exports = {
     //         tryExtensions: ['.js', '.json', '.ts', '.jsx', '.tsx', '.node'],
     //     },
     // ],
-
     // 'unicorn/prefer-module': 'off', // with webpack __dirname is used when compiling to commonjs
     // from async suggestions at https://maximorlov.com/linting-rules-for-asynchronous-code-in-javascript/#1-no-async-promise-executor
     // 'node/no-sync': 'warn', // This rule disallows using synchronous methods from the Node.js core API where an asynchronous alternative exists.
     // 'node/handle-callback-err': 'warn', // This rule enforces error handling inside callbacks.
     // 'node/no-callback-literal': 'warn', // This rule enforces that a callback function is called with an Error object as the first parameter. In case there's no error, null or undefined are accepted as well.
-
     // '@typescript-eslint/no-explicit-any': 'off',
     // '@typescript-eslint/no-unsafe-assignment': 'off',
     // '@typescript-eslint/no-unsafe-member-access': 'off',
@@ -47,7 +46,7 @@ module.exports = {
     // '@typescript-eslint/no-unsafe-argument': 'off',
     //
     // 'import/extensions': ['error', 'ignorePackages'],
-    'import/no-unresolved': 'error',
+    // 'import/no-unresolved': 'error',
     //
     // '@typescript-eslint/no-var-requires': 'off',
     // '@typescript-eslint/restrict-template-expressions': 'off',
@@ -55,9 +54,7 @@ module.exports = {
     // 'spellcheck/spell-checker': 'off', // remove for this project, added midway
     // 'unicorn/no-abusive-eslint-disable': 'off',
     // 'prefer-arrow-callback': 'off',
-
     // '@typescript-eslint/strict-boolean-expressions': ['off'],
-
-    'n/no-unpublished-import': 'off',
+    // 'n/no-unpublished-import': 'off',
   },
 };

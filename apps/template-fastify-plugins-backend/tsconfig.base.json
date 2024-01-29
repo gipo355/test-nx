@@ -6,7 +6,7 @@
     ],
     "target": "ESNext",
     "module": "NodeNext",
-    "rootDir": "./src",
+    // "rootDir": "./src",
     // "baseUrl": "./src",
     "moduleResolution": "NodeNext",
     "verbatimModuleSyntax": true,
