@@ -6,7 +6,8 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    // project: true,
+    // project true looks for closest tsconfig.json to source file
+    project: true,
     extraFileExtensions: [
       '.svelte',
       '.astro',
@@ -35,47 +36,70 @@ module.exports = {
       ],
     },
     'import/resolver': {
-      typescript: {
-        alwaysTryTypes: true,
-      },
-      node: {
-        extensions: [
-          '.js',
-          '.jsx',
-          '.cjs',
-          '.mjs',
-          '.ts',
-          '.tsx',
-          '.mts',
-          '.cts',
-        ],
-      },
+      typescript: true,
+      node: true,
+      // typescript: {
+      //   alwaysTryTypes: true,
+      // },
+      // node: {
+      //   extensions: [
+      //     '.js',
+      //     '.jsx',
+      //     '.cjs',
+      //     '.mjs',
+      //     '.ts',
+      //     '.tsx',
+      //     '.mts',
+      //     '.cts',
+      //   ],
+      // },
     },
   },
   plugins: [
     'tailwindcss',
-    'import',
     'simple-import-sort',
     'html',
+    'import',
     '@html-eslint',
   ],
   extends: [
-    'plugin:tailwindcss/recommended',
     'eslint:recommended',
+
+    // air bnb no react, many conflicts
     // 'airbnb-base',
+
+    // import plugin, many conflicts
     // 'plugin:import/recommended',
-    'plugin:security/recommended',
+
+    // node
+    // 'plugin:security/recommended',
+    // 'plugin:n/recommended',
+
+    // general rules
     'plugin:unicorn/recommended',
-    'plugin:lit/recommended',
+
+    // for lit html, web components
+    // 'plugin:wc/recommended',
+    // 'plugin:lit/recommended',
+
+    'plugin:tailwindcss/recommended',
+
+    // disable prettier conflicting rules
     'prettier',
   ],
   overrides: [
+    // {
+    //   files: ['*.js', '*.mjs', '*.cjs'],
+    //   extends: [
+    //     // 'airbnb-base',
+    //     'prettier',
+    //   ],
+    // },
     {
-      files: ['*.js', '*.mjs', '*.cjs'],
-      extends: [
-        // 'airbnb-base',
-        'prettier',
-      ],
+      files: ['*.json', '.jsonc', '.json5'],
+      parser: 'jsonc-eslint-parser',
+      extends: ['plugin:jsonc/recommended-with-jsonc'],
+      rules: {},
     },
     {
       files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
@@ -95,14 +119,24 @@ module.exports = {
       // },
       plugins: ['@typescript-eslint'],
       extends: [
-        // 'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-type-checked',
+        // prevent eslint-recommended duplicates
         'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        'plugin:import/typescript',
+
+        // ts no type check
+        // 'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/strict',
-        // 'airbnb-base',
+
+        // ts type checked, doesn't work well with svelte and aliases
+        // 'plugin:@typescript-eslint/recommended-type-checked',
+        // 'plugin:@typescript-eslint/strict-type-checked',
+
+        // import plugin, many conflicts, doesn't work well with svelte and aliases
+        'plugin:import/typescript',
+
+        // airbnb no react for typescript
         // 'airbnb-typescript/base',
+
+        // disable prettier conflicting rules
         'prettier',
       ],
       rules: {
