@@ -4,6 +4,10 @@
 
   import type { LayoutData } from './$types';
 
+  const x = 3;
+
+  console.log('hello');
+
   export let data: LayoutData;
 </script>
 

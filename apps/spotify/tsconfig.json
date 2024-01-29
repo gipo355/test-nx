@@ -1,10 +1,8 @@
 {
   // must copy manually from ./.svelte-kit/tsconfig.json
   // else ts eslint will cry
-  "extends": [
-    "../../tsconfig.base.json",
-    "./.svelte-kit/tsconfig.json"
-  ],
+  "extends": ["../../tsconfig.base.json", "./.svelte-kit/tsconfig.json"],
+  // "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "allowJs": true,
@@ -15,38 +13,20 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "types": [
-      "unplugin-icons/types/svelte",
-      "@types/spotify-api"
-    ],
+    "types": ["unplugin-icons/types/svelte", "@types/spotify-api"],
     // copied and modified
-    "rootDirs": [
-      ".",
-      "./.svelte-kit/types"
-    ],
+    "rootDirs": [".", "./.svelte-kit/types"],
     "isolatedModules": true,
-    "lib": [
-      "esnext",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "moduleResolution": "bundler",
     "module": "esnext",
     "target": "esnext",
     "ignoreDeprecations": "5.0",
     "paths": {
-      "$lib": [
-        "./src/lib"
-      ],
-      "$lib/*": [
-        "./src/lib/*"
-      ],
-      "$app": [
-        "./node_modules/@sveltejs/kit/src/runtime/app"
-      ],
-      "$app/*": [
-        "./node_modules/@sveltejs/kit/src/runtime/app/*"
-      ]
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"],
+      "$app": ["./node_modules/@sveltejs/kit/src/runtime/app"],
+      "$app/*": ["./node_modules/@sveltejs/kit/src/runtime/app/*"]
     },
     "plugins": [
       {

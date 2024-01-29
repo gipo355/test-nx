@@ -3,6 +3,8 @@
 import { redirect } from '@sveltejs/kit';
 import { StatusCodes } from 'http-status-codes';
 
+const x = 3;
+
 // import type { LayoutLoad } from './$types';
 
 // redirect to home if logged in and trying to access login page
