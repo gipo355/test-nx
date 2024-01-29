@@ -128,7 +128,7 @@ module.exports = {
 
         // ts no type check
         // 'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/strict',
+        // 'plugin:@typescript-eslint/strict',
 
         // ts type checked, doesn't work well with svelte and aliases
         // 'plugin:@typescript-eslint/recommended-type-checked',
