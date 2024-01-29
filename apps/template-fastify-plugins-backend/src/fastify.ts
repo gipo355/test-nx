@@ -5,7 +5,7 @@ import { type TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import type { FastifyLoggerOptions } from 'fastify';
 import Fastify from 'fastify';
 // import type { FastifyLoggerStreamDestination } from 'fastify/types/logger.js';
-import pino from 'pino';
+import { pino } from 'pino';
 
 // const filename = fileURLToPath(import.meta.url);
 // const dirname = path.dirname(filename);

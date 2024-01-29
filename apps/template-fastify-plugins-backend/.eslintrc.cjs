@@ -1,7 +1,7 @@
 module.exports = {
   extends: [
-    '../../.eslintrc.json',
     '../../packages/eslint-config-base/node.js',
+    '../../.eslintrc.json',
     // 'plugin:node/recommended-module',
     // 'plugin:n/recommended',
     // // 'plugin:security-node/recommended',

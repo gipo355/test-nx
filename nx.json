@@ -59,7 +59,7 @@
     ],
     "sharedGlobals": []
   },
-  "nxCloudAccessToken": "YWI1MWFlNzktZDIwYy00M2EwLWJjMGItNjQ3MTg1ZTg1YmMzfHJlYWQtd3JpdGU=",
+  "nxCloudAccessToken": "MGZlY2NjMTMtNWNlZi00YjM1LWJkNjItMGYwMzdhMTIxMTZkfHJlYWQ=",
   "plugins": ["@nx-dotnet/core", "@nxext/svelte", "@nx/deno"],
   "generators": {
     "@nx/web:application": {
