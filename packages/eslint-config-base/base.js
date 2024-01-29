@@ -1,5 +1,11 @@
 module.exports = {
   ignorePatterns: ['**/*'],
+  // env: {
+  //   browser: true,
+  //   es2021: true,
+  //   node: true,
+  //   jest: true,
+  // },
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -12,10 +18,6 @@ module.exports = {
       '.svelte',
       '.astro',
       '.vue',
-      '.cjs',
-      '.mjs',
-      '.mts',
-      '.cts',
       '.json',
       '.jsonc',
       '.json5',
@@ -69,9 +71,9 @@ module.exports = {
     // 'airbnb-base',
 
     // import plugin, many conflicts
-    // 'plugin:import/recommended',
+    'plugin:import/recommended',
 
-    // node
+    // node specific
     // 'plugin:security/recommended',
     // 'plugin:n/recommended',
 
@@ -104,23 +106,23 @@ module.exports = {
     {
       files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
       parser: '@typescript-eslint/parser',
-      // parserOptions: {
-      //   project: true,
-      // },
-      // settings: {
-      //   'import/parsers': {
-      //     '@typescript-eslint/parser': ['.ts', '.tsx'],
-      //   },
-      //   'import/resolver': {
-      //     typescript: {
-      //       alwaysTryTypes: true,
-      //     },
-      //   },
-      // },
       plugins: ['@typescript-eslint'],
       extends: [
         // prevent eslint-recommended duplicates
         'plugin:@typescript-eslint/eslint-recommended',
+
+        // ts no type check
+        // 'plugin:@typescript-eslint/recommended',
+        // 'plugin:@typescript-eslint/strict',
+        // 'plugin:@typescript-eslint/stylistic',
+
+        // ts type checked, doesn't work well with svelte and aliases, must disable them in svelte
+        // 'plugin:@typescript-eslint/recommended-type-checked',
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+
+        // import plugin, many conflicts, doesn't work well with svelte and aliases
+        'plugin:import/typescript',
 
         // ts no type check
         // 'plugin:@typescript-eslint/recommended',
@@ -130,17 +132,13 @@ module.exports = {
         // 'plugin:@typescript-eslint/recommended-type-checked',
         // 'plugin:@typescript-eslint/strict-type-checked',
 
-        // import plugin, many conflicts, doesn't work well with svelte and aliases
-        'plugin:import/typescript',
-
         // airbnb no react for typescript
         // 'airbnb-typescript/base',
 
-        // disable prettier conflicting rules
-        'prettier',
+        // disable prettier conflicting rules again
+        // 'prettier',
       ],
       rules: {
-        'import/no-extraneous-dependencies': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',
           {
@@ -159,18 +157,21 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
-        //         // typescript specific
-        '@typescript-eslint/require-await': 'warn', // fastify uses async functions for plugins which may not have await
 
+        // typescript specific
+        '@typescript-eslint/require-await': 'warn', // fastify uses async functions for plugins which may not have await
         '@typescript-eslint/await-thenable': 'warn', // This rule disallows awaiting a function or value that is not a Promise. ON OVERRIDES
+
         // Warn if using a Promise without await/then/catch. Good to avoid running stuff in background non intentionally.
         // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-floating-promises.md
         '@typescript-eslint/no-floating-promises': 'warn', // This rule enforces Promises to have an error handler attached.
         // wasn't allowing eg setTimeout(async () =>...). Any good reason to keep it on? https://stackoverflow.com/a/63488201/10247962
+
         // this was off for possible conflicts
         '@typescript-eslint/no-misused-promises': 'warn', // This rule disallows passing a Promise to places that aren't designed to handle them, such as if-conditionals.
         '@typescript-eslint/promise-function-async': 'warn', // This rule enforces Promise-returning functions to be async.
 
+        // enforce stricter if statements
         // '@typescript-eslint/strict-boolean-expressions': [
         //   'error',
         //   {
@@ -186,18 +187,21 @@ module.exports = {
         //   },
         // ],
 
-        // activated those rules too late in the project. would be a massive work to fix for a course project
-        '@typescript-eslint/no-unsafe-assignment': 'warn',
-        '@typescript-eslint/no-unsafe-member-access': 'warn',
-        '@typescript-eslint/no-unsafe-call': 'warn',
-        '@typescript-eslint/no-unsafe-argument': 'warn',
+        // type checked rules - conflicts with svelte, default in strict-type-checked conf, disabling in svelte files
+        // '@typescript-eslint/no-unsafe-assignment': 'warn',
+        // '@typescript-eslint/no-unsafe-member-access': 'warn',
+        // '@typescript-eslint/no-unsafe-call': 'warn',
+        // '@typescript-eslint/no-unsafe-argument': 'warn',
+
         '@typescript-eslint/no-var-requires': 'off', // ! fixes import problems when using require
         '@typescript-eslint/restrict-template-expressions': 'warn', // prevents stringification in template literals of unstringable objects
         '@typescript-eslint/no-base-to-string': 'warn', // same as above
         '@typescript-eslint/no-unsafe-return': 'warn',
+
         // Wasn't simply allowing `const a = x.y.functionA`.
         '@typescript-eslint/unbound-method': 'warn',
-        'no-unused-vars': 'off', // already have typescript rule
+
+        // 'no-unused-vars': 'off', // already have typescript rule - fixed by typescript-eslint/eslint-recommended
       },
     },
     {
@@ -207,14 +211,20 @@ module.exports = {
       parserOptions: {
         parser: '@typescript-eslint/parser',
       },
+      // rules: {
+      //   // '@typescript-eslint/no-unsafe-assignment': 'off',
+      //   // '@typescript-eslint/no-unsafe-member-access': 'off',
+      //   // '@typescript-eslint/no-unsafe-call': 'off',
+      //   // '@typescript-eslint/no-unsafe-argument': 'off',
+      // },
     },
     {
       files: ['*.tsx', '*.jsx'],
       plugins: ['react', 'react-hooks'],
       extends: [
+        'plugin:react/recommended',
         // 'airbnb',
         // 'airbnb/hooks',
-        'plugin:react/recommended',
       ],
       rules: {
         'react/display-name': 'off',
@@ -267,32 +277,52 @@ module.exports = {
         '*.(spec|test).js',
         '*.(spec|test).jsx',
       ],
-      plugins: ['vitest'],
-      extends: ['plugin:vitest/recommended'],
+      plugins: [
+        'vitest',
+        // 'jest'
+      ],
+      extends: [
+        'plugin:vitest/recommended',
+        // 'plugin:jest/recommended'
+        // 'jest/prefer-expect-assertions': 'off',
+      ],
       rules: {},
     },
   ],
   rules: {
-    'spaced-comment': 'warn',
-    'class-methods-use-this': 'warn',
-    'prefer-const': process.env.NODE_ENV === 'production' ? 'error' : 'warn', //! default on, useful at buildtime
-    'no-empty': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-    'no-use-before-define': [
-      'error',
-      { functions: true, classes: true, variables: true },
-    ],
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
-    'sort-imports': 'off',
+    // no ts specific rules
+
+    // import plugin
+    'import/no-extraneous-dependencies': 'off',
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
     'import/order': 'off',
     'import/export': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': 'warn',
+    'import/no-extraneous-dependencies': 'off',
+    // svelte import problems
+    'import/no-unresolved': 'off',
+
+    'spaced-comment': 'warn',
+    'class-methods-use-this': 'warn',
+    'no-empty': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-use-before-define': [
+      'error',
+      { functions: true, classes: true, variables: true },
+    ],
+
+    // ! SIMPLE IMPORT SORT
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'sort-imports': 'off',
+
     eqeqeq: 'error',
     'no-console': 'warn',
-    'no-undef': 'warn',
     strict: 'error',
+
+    // ! UNICORN RULES
     'unicorn/filename-case': [
       'warn',
       {
@@ -321,10 +351,8 @@ module.exports = {
         },
       },
     ],
+
     'no-underscore-dangle': 'warn',
-    'import/prefer-default-export': 'off',
-    'import/no-default-export': 'warn',
-    'import/no-extraneous-dependencies': 'off',
     complexity: ['error', 20],
     'consistent-return': 'warn',
     'no-useless-return': 'warn',
@@ -344,7 +372,10 @@ module.exports = {
 
     // side effects and mutations (immutable and pure plugins)
     'no-var': 2,
+    'prefer-const': process.env.NODE_ENV === 'production' ? 'error' : 'warn', //! default on, useful at buildtime
     'no-void': [1, { allowAsStatement: true }],
+    'no-undef': 'warn',
+    'no-unused-vars': 2, // already have typescript rule - fixed by typescript-eslint/eslint-recommended
     'no-restricted-syntax': [
       'error',
       'ForInStatement',
