@@ -1,0 +1,2 @@
+app:
+	nx generate application
