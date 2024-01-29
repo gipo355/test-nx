@@ -13,7 +13,7 @@ module.exports = {
       jsx: true,
     },
     // project true looks for closest tsconfig.json to source file
-    // project: true,
+    project: true,
     extraFileExtensions: [
       '.svelte',
       '.astro',
@@ -35,28 +35,28 @@ module.exports = {
         '.mjs',
         '.mts',
         '.cts',
-        // '.svelte',
+        '.svelte',
       ],
     },
     'import/resolver': {
-      typescript: true,
-      node: true,
-      // typescript: {
-      //   alwaysTryTypes: true,
-      // },
-      // node: {
-      //   extensions: [
-      //     '.js',
-      //     '.jsx',
-      //     '.cjs',
-      //     '.mjs',
-      //     '.ts',
-      //     '.tsx',
-      //     '.mts',
-      //     '.cts',
-      //     '.svelte',
-      //   ],
-      // },
+      // typescript: true,
+      // node: true,
+      typescript: {
+        alwaysTryTypes: true,
+      },
+      node: {
+        extensions: [
+          '.js',
+          '.jsx',
+          '.cjs',
+          '.mjs',
+          '.ts',
+          '.tsx',
+          '.mts',
+          '.cts',
+          '.svelte',
+        ],
+      },
     },
   },
   plugins: [
