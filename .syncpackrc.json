@@ -1,17 +1,16 @@
 {
-  "dependencyTypes": [
-    "dev",
-    "prod",
-    "peer",
-    "overrides",
-    "resolutions",
-    "local",
-    "pnpmOverrides"
-  ],
+  "dependencyTypes": ["prod"],
   "filter": ".",
   "indent": "  ",
-  "semverGroups": [],
-  "semverRange": "",
+  "semverGroups": [
+    {
+      "label": "use exact version numbers in production",
+      "packages": ["**"],
+      "dependencyTypes": ["prod"],
+      "dependencies": ["**"],
+      "range": ""
+    }
+  ],
   "sortAz": [
     "contributors",
     "dependencies",
@@ -21,12 +20,7 @@
     "resolutions",
     "scripts"
   ],
-  "sortFirst": [
-    "name",
-    "description",
-    "version",
-    "author"
-  ],
+  "sortFirst": ["name", "description", "version", "author"],
   "source": [],
   "versionGroups": []
 }

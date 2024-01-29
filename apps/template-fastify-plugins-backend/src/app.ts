@@ -7,6 +7,8 @@ import type { FastifyPluginAsync } from 'fastify';
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+console.log('ok');
+
 // Any option specified here will override plugin.autoConfig options specified in the plugin itself.
 // When setting both options.prefix and plugin.autoPrefix they will be concatenated.
 // Place your custom options for app below here to pass to all plugins

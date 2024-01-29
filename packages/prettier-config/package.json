@@ -2,13 +2,13 @@
   "name": "@gipo355/prettier-config",
   "version": "0.0.1",
   "dependencies": {
-    "tslib": "2.3.0",
-    "prettier-plugin-svelte": "3.1.0",
     "@prettier/plugin-pug": "3.0.0",
     "prettier-plugin-astro": "0.12.2",
-    "prettier-plugin-tailwindcss": "0.5.7"
+    "prettier-plugin-svelte": "3.1.0",
+    "prettier-plugin-tailwindcss": "0.5.7",
+    "tslib": "2.6.2"
   },
-  "type": "commonjs",
   "main": "./src/index.js",
+  "type": "commonjs",
   "typings": "./src/index.d.ts"
 }

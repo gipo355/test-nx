@@ -65,6 +65,7 @@ module.exports = {
     'html',
     'import',
     '@html-eslint',
+    'security-node',
   ],
   extends: [
     'eslint:recommended',
@@ -74,10 +75,6 @@ module.exports = {
 
     // import plugin, many conflicts
     'plugin:import/recommended',
-
-    // node specific
-    // 'plugin:security/recommended',
-    // 'plugin:n/recommended',
 
     // general rules
     'plugin:unicorn/recommended',

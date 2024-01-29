@@ -1,5 +1,10 @@
 module.exports = {
-  extends: ['plugin:n/recommended', 'plugin:security-node/recommended'],
+  extends: [
+    'plugin:n/recommended',
+    'plugin:security-node/recommended',
+    // TODO:  migrate to new with flat eslint config
+    // 'plugin:security/recommended-legacy'
+  ],
   rules: {
     // 'unicorn/no-process-exit': 'off',
     // 'node/no-missing-import': 'off',
