@@ -65,7 +65,7 @@ module.exports = {
     'html',
     'import',
     '@html-eslint',
-    'security-node',
+    // 'security-node',
   ],
   extends: [
     'eslint:recommended',
