@@ -300,7 +300,6 @@ module.exports = {
     'import/export': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'warn',
-    'import/no-extraneous-dependencies': 'off',
     // svelte import problems
     'import/no-unresolved': 'off',
     'import/namespace': 'off',
