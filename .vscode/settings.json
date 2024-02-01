@@ -2,9 +2,65 @@
   "deno.enablePaths": ["apps/test-deno-app"],
   "deno.unstable": true,
   "deno.importMap": "./import_map.json",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.workingDirectories": [
     {
       "mode": "auto"
     } // required for monorepo imports no unresolved
-  ]
+  ],
+  "stylelint.validate": ["css", "less", "postcss", "scss", "html", "svelte"],
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": [
+    "source.formatDocument"
+    // "source.fixAll.eslint"
+    // "source.fixAll": true,
+    // "source.organizeImports"
+    // "source.fixAll.eslint": true
+  ], // runs twice if formatOnSave enabled
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "html",
+    "svelte"
+  ],
+  "[html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      "source.fixAll.eslint",
+      "source.fixAll.stylelint"
+    ]
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      // "source.fixAll.eslint"
+      "source.fixAll"
+    ]
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      // "source.fixAll.eslint"
+      "source.fixAll"
+    ]
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll"]
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": [
+      "source.formatDocument",
+      // "source.fixAll.eslint"
+      "source.fixAll"
+    ]
+  }
 }
