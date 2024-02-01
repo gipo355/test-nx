@@ -46,6 +46,12 @@
     "tslib": "2.6.2"
   },
   "main": "./index.js",
+  "files": [
+    "./index.js",
+    "./base.js",
+    "./node.js",
+    "./storybook.js"
+  ],
   "scripts": {
     "build": "echo built",
     "serve": "echo served"

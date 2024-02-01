@@ -1,5 +1,8 @@
 module.exports = {
-  extends: '../../.eslintrc.json',
+  extends: [
+    '../../.eslintrc.json',
+    '../../packages/eslint-config-base/storybook.js',
+  ],
   ignorePatterns: ['!**/*'],
   env: {
     node: true,
