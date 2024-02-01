@@ -1,7 +1,11 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
+    "esModuleInterop": true,
     // outdir need to go here to build in the subProject
+    "module": "ESNext",
+    "target": "ESNext",
+    "rootDir": ".",
     "outDir": "./dist"
     // "declarationDir": "./dist/types",
   },
@@ -11,20 +15,17 @@
     // "assets/public/js/login.js",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/*.ts",
-    "src/*.tsx",
-    "src/**/**/*.ts",
-    "src/**/**/*.tsx",
     "src/**/*.js",
-    "src/*.js",
-    "src/**/*.jsx",
-    "src/*.jsx",
-    "src/**/**/*.js",
-    "src/**/**/*.jsx",
-    "src/workers/myWorker.js",
-    "src/messageBrokers/emailWorker.js"
+    "src/**/*.jsx"
+    // "src/workers/myWorker.js",
+    // "src/messageBrokers/emailWorker.js"
     // ".eslintrc.js",
     // "project.config.ts"
   ],
-  "exclude": ["node_modules", "dist", "test-dist", "**/typedoc"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test-dist",
+    "**/typedoc"
+  ]
 }
