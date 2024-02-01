@@ -1,0 +1,231 @@
+//- TODO: mixin here for path constant
+extends base
+block append head
+  // script(
+  //   src='https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.15.0/mapbox-gl.js',
+  //   integrity='sha512-GPA+Da72PFFDoGphWw8KnqAFq/v/qsizJqomP82+tVCLgWlSgc5atMllkFaSAJF931RUCCl0ZDJF5J3yqsQVCg==',
+  //   crossorigin='anonymous',
+  //   referrerpolicy='no-referrer'
+  // )
+  // link(
+  //   rel='stylesheet',
+  //   href='https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.15.0/mapbox-gl.min.css',
+  //   integrity='sha512-fPYzCDCwWGaqR93cxlCAZSqnHnabV5//RllFHLzi6L620mq7YtlyrBIUZbwttOkFFQgwVff/QMKpBPcQ4kH2dg==',
+  //   crossorigin='anonymous',
+  //   referrerpolicy='no-referrer'
+  // )
+  // script(src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js' defer crossorigin='anonymous')
+  // link(href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' crossorigin='anonymous')
+
+  //- removed for bundling
+  // script(src='/public/js/mapbox.js', defer, type='module')
+  // script(src='/public/js/setRatings.js', defer, type='module')
+
+  //- script(src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.15.0/mapbox-gl.min.js" integrity="sha512-YdWxZhXXooMYaYcGo5DQJP6K0qP1aXzQ3u3znOFPPCY/xnQ9DjD6YggUmdrSQwkO+3zRiSrnuUMh4Xt1xoR90Q==" crossorigin="anonymous" referrerpolicy="no-referrer")
+  //- link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.15.0/mapbox-gl.min.css" integrity="sha512-fPYzCDCwWGaqR93cxlCAZSqnHnabV5//RllFHLzi6L620mq7YtlyrBIUZbwttOkFFQgwVff/QMKpBPcQ4kH2dg==" crossorigin="anonymous" referrerpolicy="no-referrer")
+
+mixin overviewBox(label, text, icon)
+  .overview-box__detail
+    svg.overview-box__icon
+      use(xlink:href=`/public/img/icons.svg#icon-${icon}`)
+    span.overview-box__label= label
+    span.overview-box__text= text
+
+mixin ratingStars(rating)
+  span.overview-box__text
+    .Stars(
+      data-rating=`${rating}`,
+      aria-label=`Rating of this product is ${rating} out of 5.`
+    )
+    //- |&nbsp;
+    //- `${tour.ratingsAverage}/5 ${tour.ratingsQuantity})`
+    //- 'hello'
+
+block content
+  section.section-header
+    .header__hero
+      .header__hero-overlay &nbsp;
+      - if (tour.imageCover.startsWith('http'))
+        img.header__hero-img(
+          crossorigin='anonymous',
+          src=`${tour.imageCover}`,
+          alt=`${tour.name}`
+        )
+      - if (!tour.imageCover.startsWith('http'))
+        img.header__hero-img(
+          src=`/public/img/${tour.imageCover}`,
+          crossorigin='anonymous',
+          alt=`${tour.name}`
+        )
+
+    .heading-box
+      h1.heading-primary
+        span= `${tour.name} tour`
+      .heading-box__group
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/public/img/icons.svg#icon-clock')
+          span.heading-box__text= `${tour.duration} days`
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/public/img/icons.svg#icon-map-pin')
+          span.heading-box__text= tour.startLocation.description
+
+  section.section-description
+    .overview-box
+      div
+        .overview-box__group
+          h2.heading-secondary.ma-bt-lg Quick facts
+          -
+            const sortedDates = tour.startDates.sort((a, b) => a - b)
+            const earliestTour = sortedDates.find(date => date > Date.now()) ?? "Coming soon..."
+            const formattedDate = earliestTour.toLocaleString('en-US', {month: 'long', year: 'numeric'})
+          +overviewBox('Next date', formattedDate, 'calendar')
+          +overviewBox('Difficulty', tour.difficulty, 'trending-up')
+          +overviewBox('Participants', `${tour.maxGroupSize} people`, 'user')
+          .overview-box__detail
+            svg.overview-box__icon
+              use(xlink:href='/public/img/icons.svg#icon-star')
+            span.overview-box__label Rating
+            //- span.overview-box__text 4.9 / 5
+            +ratingStars(tour.ratingsAverage)
+            | &nbsp;
+            p= `${tour.ratingsAverage} (${tour.ratingsQuantity})`
+
+          //- +overviewBox('Rating', `${tour.ratingsAverage} / 5`, 'star')
+
+          //- .overview-box__detail
+          //-   svg.overview-box__icon
+          //-     use(xlink:href='/img/icons.svg#icon-calendar')
+          //-   span.overview-box__label Next date
+          //-   span.overview-box__text August 2021
+          //- .overview-box__detail
+          //-   svg.overview-box__icon
+          //-     use(xlink:href='/img/icons.svg#icon-trending-up')
+          //-   span.overview-box__label Difficulty
+          //-   span.overview-box__text Medium
+          //- .overview-box__detail
+          //-   svg.overview-box__icon
+          //-     use(xlink:href='/img/icons.svg#icon-user')
+          //-   span.overview-box__label Participants
+          //-   span.overview-box__text 10 people
+
+        .overview-box__group
+          h2.heading-secondary.ma-bt-lg Your tour guides
+          each guide in tour.guides
+            .overview-box__detail
+              - const path = guide.photo.startsWith('http') ? `${guide.photo}` : `/public/img/${guide.photo}`;
+              img.overview-box__img(
+                src=path,
+                crossorigin='anonymous',
+                alt=`${guide.role}`
+              )
+              -
+                const formattedGuideRole = guide.role === 'lead-guide' ? 'LEAD GUIDE' : 'TOUR GUIDE'
+              span.overview-box__label #{ formattedGuideRole }
+              span.overview-box__text #{ guide.name }
+          //- .overview-box__detail
+          //-   img.overview-box__img(src='/img/user-18.jpg' alt='Tour guide')
+          //-   span.overview-box__label Tour guide
+          //-   span.overview-box__text Lisa Brown
+          //- .overview-box__detail
+          //-   img.overview-box__img(src='/img/user-17.jpg' alt='Intern')
+          //-   span.overview-box__label Intern
+          //-   span.overview-box__text Max Smith
+
+    .description-box
+      h2.heading-secondary.ma-bt-lg About #{ tour.name } tour
+      -
+        const splitDescriptionArr = tour.description.split('\n')
+      each description in splitDescriptionArr
+        p.description__text= description
+      //- p.description__text Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      //- p.description__text Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!
+
+  section.section-pictures
+    each image, index in tour.images
+      - if (image.startsWith('http'))
+        .picture-box
+          img.picture-box__img(
+            class=`picture-box__img--${index+1}`,
+            crossorigin='anonymous',
+            src=`${image}`,
+            alt=`${tour.name} Tour ${index+1}`
+          )
+      - if (!image.startsWith('http'))
+        .picture-box
+          img.picture-box__img(
+            class=`picture-box__img--${index+1}`,
+            src=`/public/img/${image}`,
+            alt=`${tour.name} Tour ${index+1}`
+          )
+
+    //- .picture-box
+    //-   img.picture-box__img.picture-box__img--1(src='/img/tour-5-1.jpg' alt='The Park Camper Tour 1')
+    //- .picture-box
+    //-   img.picture-box__img.picture-box__img--2(src='/img/tour-5-2.jpg' alt='The Park Camper Tour 1')
+    //- .picture-box
+    //-   img.picture-box__img.picture-box__img--3(src='/img/tour-5-3.jpg' alt='The Park Camper Tour 1')
+
+  section.section-map
+    #map(data-tour-locations=`${JSON.stringify(tour.locations)}`)
+
+  section.section-reviews
+    .reviews
+      each review in tour.reviews
+        .reviews__card
+          .reviews__avatar
+            - const path = review.user.photo.startsWith('http') ? `${review.user.photo}` : `/public/img/${review.user.photo}`;
+            img.reviews__avatar-img(
+              src=path,
+              crossorigin='anonymous',
+              alt='${review.user.name}'
+            )
+            h6.reviews__user= review.user.name
+          p.reviews__text= review.review
+          //- we need a while loop. review.rating = 4.5
+          .reviews__rating
+            span.Stars(
+              data-rating=`${review.rating}`,
+              aria-label=`Rating of this product is ${review.rating} out of 5.`
+            )
+            | &nbsp;
+            span.card__footer-text= `(${review.rating})`
+            //- svg.reviews__star.reviews__star--active
+            //-   use(xlink:href='/img/icons.svg#icon-star')
+            //- svg.reviews__star.reviews__star--active
+            //-   use(xlink:href='/img/icons.svg#icon-star')
+            //- svg.reviews__star.reviews__star--active
+            //-   use(xlink:href='/img/icons.svg#icon-star')
+            //- svg.reviews__star.reviews__star--active
+            //-   use(xlink:href='/img/icons.svg#icon-star')
+            //- svg.reviews__star.reviews__star--active
+            //-   use(xlink:href='/img/icons.svg#icon-star')
+
+  section.section-cta
+    .cta
+      .cta__img.cta__img--logo
+        img(src='/public/img/logo-white.png', alt='Natours logo')
+      - const path = tour.images[1].startsWith('http') ? '' : '/public/img/';
+      img.cta__img.cta__img--1(
+        src=`${path}${tour.images[1]}`,
+        crossorigin='anonymous',
+        alt='Tour Picture'
+      )
+      img.cta__img.cta__img--2(
+        src=`${path}${tour.images[2]}`,
+        crossorigin='anonymous',
+        alt='Tour Picture'
+      )
+      //- img.cta__img.cta__img--2(src='/img/tour-5-1.jpg' alt='')
+      .cta__content
+        h2.heading-secondary What are you waiting for?
+        p.cta__text #{ tour.duration } days. 1 adventure. Infinite memories. Make it yours today!
+        //- button.btn.btn--green.span-all-rows Book tour now!
+
+        if user
+          button#btn--book-tour.btn.btn--green.span-all-rows(
+            data-tour-id=`${tour.id}`
+          ) Book tour now!
+        else
+          a.btn.btn--green.span-all-rows(href='/login') Login to book tour now!

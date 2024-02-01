@@ -1,0 +1,41 @@
+
+use natours-test
+
+db.tours.find()
+
+db.tours.updateOne(
+    // object to update
+    {
+        name: ""
+    },
+    // what to update
+    {
+        $set: {
+            randomKey2: 597
+        }
+    }
+)
+
+// finding all premium tours
+db.tours.find({
+    price: {$gt: 500},
+    rating: {$gte: 4.8}
+})
+
+// update all premium tours
+db.tours.updateMany(
+    {
+        price: {$gt: 500},
+        rating: {$gte: 4.8}
+    },
+    {
+        $set: {
+            tag: "premium"
+        }
+    }
+)
+
+// WE CAN REPLACE ONE OR MANY TOO
+// same syntax as abode with replaceOne, replaceMany
+db.tours.replaceMany()
+db.tours.replaceOne()

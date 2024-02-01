@@ -1,0 +1,43 @@
+
+use natours-test
+
+// query all docs
+db.tours.find()
+
+// search with a property
+// needs a filter object
+// returns all docs with the prop
+db.tours.find({
+    name: "the forest hiker"
+})
+db.tours.find({
+    difficulty: "easy"
+})
+
+// query operator
+// search for tours with price below 500
+db.tours.find({
+    price: {$lt: 500} // lte = less than
+})
+
+// ! tours with price <= 500 and rating >= 4.8
+
+// this is an AND query
+db.tours.find({
+    price: {$lt: 500}, // lte = less than
+    rating: {$gte: 4.8}
+})
+
+// this is an OR query
+// one object for each of the filter
+db.tours.find({
+    $or: [
+    {price: {$lt: 500}}, // lte = less than
+    {rating: {$gte: 4.8}}
+    ]
+},
+    // projection: what we want as output
+    {
+        name: 1
+    }
+)

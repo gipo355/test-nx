@@ -1,0 +1,16 @@
+use natours-test
+// creating more docs at the same time
+db.tours.insertMany([
+    {
+        name: "the sea explorer",
+        price: 497,
+        rating: 4.8
+    },
+    {
+        name: "the snow adventurer",
+        price: 997,
+        rating: 4.9,
+        // docs are flexible, they don't need the same structure
+        difficulty: "easy"
+    }
+])

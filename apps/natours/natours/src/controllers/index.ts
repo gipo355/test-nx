@@ -1,0 +1,21 @@
+export * from './api/v1/createOne';
+export * from './api/v1/deleteOne';
+export * from './api/v1/getAll';
+export * from './api/v1/getOne';
+export * from './api/v1/patchOne';
+export * from './api/v1/reviewController';
+export * from './api/v1/testPrisma';
+// export * from './api/v1/staticsController';
+export * from './api/v1/tourController';
+export * from './api/v1/userController';
+export * from './api/v1/validateAndSetId';
+export * from './api/v1/validateOwnership';
+export * from './api/v1/viewsController';
+export * from './pageNotFoundContoller';
+// export * from './authController'; // refactoring to single files
+export * from './api/v1/bookingController';
+export * from './api/v1/validateId';
+export * from './authControllers';
+export * from './authControllers/verifyEmail';
+export * from './globalErrorController';
+export * from './unsupportedMethodHandler';

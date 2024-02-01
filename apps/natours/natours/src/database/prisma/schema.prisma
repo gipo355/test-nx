@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+    provider   = "postgresql"
+    url        = env("NATOURS_PSQL_DATABASE_URL")
+    extensions = [postgis]
+}
+
+model User {
+    id             String          @id @default(uuid()) @db.Uuid
+    name           String
+    email          String          @unique
+    age            Int?
+    isAdmin        Boolean         @default(false)
+    // preferences   Json
+    userPreference UserPreference?
+    // Post          Post[]
+    // blob        Bytes
+    // blob           Unsupported("bytea")
+    role           Role            @default(USER)
+    writtenPosts   Post[]          @relation("writtenPosts")
+    favoritePosts  Post[]          @relation("favoritePosts")
+    // @@index([name, email]) // composite index, performance optimization
+
+    // @@unique([name, email]) // composite unique, can't have two users with same name and email
+    @@index([email]) // single index, performance optimization
+}
+
+model UserPreference {
+    id           String  @id @default(uuid()) @db.Uuid
+    emailUpdates Boolean
+    user         User    @relation(fields: [userId], references: [id])
+    userId       String  @unique @db.Uuid
+}
+
+model Post {
+    id            String     @id @default(uuid()) @db.Uuid
+    averageRating Float
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
+    title         String
+    content       String
+    published     Boolean    @default(false)
+    author        User       @relation("writtenPosts", fields: [userId], references: [id])
+    userId        String     @db.Uuid
+    favoritedBy   User?      @relation("favoritePosts", fields: [favoritedById], references: [id])
+    favoritedById String?    @db.Uuid
+    categories    Category[]
+
+    // @@id([title, userId]) // composite id, can't have two posts with same title and content
+}
+
+model Category {
+    id        String   @id @default(uuid()) @db.Uuid
+    name      String   @unique
+    posts     Post[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum Role {
+    USER
+    ADMING
+    LEADGUIDE
+    GUIDE
+}
+
+model Location {
+    // [https://freddydumont.com/blog/prisma-postgis]
+    // allows sending raw queries
+    // [https://www.prisma.io/docs/concepts/components/prisma-client/raw-database-access#raw-queries-with-relational-databases]
+    // [https://towardsdatascience.com/spatial-data-science-with-postgresql-geometries-c00387755700]
+    // [https://forrest.nyc/spatial-sql-cookbook/]
+    id        Int      @id
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // the geometry column itself
+    coords Unsupported("geometry(Point, 4326)")
+
+    // the index for that column
+    @@index([coords], name: "location_idx", type: Gist)
+}

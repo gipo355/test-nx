@@ -1,0 +1,3 @@
+# ACCOUNT PAGE FORM
+POST https://localhost:8000/submit-user-data
+

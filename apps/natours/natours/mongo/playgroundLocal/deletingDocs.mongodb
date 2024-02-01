@@ -1,0 +1,4 @@
+
+use natours-test
+
+db.tours.find()

@@ -1,0 +1,764 @@
+{
+  "info": {
+    "_postman_id": "376df4e9-1235-4f9a-a578-ae98fb58b240",
+    "name": "natours node course",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "19470672"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "get all users",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/users",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get single user with id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/users/1",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users", "1"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "patch single user with id",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"test name\",\n    \"duration\": \"asdkfasdf\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/users/3",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users", "3"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete single user with id",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"test name\",\n    \"duration\": \"asdkfasdf\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/users/3",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users", "3"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "add user",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n\"name\": \"test tour\",\n\"duration\": 10,\n\"difficulty\": \"easy\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/users",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "sign up",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.environment.set(\"JWT:Natour\", pm.response.json().token);"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"test user\",\n    \"password\": \"test1234\",\n    \"email\": \"test12341@google.com\",\n    \"passwordConfirm\": \"test1234\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/users/signup",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users", "signup"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "login",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.environment.set(\"JWT:Natour\", pm.response.json().token);"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"password\": \"test1234\",\n    \"email\": \"test1234@google.com\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/users/login",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users", "login"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "test bcrypto autocannon",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"test user L\",\n    \"password\": \"test12345\",\n    \"email\": \"test1234@google.com\",\n    \"passwordConfirm\": \"test12345\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/users/bcrypto",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users", "bcrypto"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "test bcrypto autocannon Copy",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"test user L\",\n    \"password\": \"test12345\",\n    \"email\": \"test1234@google.com\",\n    \"passwordConfirm\": \"test12345\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/users/test-load",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "users", "test-load"]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "tours",
+              "item": [
+                {
+                  "name": "tours",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{JWT:Natour}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer 333",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", ""],
+                      "query": [
+                        {
+                          "key": "limit",
+                          "value": "3",
+                          "disabled": true
+                        },
+                        {
+                          "key": "page",
+                          "value": "3",
+                          "disabled": true
+                        },
+                        {
+                          "key": "difficulty",
+                          "value": "easy",
+                          "disabled": true
+                        },
+                        {
+                          "key": "duration[gte]",
+                          "value": "5",
+                          "disabled": true
+                        },
+                        {
+                          "key": "duration[lte]",
+                          "value": "8",
+                          "disabled": true
+                        },
+                        {
+                          "key": "price[lt]",
+                          "value": "1500",
+                          "disabled": true
+                        },
+                        {
+                          "key": "sort",
+                          "value": "-price,-ratingsAverage",
+                          "disabled": true
+                        },
+                        {
+                          "key": "fields",
+                          "value": "difficulty,name,duration,price,__v",
+                          "disabled": true
+                        },
+                        {
+                          "key": "limit",
+                          "value": "5",
+                          "disabled": true
+                        },
+                        {
+                          "key": "sort",
+                          "value": "-ratingsAverage,price",
+                          "disabled": true
+                        },
+                        {
+                          "key": "fields",
+                          "value": "name,duration",
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "tours aliasing",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/top-5-cheap",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", "top-5-cheap"],
+                      "query": [
+                        {
+                          "key": "limit",
+                          "value": "3",
+                          "disabled": true
+                        },
+                        {
+                          "key": "page",
+                          "value": "3",
+                          "disabled": true
+                        },
+                        {
+                          "key": "difficulty",
+                          "value": "easy",
+                          "disabled": true
+                        },
+                        {
+                          "key": "duration[gte]",
+                          "value": "5",
+                          "disabled": true
+                        },
+                        {
+                          "key": "duration[lte]",
+                          "value": "8",
+                          "disabled": true
+                        },
+                        {
+                          "key": "price[lt]",
+                          "value": "1500",
+                          "disabled": true
+                        },
+                        {
+                          "key": "sort",
+                          "value": "-price,-ratingsAverage",
+                          "disabled": true
+                        },
+                        {
+                          "key": "fields",
+                          "value": "difficulty,name,duration,price,__v",
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "tours stats",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/tour-stats",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", "tour-stats"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "tours stats monthly",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/tour-stats/monthly-plan/2021",
+                      "host": ["{{URL}}api"],
+                      "path": [
+                        "v1",
+                        "tours",
+                        "tour-stats",
+                        "monthly-plan",
+                        "2021"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get single tour with id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/6393657a2fd63c9c1df34d38",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", "6393657a2fd63c9c1df34d38"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "patch single tour with id",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"asdf\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/639f927fb6d9ac4806fdd1dc",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", "639f927fb6d9ac4806fdd1dc"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete single tour with id",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"test name\",\n    \"duration\": \"asdkfasdf\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/6393657a2fd63c9c1df34d38",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", "6393657a2fd63c9c1df34d38"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "tours",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"not asdfasdfasdf asdfasdf 2\",\n    \"maxGroupSize\": 25,\n    \"difficulty\": \"easy\",\n    \"ratingsAverage\": 4.7,\n    \"ratingsQuantity\": 37,\n    \"summary\": \"Breathtaking hike through the Canadian Banff National Park\",\n    \"description\": \"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n    \"imageCover\": \"tour-1-cover.jpg\",\n    \"images\": [\n        \"tour-1-1.jpg\",\n        \"tour-1-2.jpg\",\n        \"tour-1-3.jpg\"\n    ],\n    \"startDates\": [\n        \"2021-04-25,10:00\",\n        \"2021-07-20,10:00\",\n        \"2021-10-05,10:00\"\n    ]\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "reference get all tours api",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "https://www.natours.dev/api/v1/tours",
+                      "protocol": "https",
+                      "host": ["www", "natours", "dev"],
+                      "path": ["api", "v1", "tours"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get tours filter query",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/?difficulty=easy&duration[gte]=5&duration[lte]=8&price[lt]=500",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", ""],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "3",
+                          "disabled": true
+                        },
+                        {
+                          "key": "password[$gt:]",
+                          "value": "",
+                          "disabled": true
+                        },
+                        {
+                          "key": "difficulty",
+                          "value": "easy"
+                        },
+                        {
+                          "key": "duration[gte]",
+                          "value": "5"
+                        },
+                        {
+                          "key": "duration[lte]",
+                          "value": "8"
+                        },
+                        {
+                          "key": "price[lt]",
+                          "value": "500"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get tours filter query SORT",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours?sort=-price,-ratingsAverage",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours"],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "3",
+                          "disabled": true
+                        },
+                        {
+                          "key": "password[$gt:]",
+                          "value": "",
+                          "disabled": true
+                        },
+                        {
+                          "key": "sort",
+                          "value": "-price,-ratingsAverage"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get tours filter query filter",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours?fields=difficulty,name,duration,price,__v",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours"],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "3",
+                          "disabled": true
+                        },
+                        {
+                          "key": "password[$gt:]",
+                          "value": "",
+                          "disabled": true
+                        },
+                        {
+                          "key": "fields",
+                          "value": "difficulty,name,duration,price,__v"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "get tours filter query pagination",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours?limit=3&page=3",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours"],
+                      "query": [
+                        {
+                          "key": "password[$gt:]",
+                          "value": "",
+                          "disabled": true
+                        },
+                        {
+                          "key": "limit",
+                          "value": "3"
+                        },
+                        {
+                          "key": "page",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "invalid tour id",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/6394c1a452068a7bb359f3a0",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", "6394c1a452068a7bb359f3a0"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "invalid id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours/sadfsdfsaf",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours", "sadfsdfsaf"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "duplicate ID error",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"The City Wanderer\",\n\"duration\": 5,\n    \"maxGroupSize\": 25,\n    \"difficulty\": \"easy\",\n    \"ratingsAverage\": 4.7,\n    \"ratingsQuantity\": 37,\n    \"price\": 397,\n    \"summary\": \"Breathtaking hike through the Canadian Banff National Park\",\n    \"description\": \"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n    \"imageCover\": \"tour-1-cover.jpg\",\n    \"images\": [\n        \"tour-1-1.jpg\",\n        \"tour-1-2.jpg\",\n        \"tour-1-3.jpg\"\n    ],\n    \"startDates\": [\n        \"2021-04-25,10:00\",\n        \"2021-07-20,10:00\",\n        \"2021-10-05,10:00\"\n    ]\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL}}api/v1/tours",
+                      "host": ["{{URL}}api"],
+                      "path": ["v1", "tours"]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "test dog ceo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dog.ceo/api/breeds/image/random?ok=3&man=ciao",
+          "protocol": "https",
+          "host": ["dog", "ceo"],
+          "path": ["api", "breeds", "image", "random"],
+          "query": [
+            {
+              "key": "ok",
+              "value": "3",
+              "description": "ciao"
+            },
+            {
+              "key": "man",
+              "value": "ciao"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "general test",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "unexisting page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/asdfasdfasdkfasldf",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["asdfasdfasdkfasldf"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "fibonacci",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/fibonacci",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["fibonacci"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "send in express",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/send",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["send"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

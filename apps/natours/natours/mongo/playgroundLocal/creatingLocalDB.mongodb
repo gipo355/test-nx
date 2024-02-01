@@ -1,0 +1,26 @@
+// ! Creating a database with use('')
+// used to switch to database to, but if you switch to non existant it will create
+use('natours-test')
+// use natours-test2
+
+// in mongosh it's use natours-test
+
+// inserting
+db.tours.insertOne({
+    name: "the forest hiker",
+    price: 297,
+    rating: 4.7
+})
+db.tours.insertMany([{
+    name: "the forest hiker",
+    price: 297,
+    rating: 4.7
+}])
+
+db.tours.find()
+
+show collections
+
+// to quit
+quit()
+// or ctrl c, ctrl d

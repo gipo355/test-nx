@@ -1,0 +1,12 @@
+use('natours')
+
+show dbs
+show collections
+db.tours.find()
+
+
+db.tours.insertOne({
+    name: "The Forest Hiker",
+    price: 297,
+    rating: 4.7
+})
