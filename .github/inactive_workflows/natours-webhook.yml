@@ -1,0 +1,24 @@
+name: natours-webhook
+
+on:
+  push:
+    branches: [main]
+    paths: ['course_jonas_node/natours/**']
+
+# - name: Invoke deployment hook
+#       uses: distributhor/workflow-webhook@v3
+#       env:
+#         webhook_url: ${{ secrets.WEBHOOK_URL }}
+#         webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+
+jobs:
+  send-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.NATOUR_WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.NATOUR_WEBHOOK_SECRET }}
+          # data: '{ "weapon": "hammer", "drink" : "beer" }'
