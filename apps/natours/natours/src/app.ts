@@ -1,17 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-
-// import * as Sentry from '@sentry/node';
 import express from 'express';
 
-import {
-  IS_PROXY_ENABLED,
-  // IS_SENTRY_ENABLED,
-  NUMBERS_OF_PROXIES,
-} from './config';
+import { IS_PROXY_ENABLED, NUMBERS_OF_PROXIES } from './config';
 import { globalErrorController, webhookCheckout } from './controllers';
-// import { globalErrorController } from './controllers';
-// import { AppError } from './helpers';
-// import { Logger } from './loggers';
 import { handleGlobalMiddleware } from './middleware';
 import {
   bookingsRouterV1,
@@ -20,18 +10,12 @@ import {
   reviewRouterV1,
   staticsRouter,
   toursRouterV1,
-  // unsupportedMethodRouter,
   usersRouterV1,
   viewsRouter,
 } from './routes';
-// import testPug from './views/test.pug';
 
-/**
- * ## create the express App
- */
 const App = express();
 
-// prevents fingerprint
 App.disable('x-powered-by');
 
 /**
@@ -44,21 +28,14 @@ App.disable('x-powered-by');
  * ## IMP: this line will forward info from the load balancer / proxy to the App
  * things like https cookies (nginx to node is http). also the IP address is the nginx IP address
  */
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 if (IS_PROXY_ENABLED) App.set('trust proxy', NUMBERS_OF_PROXIES);
 
 /**
- * ## PUG
- * set PUG loader and views to be able to use res.render integrated with express
- */
-// App.set('views', `${__dirname}/views`); // requires webpack copying the views folder to dist
-// App.set('views', path.join(__dirname, 'views')); // requires webpack copying the views folder to dist
-/**
  * ## set views path to root dir to solve relative path problems?
  */
+// TODO: refactor for tsc
 App.set('views', './'); // requires webpack copying the views folder to dist
 App.set('view engine', 'pug');
-// App.set('view engine', 'ejs');
 
 /**
  * ## Global middleware
@@ -66,19 +43,6 @@ App.set('view engine', 'pug');
 await handleGlobalMiddleware(App);
 
 // TODO: debugging global middleware, remove
-// App.use((req, _res, next) => {
-//   const debuggingObject = {
-//     url: req.url,
-//     method: req.method,
-//     body: req.body,
-//     params: req.params,
-//     query: req.query,
-//     headers: req.headers,
-//     cookies: req.cookies,
-//   };
-//   console.log(debuggingObject, 'debuggingObject app.ts');
-//   next();
-// });
 
 /**
  * ## ROUTES
@@ -96,22 +60,20 @@ App.use('/', viewsRouter);
 
 // static
 // ! serving the public folder static files, need to copy it as it's path relative
-// eslint-disable-next-line unicorn/prefer-module
-// App.use('/', expStatic(`${__dirname}/public`));
+// TODO: refactor for tsc
 App.use('/', staticsRouter);
 
-// ! this is called mounting the router
-// mounting tours router
-App.use('/api/v1/tours', toursRouterV1); // this becomes the / in toursRouterV1
+// ROUTES
 
-// ! this is called mounting the router, jonas puts it in the main app
-// mounting user router
+App.use('/api/v1/tours', toursRouterV1);
+
 App.use('/api/v1/users', usersRouterV1); // this becomes the / in usersRouterV1
 
 App.use('/api/v1/reviews', reviewRouterV1);
 
 App.use('/api/v1/bookings', bookingsRouterV1);
 
+// test with prisma
 App.use('/api/v1/prisma', prismaRouterV1);
 
 /**
@@ -147,81 +109,5 @@ App.use(
   errorsRouter,
   globalErrorController // we need to put it here, won't work inside a router
 );
-// App.use(globalErrorController);
-
-// ! jonas handling unhandled routs - pre refactor
-// App.all(
-//     '*',
-//     (
-//         req: express.Request,
-//         _res: express.Response,
-//         next: express.NextFunction
-//     ) => {
-//         //     res.status(404).json({
-//         //         status: 'fail',
-//         //         message: `can't find ${req.originalUrl} on this server`,
-//         //     });
-
-//         // ! with global error handler
-//         // const err: any = new Error(
-//         //     `can't find ${req.originalUrl} on this server!`
-//         // ); // this will be the messazge
-//         // err.status = 'fail';
-//         // err.statusCode = 404;
-
-//         // const err = new AppError(
-//         //     `can't find ${req.originalUrl} on this server!`,
-//         //     404
-//         // );
-//         // next(err)
-
-//         // pass the error to error middleware directly
-//         next(
-//             new AppError(`can't find ${req.originalUrl} on this server!`, 404)
-//         );
-//     }
-// );
-
-// ! error handling middleware
-// ( this is the global express error handler )
-// expecption = operational error
-// by providing 4 params to the middleware, we tell express this is an error handler
-// App.use((err: any, _req: any, res: any, _next: any) => {
-//     // ! bad, don't spread the err object ( doesn't have OwnProperty message ) message will be undefined
-//     // destructure and assign
-//     // console.log(err);
-//     // console.log(err.message);
-//     // if (err) Logger.error(err.stack);
-//     // const error = { ...err };
-//     // console.log(error);
-//     // console.log(error.message); // why undefined if the err.message is correct?
-
-//     // error.statusCode ??= 500; // define default status code when we don't specify or are created in other places
-//     // error.status ??= 'error'; // default status message to send if not present
-//     // error.message ??= 'internal server error'; // default status message to send if not present
-
-//     // does it work with destructuring and defaults?
-//     const {
-//         statusCode = 500,
-//         status = 'error',
-//         message = 'internal server error',
-//     } = err;
-//     // we will define the status code on the error
-//     res.status(statusCode).json({
-//         status,
-//         message,
-//     });
-// });
-
-// ! old handle 500 404 errors, pre error handling lesson
-// ! handle 404
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// App.use((_req, res, _next) => {
-//     res.status(404).send(`error: 404 not found ${_req.path}`);
-// });
-// App.use((err: any, _req: any, res: any, _next: any) => {
-//     if (err) Logger.error(err.stack);
-//     res.status(500).send('error: 500 internal server error');
-// });
 
 export { App };
