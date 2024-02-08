@@ -1,9 +1,27 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "lib": ["ES2022"],
+    "incremental": true,
     "esModuleInterop": true,
     "allowJs": true,
+    "moduleResolution": "NodeNext",
+    "verbatimModuleSyntax": true,
     // outdir need to go here to build in the subProject
+    "allowSyntheticDefaultImports": true, // To provide backwards compatibility, Node.js allows you to import most CommonJS packages with a default import. This flag tells TypeScript that it's okay to use import on CommonJS modules. auto on with esmoduleinterop
+    "checkJs": false,
+    "removeComments": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitOverride": true,
+    "noImplicitThis": true,
+    "skipLibCheck": true,
+    "types": ["vitest/globals"],
     "module": "CommonJS",
     "target": "ES2022",
     "rootDir": "src",
