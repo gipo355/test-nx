@@ -1,4 +1,5 @@
 // import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import type { Request, Response } from 'express';
@@ -9,7 +10,7 @@ import { serve, setup } from 'swagger-ui-express';
 // import swaggerJSON from '../../../docs/swagger-output.json';
 // import swaggerSpecJson from '../../../docs/swagger-output.json';
 // eslint-disable-next-line n/no-unpublished-import
-import swaggerSpecJson from '../../../../docs/swagger-output.json';
+// import swaggerSpecJson from '../../../../docs/swagger-output.json';
 // import adminPage from '../../../../assets/public/admin.html';
 import {
   // IS_DEP_CRUISER_ENABLED,
@@ -59,6 +60,12 @@ import { Logger } from '../../../loggers';
  */
 import { swaggerSpec } from '../../../swagger/swagger';
 
+const swaggerSpecJson = JSON.parse(
+  readFileSync(
+    path.join(__dirname, '../../../../docs/swagger-output.json'),
+    'utf8'
+  )
+);
 const router = Router();
 
 /**

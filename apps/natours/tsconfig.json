@@ -5,7 +5,6 @@
     "allowJs": true,
     // outdir need to go here to build in the subProject
     "module": "CommonJS",
-    "resolveJsonModule": true,
     "target": "ES2022",
     "rootDir": ".",
     "baseUrl": "src",
@@ -13,7 +12,10 @@
     // "declarationDir": "./dist/types",
   },
   "include": [
-    "src"
+    "src",
+    "scripts/deleteAllReviews.ts",
+    "scripts/importDevData.ts",
+    "scripts/deleteAllUsers.ts"
   ],
   "exclude": [
     "node_modules",

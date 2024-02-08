@@ -12,7 +12,7 @@ import { readFile } from 'node:fs/promises';
 import mongoose from 'mongoose';
 
 // import simpleTourJson from '../../assets/dev-data/data/tours-simple.json';
-import { Review, Tour, User } from '../models';
+import { Review, Tour, User } from '../src/models';
 
 const { NATOUR_MONGO_CONNECTION_STRING, NATOUR_MONGO_PASSWORD } = process.env;
 const mongoAuthString = NATOUR_MONGO_CONNECTION_STRING?.replace(

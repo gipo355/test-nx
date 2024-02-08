@@ -9,7 +9,7 @@ import 'dotenv-defaults/config';
 import mongoose from 'mongoose';
 
 // import simpleTourJson from '../../assets/dev-data/data/tours-simple.json';
-import { Review } from '../models';
+import { User } from '../src/models';
 
 const { NATOUR_MONGO_CONNECTION_STRING, NATOUR_MONGO_PASSWORD } = process.env;
 const mongoAuthString = NATOUR_MONGO_CONNECTION_STRING?.replace(
@@ -31,7 +31,7 @@ async function deleteData() {
   // eslint-disable-next-line no-useless-catch
   try {
     // ! deletea all data
-    await Review.deleteMany({});
+    await User.deleteMany({});
     console.log('data deleted');
   } catch (error) {
     // console.log(error);
