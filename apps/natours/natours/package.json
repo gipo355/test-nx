@@ -74,7 +74,8 @@
     "schema": "src/database/prisma/schema.prisma"
   },
   "scripts": {
-    "build": "NODE_ENV=production run-s generate-docs build-prod",
+    "build2": "NODE_ENV=production run-s generate-docs build-prod",
+    "build": "tsc",
     "build-debug": "NODE_ENV=production DEBUG=true run-s generate-docs build-prod",
     "build-dev": "webpack --config ./webpack.back.dev.js",
     "build-dev-debug": "DEBUG=TRUE NODE_ENV=development webpack --config ./webpack.back.dev.js --devtool source-map",
@@ -97,7 +98,7 @@
     "generate-dependency-graph": "depcruise src --include-only \"^src\" --config --output-type dot | dot -T svg > ./src/docs/dependency-graph.svg",
     "generate-dependency-graph2": "madge --image ./src/docs/dependency-graph.svg --extensions js,jsx,ts,tsx,mjs,mts,cjs,cts ./src",
     "generate-docs": "run-s generate-openapi generate-typedoc generate-dependency-graph",
-    "generate-openapi": "ts-node ./src/docs/generateSwaggerOutput.ts",
+    "generate-openapi": "ts-node ./docs/generateSwaggerOutput.ts",
     "generate-typedoc": "typedoc",
     "lint": "NODE_ENV=production npm-run-all --parallel lint:eslint_d tsc:lint",
     "lint-all": "npm-run-all --parallel lint:eslint_d tsc:lint",

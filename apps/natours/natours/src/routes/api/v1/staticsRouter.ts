@@ -27,7 +27,7 @@ const router = Router();
 // BUG: doesn't work after adding pug to webpack with htmlwebpackplugin since #dc8019?
 // no public, can't find on this server
 // router.use('/', expStatic(path.join(__dirname, 'public')));
-router.use('/public', expStatic(path.join(__dirname, 'public')));
+router.use('/public', expStatic(path.join(__dirname, '../../../../public')));
 
 /**
  * ## Admin page - because of PUG
@@ -77,7 +77,7 @@ if (IS_SWAGGER_SERVER_ENABLED) {
   // TODO: problem with apis paths. won't read the route files
   if (false) {
     // eslint-disable-next-line node/no-unsupported-features/es-syntax
-    const { swaggerSpec } = await import('../../../docs/swagger');
+    const { swaggerSpec } = await import('../../../../docs/swagger');
 
     router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     router.get('/docs.json', (_req: Request, res: Response) => {

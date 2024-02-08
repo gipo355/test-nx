@@ -10,22 +10,20 @@
     // "declarationDir": "./dist/types",
   },
   "include": [
-    // "assets/**/*.js",
-    // "assets/**/*.ts",
-    // "assets/public/js/login.js",
     "src/**/*.ts",
+    "src/**/*.cts",
+    "src/**/*.mts",
     "src/**/*.tsx",
     "src/**/*.js",
+    "src/**/*.cjs",
+    "src/**/*.mjs",
     "src/**/*.jsx"
-    // "src/workers/myWorker.js",
-    // "src/messageBrokers/emailWorker.js"
-    // ".eslintrc.js",
-    // "project.config.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "test-dist",
-    "**/typedoc"
+    "**/typedoc",
+    "docs"
   ]
 }

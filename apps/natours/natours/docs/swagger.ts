@@ -11,7 +11,7 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 
 // import swaggerUi from 'swagger-ui-express';
-import { CURRENT_API_VERSION } from '../config';
+import { CURRENT_API_VERSION } from '../src/config';
 // import { Logger } from '../loggers';
 
 // const {
