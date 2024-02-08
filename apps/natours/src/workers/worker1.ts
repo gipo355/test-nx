@@ -55,7 +55,13 @@ const encryptPasswordWorker = async function encryptPassword(
     hash: undefined as string | undefined,
   };
 
-  result.hash = await bcrypt.hash(password, saltDifficulty);
+  // result.hash = await bcrypt.hash(password, saltDifficulty);
+  bcrypt.hash(password, saltDifficulty, (err, hash) => {
+    if (err) {
+      throw err;
+    }
+    result.hash = hash;
+  });
   return result;
 };
 
@@ -67,8 +73,16 @@ const comparePasswordWorker = async function checkUser(
   // console.log('using worker pool for: comparePasswordWorker');
   //... fetch user from a db etc.
 
-  const isMatch = await bcrypt.compare(candidatePassword, hash);
-
+  // const isMatch = await bcrypt.compare(candidatePassword, hash);
+  // return isMatch;
+  let isMatch = false;
+  bcrypt.compare(candidatePassword, hash, (err, same) => {
+    if (err) {
+      throw err;
+    }
+    isMatch = same;
+    return isMatch;
+  });
   return isMatch;
 };
 

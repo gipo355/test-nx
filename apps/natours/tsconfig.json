@@ -1,10 +1,11 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "esModuleInterop": true,
+    "allowJs": true,
     // outdir need to go here to build in the subProject
-    "module": "ESNext",
-    "target": "ESNext",
+    "module": "CommonJS",
+    "target": "ES2022",
     "rootDir": ".",
     "outDir": "./dist"
     // "declarationDir": "./dist/types",
@@ -19,11 +20,5 @@
     "src/**/*.mjs",
     "src/**/*.jsx"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "test-dist",
-    "**/typedoc",
-    "docs"
-  ]
+  "exclude": ["node_modules", "dist", "test-dist", "docs"]
 }

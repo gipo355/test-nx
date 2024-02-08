@@ -16,7 +16,7 @@ import { patchOne } from './patchOne';
  * ## TODO: move to production live keys?
  */
 const stripe = new Stripe(SECRETS.NATOURS_STRIPE_TEST_SECRET as string, {
-  apiVersion: '2022-11-15',
+  apiVersion: '2023-10-16',
 });
 
 const createBookingCheckout = async (sessionData: Stripe.Checkout.Session) => {

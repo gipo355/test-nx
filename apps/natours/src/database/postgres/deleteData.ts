@@ -14,7 +14,7 @@ async function deleteData() {
 }
 
 try {
-  await deleteData();
+  deleteData().then().catch();
 } catch (error) {
   console.error(error);
 }

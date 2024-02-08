@@ -18,7 +18,12 @@ export const encryptPassword = async function encryptPassword(
     hash: '',
   };
 
-  result.hash = await bcrypt.hash(password, saltDifficulty);
+  bcrypt.hash(password, saltDifficulty, (err, hash) => {
+    if (err) {
+      throw err;
+    }
+    result.hash = hash;
+  });
 
   return result;
 };
@@ -29,8 +34,14 @@ export const comparePassword = async function checkUser(
 ) {
   //... fetch user from a db etc.
 
-  const isMatch = await bcrypt.compare(candidatePassword, hash);
-
+  let isMatch = false;
+  bcrypt.compare(candidatePassword, hash, (err, same) => {
+    if (err) {
+      throw err;
+    }
+    isMatch = same;
+    return isMatch;
+  });
   return isMatch;
 };
 

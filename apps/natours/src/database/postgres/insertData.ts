@@ -19,7 +19,7 @@ async function insertData() {
   console.log(`added shark with name ${name}`);
 }
 try {
-  await insertData();
+  insertData().then().catch();
 } catch (error) {
   console.error(error);
 }

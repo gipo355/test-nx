@@ -1,14 +1,7 @@
-/* eslint-disable unicorn/prefer-module */
-const pathToRoot = require('./pathToRoot');
-
 module.exports = {
-  // plugins: ['security-node'],
   extends: [
     '../../packages/eslint-config-base/node.js',
     '../../.eslintrc.json',
-    // 'plugin:node/recommended-module',
-    // 'plugin:n/recommended',
-    // // 'plugin:security-node/recommended',
   ],
   ignorePatterns: ['!**/*'],
   env: {

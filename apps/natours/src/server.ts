@@ -2,7 +2,7 @@ import https from 'node:https';
 
 import mongoose from 'mongoose';
 
-import { App } from './app';
+import { createApp } from './app';
 import { IS_HTTPS_ENABLED, WORKER_POOL_ENABLED } from './config';
 import { cert, key } from './helpers';
 import { Logger } from './loggers';
@@ -87,6 +87,8 @@ async function server() {
       // eslint-disable-next-line node/no-unsupported-features/es-syntax
       bullmqWorkerInit();
     }
+
+    const App = await createApp();
 
     // ! listen
     // returning this to be able to close in tests with (close())

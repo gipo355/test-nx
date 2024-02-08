@@ -23,6 +23,9 @@ const rateLimiterRedis = new RateLimiterRedis(options);
 const rateLimiterMiddleware = catchAsync(
   async (req: Request, _res: Response, next: NextFunction) => {
     try {
+      if (!req.ip) {
+        return next();
+      }
       await rateLimiterRedis.consume(req.ip);
       return next();
     } catch {

@@ -37,9 +37,9 @@ const initInfisical = async () => {
   await (async () => {
     await infisicalClient.getAllSecrets({
       environment: 'dev',
-      // path: '/foo/bar/',
+      path: '/',
       attachToProcessEnv: true, // (boolean, optional): Whether or not to attach fetched secrets to process.env. If not specified, the default value is false.
-      // includeImports: false, // (boolean, optional): Whether or not to include imported secrets from the current path.
+      includeImports: false, // (boolean, optional): Whether or not to include imported secrets from the current path.
     });
     Logger.info(
       'infisicalClient initialized: secrets injected into process.env'

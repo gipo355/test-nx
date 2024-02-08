@@ -6,7 +6,7 @@ async function retrieveData() {
 }
 
 try {
-  await retrieveData();
+  retrieveData().then().catch();
 } catch (error) {
   console.error(error);
 }

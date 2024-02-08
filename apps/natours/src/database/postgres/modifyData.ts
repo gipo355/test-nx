@@ -14,7 +14,7 @@ async function modifyData() {
 }
 
 try {
-  await modifyData();
+  modifyData().then().catch();
 } catch (error) {
   console.error(error);
 }
