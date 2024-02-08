@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
 import 'dotenv-defaults/config';
 
 import cluster from 'node:cluster';
