@@ -3,32 +3,20 @@ import path from 'node:path';
 
 import type { Request, Response } from 'express';
 import { Router, static as expStatic } from 'express';
-import swaggerUi from 'swagger-ui-express';
+import { serve, setup } from 'swagger-ui-express';
 
+// import depGraph from '../../../docs/dependency-graph.svg';
+// import swaggerJSON from '../../../docs/swagger-output.json';
+// import swaggerSpecJson from '../../../docs/swagger-output.json';
+// eslint-disable-next-line n/no-unpublished-import
+import swaggerSpecJson from '../../../../docs/swagger-output.json';
 // import adminPage from '../../../../assets/public/admin.html';
 import {
   // IS_DEP_CRUISER_ENABLED,
   IS_SWAGGER_SERVER_ENABLED,
   // IS_TYPEDOC_SERVER_ENABLED,
 } from '../../../config';
-// eslint-disable-next-line node/no-unpublished-import
-// import depGraph from '../../../docs/dependency-graph.svg';
-// eslint-disable-next-line node/no-unpublished-import
-// import swaggerJSON from '../../../docs/swagger-output.json';
-// eslint-disable-next-line node/no-unpublished-import, node/no-missing-import
-import swaggerSpecJson from '../../../docs/swagger-output.json';
 import { Logger } from '../../../loggers';
-
-const router = Router();
-
-/**
- * ## Public folder
- */
-// BUG: doesn't work after adding pug to webpack with htmlwebpackplugin since #dc8019?
-// no public, can't find on this server
-// router.use('/', expStatic(path.join(__dirname, 'public')));
-router.use('/public', expStatic(path.join(__dirname, '../../../../public')));
-
 /**
  * ## Admin page - because of PUG
  * added admin route in addition to static file /admin.html served in the  global middleware
@@ -43,7 +31,6 @@ router.use('/public', expStatic(path.join(__dirname, '../../../../public')));
 //      */
 //     res.status(200).send(adminPage);
 // });
-
 /**
  * ## Typedocs
  */
@@ -55,7 +42,6 @@ router.use('/public', expStatic(path.join(__dirname, '../../../../public')));
 //     router.use('/typedoc', expStatic(`${__dirname}/typedoc`));
 //     Logger.info('Typedoc server enabled on /typedoc');
 // }
-
 /**
  * ## Dependency cruiser
  */
@@ -68,24 +54,33 @@ router.use('/public', expStatic(path.join(__dirname, '../../../../public')));
 //     });
 //     Logger.info(`dep graph enabled on /dependency-graph`);
 // }
-
 /**
  * ## SWAGGER DOCS
  */
+import { swaggerSpec } from '../../../swagger/swagger';
+
+const router = Router();
+
+/**
+ * ## Public folder
+ */
+// BUG: doesn't work after adding pug to webpack with htmlwebpackplugin since #dc8019?
+// no public, can't find on this server
+// router.use('/', expStatic(path.join(__dirname, 'public')));
+router.use('/public', expStatic(path.join(__dirname, '../../../../public')));
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 if (IS_SWAGGER_SERVER_ENABLED) {
   // TODO: problem with apis paths. won't read the route files
+  // eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
   if (false) {
-    // eslint-disable-next-line node/no-unsupported-features/es-syntax
-    const { swaggerSpec } = await import('../../../../docs/swagger');
+    // const { swaggerSpec } = await import('../../../../docs/swagger');
 
-    router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    router.use('/docs', serve, setup(swaggerSpec));
     router.get('/docs.json', (_req: Request, res: Response) => {
       res.status(200).json(swaggerSpec);
     });
     Logger.info(`Swagger docs enabled on /docs, /docs.json endpoint`);
   } else if (swaggerSpecJson) {
-    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     // const swaggerJSON = await import('./docs/swagger-output.json');
     /**
      * this block of code is only used if i generate a separate json file from swagger-jsdoc
@@ -103,9 +98,11 @@ if (IS_SWAGGER_SERVER_ENABLED) {
     // if (swaggerSpecJson) {
     // const swaggerSpecJson = await readFile(`${__dirname}/swagger.json`, 'utf8'); // either generate with webpack or with an npm script
     // const swaggerSpec = JSON.parse(swaggerSpecJson);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const swaggerSpec = swaggerSpecJson;
     // console.log(swaggerJson);
-    router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    router.use('/docs', serve, setup(swaggerSpec));
     // docs in json format
     router.get('/docs.json', (_req: Request, res: Response) => {
       res.status(200).json(swaggerSpec);
@@ -117,7 +114,6 @@ if (IS_SWAGGER_SERVER_ENABLED) {
     // }
   }
 
-  // eslint-disable-next-line node/no-unsupported-features/es-syntax
   // const { swaggerSpec } = await import('./docs/swagger');
   // console.log(swaggerSpec);
 

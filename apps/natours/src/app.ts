@@ -14,8 +14,6 @@ import {
   viewsRouter,
 } from './routes';
 
-const x = 3;
-
 async function createApp() {
   const App = express();
 

@@ -7,11 +7,10 @@
 // import path from 'node:path';
 
 // import { Express, Request, Response } from 'express';
-// eslint-disable-next-line import/no-extraneous-dependencies, node/no-extraneous-import
 import swaggerJSDoc from 'swagger-jsdoc';
 
 // import swaggerUi from 'swagger-ui-express';
-import { CURRENT_API_VERSION } from '../src/config';
+import { CURRENT_API_VERSION } from '../config';
 // import { Logger } from '../loggers';
 
 // const {

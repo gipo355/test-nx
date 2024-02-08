@@ -6,6 +6,25 @@ module.exports = {
     'plugin:security/recommended',
   ],
   rules: {
+    // 'n/no-missing-import': [
+    //   'error',
+    //   {
+    //     // allowModules: [],
+    //     // resolvePaths: ['/path/to/a/modules/directory'],
+    //     tryExtensions: [
+    //       '.js',
+    //       '.cjs',
+    //       '.mjs',
+    //       '.json',
+    //       '.ts',
+    //       '.cts',
+    //       '.mts',
+    //       '.jsx',
+    //       '.tsx',
+    //       '.node',
+    //     ],
+    //   },
+    // ],
     // 'unicorn/no-process-exit': 'off',
     // 'node/no-missing-import': 'off',
     // 'node/no-missing-import': [

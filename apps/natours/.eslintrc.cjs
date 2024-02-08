@@ -1,9 +1,9 @@
 module.exports = {
+  ignorePatterns: ['!**/*'],
   extends: [
     '../../packages/eslint-config-base/node.js',
     '../../.eslintrc.json',
   ],
-  ignorePatterns: ['!**/*'],
   env: {
     node: true,
   },
@@ -20,15 +20,28 @@ module.exports = {
     },
   },
   rules: {
-    // old
-    // 'node/no-missing-import': [
+    'unicorn/prefer-top-level-await': 'off',
+    'n/no-missing-import': 'off',
+    // 'n/no-missing-import': [
     //   'error',
     //   {
     //     // allowModules: [],
     //     // resolvePaths: ['/path/to/a/modules/directory'],
-    //     tryExtensions: ['.js', '.json', '.ts', '.jsx', '.tsx', '.node'],
+    // tryExtensions: [
+    //   '.js',
+    //   '.cjs',
+    //   '.mjs',
+    //   '.json',
+    //   '.ts',
+    //   '.cts',
+    //   '.mts',
+    //   '.jsx',
+    //   '.tsx',
+    //   '.node',
+    // ],
     //   },
     // ],
+    // old
     // 'unicorn/prefer-module': 'off', // with webpack __dirname is used when compiling to commonjs
     // // from async suggestions at https://maximorlov.com/linting-rules-for-asynchronous-code-in-javascript/#1-no-async-promise-executor
     // 'node/no-sync': 'warn', // This rule disallows using synchronous methods from the Node.js core API where an asynchronous alternative exists.

@@ -46,29 +46,48 @@ const initInfisical = async () => {
     );
   })();
 };
-await initInfisical();
 
-/**
- * ## END INFISICAL
- */
+interface SECRETS {
+  NATOURS_STRIPE_TEST_PUBLIC: string | undefined;
+  NATOURS_STRIPE_TEST_SECRET: string | undefined;
+  NATOURS_STRIPE_ENDPOINT_SECRET: string | undefined;
+  NATOURS_STRIPE_ENDPOINT_SECRET_PROD: string | undefined;
+  NODE_ENV: string | undefined;
+}
+let SECRETS: SECRETS = {
+  NATOURS_STRIPE_TEST_PUBLIC: '',
+  NATOURS_STRIPE_TEST_SECRET: '',
+  NATOURS_STRIPE_ENDPOINT_SECRET: '',
+  NATOURS_STRIPE_ENDPOINT_SECRET_PROD: '',
+  NODE_ENV: '',
+};
 
-/**
- * ## Getting secrets from local ENV
- */
-// const { NATOUR_FROM_EMAIL } = process.env;
+initInfisical()
+  .then(() => {
+    /**
+     * ## END INFISICAL
+     */
 
-// const { NATOURS_STRIPE_TEST_PUBLIC, NATOURS_STRIPE_TEST_SECRET } = process.env;
-const SECRETS = {
-  NATOURS_STRIPE_TEST_PUBLIC: process.env.NATOURS_STRIPE_TEST_PUBLIC,
-  NATOURS_STRIPE_TEST_SECRET: process.env.NATOURS_STRIPE_TEST_SECRET,
-  NATOURS_STRIPE_ENDPOINT_SECRET: process.env.NATOURS_STRIPE_ENDPOINT_SECRET,
-  NATOURS_STRIPE_ENDPOINT_SECRET_PROD:
-    process.env.NATOURS_STRIPE_ENDPOINT_SECRET_PROD,
-  NODE_ENV: process.env.NODE_ENV,
-  /**
-   * ## MAKE ALL PROPS READYONLY
-   */
-} as const;
+    /**
+     * ## Getting secrets from local ENV
+     */
+    // const { NATOUR_FROM_EMAIL } = process.env;
+
+    // const { NATOURS_STRIPE_TEST_PUBLIC, NATOURS_STRIPE_TEST_SECRET } = process.env;
+    SECRETS = {
+      NATOURS_STRIPE_TEST_PUBLIC: process.env.NATOURS_STRIPE_TEST_PUBLIC,
+      NATOURS_STRIPE_TEST_SECRET: process.env.NATOURS_STRIPE_TEST_SECRET,
+      NATOURS_STRIPE_ENDPOINT_SECRET:
+        process.env.NATOURS_STRIPE_ENDPOINT_SECRET,
+      NATOURS_STRIPE_ENDPOINT_SECRET_PROD:
+        process.env.NATOURS_STRIPE_ENDPOINT_SECRET_PROD,
+      NODE_ENV: process.env.NODE_ENV,
+      /**
+       * ## MAKE ALL PROPS READYONLY
+       */
+    };
+  })
+  .catch((error) => Logger.error(error));
 
 /**
  * ## Manually injecting secrets into process.env

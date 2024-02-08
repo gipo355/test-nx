@@ -15,20 +15,19 @@ import { patchOne } from './patchOne';
 /**
  * ## TODO: move to production live keys?
  */
-const stripe = new Stripe(SECRETS.NATOURS_STRIPE_TEST_SECRET as string, {
+const stripe = new Stripe(SECRETS.NATOURS_STRIPE_TEST_SECRET!, {
   apiVersion: '2023-10-16',
 });
 
 const createBookingCheckout = async (sessionData: Stripe.Checkout.Session) => {
   const userId = await User.findOne({
-    email: sessionData?.customer_email,
+    email: sessionData.customer_email,
   }).select('_id');
   const tourId = sessionData.client_reference_id;
   const price =
-    sessionData?.amount_total !== 0 &&
-    sessionData?.amount_total !== undefined &&
-    sessionData?.amount_total !== null &&
-    Number.isFinite(sessionData?.amount_total)
+    sessionData.amount_total !== 0 &&
+    sessionData.amount_total !== null &&
+    Number.isFinite(sessionData.amount_total)
       ? sessionData.amount_total / 100
       : 0; // handle possible 0
 

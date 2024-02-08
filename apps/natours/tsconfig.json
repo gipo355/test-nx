@@ -5,20 +5,20 @@
     "allowJs": true,
     // outdir need to go here to build in the subProject
     "module": "CommonJS",
+    "resolveJsonModule": true,
     "target": "ES2022",
     "rootDir": ".",
+    "baseUrl": "src",
     "outDir": "./dist"
     // "declarationDir": "./dist/types",
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.cts",
-    "src/**/*.mts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.cjs",
-    "src/**/*.mjs",
-    "src/**/*.jsx"
+    "src"
   ],
-  "exclude": ["node_modules", "dist", "test-dist", "docs"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "docs",
+    "test-dist"
+  ]
 }

@@ -26,7 +26,13 @@ const mongoAuthString = NATOUR_MONGO_CONNECTION_STRING?.replace(
   NATOUR_MONGO_PASSWORD!
 );
 mongoose.set('strictQuery', false);
-if (mongoAuthString) await mongoose.connect(mongoAuthString, {});
+// if (mongoAuthString) await mongoose.connect(mongoAuthString, {});
+if (mongoAuthString)
+  mongoose.connect(mongoAuthString, {}).catch((error) => {
+    throw new Error(
+      `Error connecting to mongo from bullmqWorkerInPool.ts: ${error}`
+    );
+  });
 
 /**
  * ## Init the worker

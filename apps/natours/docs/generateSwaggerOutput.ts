@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-import { swaggerSpec } from './swagger';
+import { swaggerSpec } from '../src/swagger/swagger';
 
 // eslint-disable-next-line security/detect-non-literal-fs-filename
 writeFile(
