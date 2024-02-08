@@ -1,5 +1,12 @@
 # This is Natours API project
 
+## new repo todo
+
+- move to typedoc, json schema, fast json stringify, ajv
+- vitest
+
+## old
+
 we need this readme for typedoc else it will read the project root readme
 
 natours project: todo things
