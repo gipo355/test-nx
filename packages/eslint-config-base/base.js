@@ -340,6 +340,8 @@ module.exports = {
       'error',
       {
         replacements: {
+          props: false,
+          e: false,
           dev: false,
           prod: false,
           res: false,
