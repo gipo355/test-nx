@@ -6,13 +6,14 @@ module.exports = {
   extends: [
     'stylelint-config-standard',
     'stylelint-config-standard-scss',
-    // "stylelint-config-prettier",
     'stylelint-config-recommended-scss',
     'stylelint-config-html',
     'stylelint-config-recommended-vue',
     'stylelint-config-idiomatic-order',
-    'stylelint-config-prettier-scss',
-    'stylelint-config-prettier',
+
+    // "stylelint-config-prettier",
+    // 'stylelint-config-prettier-scss',
+    // 'stylelint-config-prettier',
 
     // 'stylelint-prettier/recommended', // enables plugin, enables rule, extends config-prettier
   ],
