@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import mongoose from 'mongoose';
 
-import { server } from '../server';
+import { createServer } from '../server';
 
 let specServer: any;
 (async () => {
-  specServer = await server();
+  specServer = await createServer();
 })();
 
 // export const specServer = async () => {

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 import { initInfisical } from './loadInfisical.js';
 import { Logger } from './loggers';
+import { createServer } from './server.js';
 
 Logger.info('starting app');
 Logger.info(`mode: ${process.env.NODE_ENV}`);
@@ -64,9 +65,7 @@ const main = async function main() {
    * ## MAIN ENTRYPOINT START
    */
 
-  const { server } = await import('./server.js');
-
-  const app = await server();
+  const app = await createServer();
 
   app.on('clientError', () => {
     app.close(async () => {

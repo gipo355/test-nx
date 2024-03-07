@@ -30,7 +30,7 @@ let pool: WorkerPool;
 let emailPoolProxy: WorkerPool['proxy'];
 let imagePoolProxy: WorkerPool['proxy'];
 
-const workerInit = async () => {
+export  workerInit = async () => {
   pool = createPool(`${__dirname}/worker1.js`, poolOptions);
 
   poolProxy = await pool.proxy();
@@ -44,7 +44,7 @@ const workerInit = async () => {
   );
 };
 
-const bullmqPoolInit = async () => {
+export const bullmqPoolInit = async () => {
   emailPoolProxy = await createPool(
     `${__dirname}/bullmqWorkerInPool.js`,
     poolOptions
@@ -62,7 +62,7 @@ const bullmqPoolInit = async () => {
 /**
  * ## add image pool for image manipulation
  */
-const imagePoolInit = async () => {
+export const imagePoolInit = async () => {
   imagePoolProxy = await createPool(
     `${__dirname}/imageWorker.js`,
     poolOptions
@@ -78,11 +78,8 @@ const imagePoolInit = async () => {
 };
 
 export {
-  bullmqPoolInit,
   emailPoolProxy,
-  imagePoolInit,
   imagePoolProxy,
   pool as pool1,
   poolProxy,
-  workerInit,
 };

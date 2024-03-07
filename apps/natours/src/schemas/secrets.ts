@@ -1,6 +1,9 @@
 import { type Static, Type } from '@sinclair/typebox';
 
 export const secretsSchema = Type.Object({
+  NATOUR_PORT: Type.String(),
+  NATOUR_HOST: Type.String(),
+
   NATOURS_STRIPE_TEST_PUBLIC: Type.String(),
   NATOURS_STRIPE_TEST_SECRET: Type.String(),
   NATOURS_STRIPE_ENDPOINT_SECRET: Type.String(),
