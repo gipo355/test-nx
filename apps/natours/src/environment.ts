@@ -5,14 +5,13 @@ import { secretsSchema, type TSecrets } from './schemas/secrets';
 // load all keys from process.env
 // compare the keys with the keys from the schema with the Value
 // objects must match
-const o: Record<string, string | undefined> = {};
+const SECRETS: Record<string, string | undefined> = {} as TSecrets;
 
 for (const key of Object.keys(secretsSchema.properties)) {
-  o[key] = process.env[key];
+  SECRETS[key] = process.env[key];
 }
 
-Value.Errors(secretsSchema, o);
-
-const SECRETS = o as TSecrets;
+// throws if the object does not match the schema, can't start the app
+Value.Errors(secretsSchema, SECRETS);
 
 export { SECRETS };
