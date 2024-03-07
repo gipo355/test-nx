@@ -1,7 +1,6 @@
-import 'dotenv-defaults/config';
-
 import mongoose from 'mongoose';
 
+import { initInfisical } from './loadInfisical.js';
 import { Logger } from './loggers';
 
 Logger.info('starting app');
@@ -29,7 +28,8 @@ const main = async function main() {
   /**
    * ## Must come before everything else to load env vars
    */
-  await import('./environment.js');
+  // await import('./environment.js');
+  await initInfisical();
 
   /**
    * ## Handlers
