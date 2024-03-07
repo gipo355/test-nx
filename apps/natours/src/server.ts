@@ -1,3 +1,4 @@
+import { ADDRGETNETWORKPARAMS } from 'node:dns';
 import https from 'node:https';
 
 import mongoose from 'mongoose';
@@ -96,7 +97,7 @@ async function server() {
       Logger.info('HTTPS enabled for development');
       return https
         .createServer({ key, cert }, App)
-        .listen(+NATOUR_PORT, NATOUR_HOST, () => {
+        .listen(Number(NATOUR_PORT), NATOUR_HOST, () => {
           Logger.info(
             `app running and server listening @ https://${NATOUR_HOST}:${NATOUR_PORT} ...`
           );
@@ -104,7 +105,7 @@ async function server() {
         });
     }
     Logger.info('HTTPS disabled');
-    return App.listen(+NATOUR_PORT, NATOUR_HOST, () => {
+    return App.listen(Number(NATOUR_PORT), NATOUR_HOST, () => {
       Logger.info(
         `app running and server listening @ http://${NATOUR_HOST}:${NATOUR_PORT} ...`
       );
