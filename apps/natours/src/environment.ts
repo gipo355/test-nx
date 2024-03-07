@@ -1,14 +1,9 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 import InfisicalClient from 'infisical-node';
 
 import { Logger } from './loggers';
 
-// import { Logger } from './loggers';
-
-// TODO: transition to npm infisical-node package
-
 /**
- * ## START INFISICAL
+ * ## Inject envs into process.env
  */
 const initInfisical = async () => {
   const { INFISICAL_TOKEN } = process.env;
@@ -24,22 +19,18 @@ const initInfisical = async () => {
    */
   const infisicalClient = new InfisicalClient({
     token: INFISICAL_TOKEN,
-    // cacheTTL: 300 // default 5 mins
   });
 
   /**
-   * IMP: for this project i will use process.env injection as it's massively built up around
-   * env variables. for other projects, i will use the getSecret() method
-   *
    * ## Getting all secrets from infisical
-   * Retrieve all secrets within a given environment and folder path. The service token used must have access to the given path and environment.
+   * and populate process.env
    */
   await (async () => {
     await infisicalClient.getAllSecrets({
       environment: 'dev',
       path: '/',
-      attachToProcessEnv: true, // (boolean, optional): Whether or not to attach fetched secrets to process.env. If not specified, the default value is false.
-      includeImports: false, // (boolean, optional): Whether or not to include imported secrets from the current path.
+      attachToProcessEnv: true,
+      includeImports: false,
     });
     Logger.info(
       'infisicalClient initialized: secrets injected into process.env'
@@ -54,6 +45,7 @@ interface SECRETS {
   NATOURS_STRIPE_ENDPOINT_SECRET_PROD: string | undefined;
   NODE_ENV: string | undefined;
 }
+
 let SECRETS: SECRETS = {
   NATOURS_STRIPE_TEST_PUBLIC: '',
   NATOURS_STRIPE_TEST_SECRET: '',

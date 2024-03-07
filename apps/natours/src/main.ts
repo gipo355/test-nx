@@ -29,7 +29,7 @@ const main = async function main() {
   /**
    * ## Must come before everything else to load env vars
    */
-  await import('./env.js');
+  await import('./environment.js');
 
   /**
    * ## Handlers

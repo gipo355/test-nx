@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import Stripe from 'stripe';
 
 // import { NATOURS_STRIPE_TEST_SECRET } from '../../../env';
-import { SECRETS } from '../../../env';
+import { SECRETS } from '../../../environment';
 import { AppError, catchAsync, statusCodes } from '../../../helpers';
 import { Logger } from '../../../loggers';
 import { Booking, Tour, User } from '../../../models';
