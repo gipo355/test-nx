@@ -1,4 +1,16 @@
 class AppError extends Error {
+  keyValue?: {
+    name?: string;
+    email?: string;
+  };
+  code?: number;
+
+  errors?: Record<string, unknown>;
+
+  path?: string;
+
+  value?: string;
+
   statusCode: number;
 
   status: string;

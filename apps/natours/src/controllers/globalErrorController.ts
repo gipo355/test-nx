@@ -1,28 +1,30 @@
+import type { NextFunction, Request, Response } from 'express';
+
 import { AppError } from '../helpers';
 import { Logger } from '../loggers';
 
-const handleCastError = (err: any) => {
-  //
+// TODO: implement a standard response object for every type in schemas
+// TODO: implement pre made instances of AppError (like 404, 500, 401)
+
+const handleCastError = (err: AppError) => {
+  // those errors are from mongodb mongoose?
   const message = `invalid ${err.path}: ${err.value}`;
   return new AppError(message, 400);
 };
 
-const handleDuplicateError = (err: any) => {
-  //
-  // BUG: keyvalue can be
-  // { name: 'test', email: 'test@test' }
-  // let message = `invalid name: ${err.keyValue.name} is a duplicate`;
+const handleDuplicateError = (err: AppError) => {
+  // those errors are from mongodb mongoose
   let message = 'Something went wrong. Please try again later. (code: 17ec2)';
-  if (err.keyValue.email) {
+  if (err.keyValue?.email) {
     message = `this email is already in use`;
   }
-  if (err.keyValue.name) {
+  if (err.keyValue?.name) {
     message = `this name is already in use`;
   }
   return new AppError(message, 400);
 };
 
-const handleValidationError = async (err: any) => {
+const handleValidationError = async (err: AppError) => {
   const subObjectsArr: Record<string, any>[] = Object.values(err.errors);
   // Promisify the map function
   const errorMessagesArr = await Promise.all(
@@ -48,7 +50,12 @@ const handleJWTUnauthorized = (_err: any) => {
   return new AppError(message, 401);
 };
 
-const sendErrorDev = (err: any, newErr: any, res: any, req: any) => {
+const sendErrorDev = (
+  err: TExpressError,
+  newErr: AppError,
+  res: Response,
+  req: Request
+) => {
   /**
    * ## check if error is from frontend or api
    */
@@ -63,63 +70,69 @@ const sendErrorDev = (err: any, newErr: any, res: any, req: any) => {
     });
   }
   // ! OPERATIONAL ERROR, TRUSTED, result of AppError
-  return res.status(newErr.statusCode).render('error', {
+  res.status(newErr.statusCode).render('error', {
     title: 'Uh Oh! Something went wrong!',
     message: JSON.stringify({ ...newErr, ...err }),
     code: newErr.statusCode,
   });
 };
 
-const sendErrorProd = (_err: any, newErr: any, res: any, req: any) => {
-  // console.log(_err, 'err');
-  // console.log(newErr, 'newErr');
-
+const sendErrorProd = (
+  _err: Error,
+  newErr: AppError,
+  res: Response,
+  req: Request
+) => {
   /**
    * ## check if error is from frontend or api
    * BELOW DOESN'T WORK
    * REQ.ORIGINALURL IS ALWAYS /API/USERS/LOGIN
    */
-  if (!req.originalUrl.startsWith('/api') && newErr.isOperationalError) {
-    // operational FE
 
-    return res.status(newErr.statusCode).render('error', {
+  if (!req.originalUrl.startsWith('/api') && newErr.isOperationalError) {
+    res.status(newErr.statusCode).render('error', {
       title: 'Uh Oh! Something went wrong!',
       message: newErr.message,
       code: newErr.statusCode,
     });
+    return;
   }
+
   if (!req.originalUrl.startsWith('/api') && !newErr.isOperationalError) {
     // API no operational
-    // if (_err.isOperationalError) {
     /**
      * ## we want to log this because otherwise we won't see it in the frontend
      */
     Logger.error(newErr);
-    return res.status(newErr.statusCode).render('error', {
+    res.status(newErr.statusCode).render('error', {
       title: 'Uh Oh! Something went wrong!',
       message: 'Please try again later.',
       code: 500,
     });
+    return;
   }
+
   if (newErr.isOperationalError) {
     // ! OPERATIONAL ERROR, TRUSTED, result of AppError
-    return res.status(newErr.statusCode).json({
+    res.status(newErr.statusCode).json({
       status: newErr.status,
       message: newErr.message,
     });
+    return;
   }
   // ! UNKNOWN ERROR, PROGRAMMING BUG, CAN'T LEAK DETAILS TO CLIENT
   // LOG to keep track of unknown behavior
-  Logger.error({
-    timeStamp: Date.now(),
-    status: newErr.status,
-    stack: _err.stack,
-    originalError: _err,
-    newError: newErr,
-    message: newErr.message,
-  });
+  Logger.error(
+    JSON.stringify({
+      timeStamp: Date.now(),
+      status: newErr.status,
+      stack: _err.stack,
+      originalError: _err,
+      newError: newErr,
+      message: newErr.message,
+    })
+  );
   // jonas says that console.log will make it available on the hosting platform
-  // eslint-disable-next-line no-console
   // console.error({
   //     status: newErr.status,
   //     stack: _err.stack,
@@ -128,17 +141,16 @@ const sendErrorProd = (_err: any, newErr: any, res: any, req: any) => {
   // });
 
   // send generic message
-  return res.status(500).json({
+  res.status(500).json({
     status: 'error',
     message: 'something went wrong!',
   });
 };
 export const globalErrorController = (
-  err: any,
-  _req: any,
-  _res: any,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _next: any
+  err: AppError,
+  _req: Request,
+  _res: Response,
+  _next: NextFunction
 ) => {
   (async () => {
     // assign the vars as spreading the object won't inherit Prototype methods
@@ -148,29 +160,31 @@ export const globalErrorController = (
       statusCode = 500,
       status = 'error',
       message = 'internal server error',
+      name,
+      code,
+      isOperationalError = false,
     } = err;
+
     // reassign to new object to avoid mutation
-    let newErr = { statusCode, status, message, ...err };
+    let newErr = {
+      ...err,
+      statusCode,
+      status,
+      message,
+      isOperationalError,
+    };
 
     if (process.env.NODE_ENV === 'development') {
       Logger.error('error', err);
 
       sendErrorDev(err, newErr, _res, _req);
     } else {
-      // console.log('globalErrorController prod');
-      // console.log(newErr, 'newErr');
-      // console.log(err, 'err');
-      // eslint-disable-next-line unicorn/consistent-destructuring
-      // console.log(err.code);
-      // console.log(err.name);
-
       // if it's a wrong ID search
-      if (err.name === 'CastError') newErr = handleCastError(newErr);
+      if (name === 'CastError') newErr = handleCastError(newErr);
       // keyPattern.Name is a prop that exists on duplicate error
-      // eslint-disable-next-line unicorn/consistent-destructuring
-      if (err.code === 11_000) newErr = handleDuplicateError(newErr);
+      if (code === 11_000) newErr = handleDuplicateError(newErr);
 
-      if (err.name === 'ValidationError')
+      if (name === 'ValidationError')
         newErr = await handleValidationError(newErr);
 
       if (err.message.startsWith('JsonWebTokenError')) {

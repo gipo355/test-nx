@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 declare namespace Express {
   export interface Request {
     // TODO: create the schemas
+    originalUrl: string;
     /**
      * @description
      * Mongoose Review Query passed
