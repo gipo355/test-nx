@@ -21,7 +21,7 @@ import {
 // with no support for await
 import { generateRandomBytes } from '../helpers/generateRandomBytes';
 import { Logger } from '../loggers';
-import { poolProxy } from '../workers';
+import { workerPoolProxy } from '../workers/workerPools.js';
 
 // interface IUser {
 //   name: string;
@@ -253,7 +253,7 @@ userSchema.pre('save', async function preHook(next: any) {
 
       // eslint-disable-next-line unicorn/prefer-ternary
       if (WORKER_POOL_ENABLED === '1') {
-        result = await poolProxy.encryptPasswordWorker(
+        result = await workerPoolProxy.encryptPasswordWorker(
           this.password,
           SALT_WORK_FACTOR
         );
@@ -378,14 +378,14 @@ userSchema.methods.createPasswordResetToken =
      * ## generate random bytes to send to user
      */
     const generatedRandomToken = await (WORKER_POOL_ENABLED === '1'
-      ? poolProxy.generateRandomBytesWorker(RANDOM_BYTES_VALUE)
+      ? workerPoolProxy.generateRandomBytesWorker(RANDOM_BYTES_VALUE)
       : generateRandomBytes(RANDOM_BYTES_VALUE));
 
     /**
      * ## encrypt token to save in db - we will confront the encrypted token in the db with the unencrypted one in the url ( by encrypting it )
      */
     const encryptedToken = await (WORKER_POOL_ENABLED === '1'
-      ? poolProxy.easyEncryptWorker(generatedRandomToken)
+      ? workerPoolProxy.easyEncryptWorker(generatedRandomToken)
       : easyEncrypt(generatedRandomToken));
 
     this.passwordResetToken = encryptedToken;

@@ -6,7 +6,7 @@ import { Logger } from './loggers';
 import {
   bullmqPoolInit,
   imagePoolInit,
-  workerInit,
+  workerPoolInit,
 } from './workers/workerPools.js';
 
 async function createServer() {
@@ -41,7 +41,7 @@ async function createServer() {
    */
   Logger.info('🔥 initializing worker pools...');
 
-  await workerInit();
+  await workerPoolInit();
   await bullmqPoolInit();
   await imagePoolInit();
 

@@ -25,36 +25,38 @@ const poolOptions: WorkerPoolOptions = {
 
 // TODO: require worker types ( check fastify ) for proxies
 
-let poolProxy: WorkerPool['proxy'];
-let pool: WorkerPool;
+let workerPool: WorkerPool;
+let workerPoolProxy: WorkerPool['proxy'];
 let emailPoolProxy: WorkerPool['proxy'];
 let imagePoolProxy: WorkerPool['proxy'];
 
-export  workerInit = async () => {
-  pool = createPool(`${__dirname}/worker1.js`, poolOptions);
+export const workerPoolInit = async () => {
+  workerPool = createPool(`${__dirname}/worker1.js`, poolOptions);
 
-  poolProxy = await pool.proxy();
+  workerPoolProxy = await workerPool.proxy();
 
   Logger.info(
     `Worker pool enabled - minThreads: ${
       poolOptions.minWorkers
     } -  maxThreads: ${poolOptions.maxWorkers} - totalWorkers: ${
-      pool.stats().totalWorkers
+      workerPool.stats().totalWorkers
     }`
   );
 };
 
 export const bullmqPoolInit = async () => {
-  emailPoolProxy = await createPool(
+  const bullPool = createPool(
     `${__dirname}/bullmqWorkerInPool.js`,
     poolOptions
-  ).proxy();
+  );
+
+  emailPoolProxy = await bullPool.proxy();
 
   Logger.info(
     `bullMq pool enabled - minThreads: ${
       poolOptions.minWorkers
     } -  maxThreads: ${poolOptions.maxWorkers} - totalWorkers: ${
-      pool.stats().totalWorkers
+      bullPool.stats().totalWorkers
     }`
   );
 };
@@ -63,23 +65,17 @@ export const bullmqPoolInit = async () => {
  * ## add image pool for image manipulation
  */
 export const imagePoolInit = async () => {
-  imagePoolProxy = await createPool(
-    `${__dirname}/imageWorker.js`,
-    poolOptions
-  ).proxy();
+  const imagePool = createPool(`${__dirname}/imageWorker.js`, poolOptions);
+
+  imagePoolProxy = await imagePool.proxy();
 
   Logger.info(
     `image Pool enabled - minThreads: ${
       poolOptions.minWorkers
     } -  maxThreads: ${poolOptions.maxWorkers} - totalWorkers: ${
-      pool.stats().totalWorkers
+      workerPool.stats().totalWorkers
     }`
   );
 };
 
-export {
-  emailPoolProxy,
-  imagePoolProxy,
-  pool as pool1,
-  poolProxy,
-};
+export { emailPoolProxy, imagePoolProxy, workerPool, workerPoolProxy };
