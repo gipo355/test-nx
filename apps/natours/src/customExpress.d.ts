@@ -1,5 +1,8 @@
+import { Model } from 'mongoose';
+
 declare namespace Express {
   export interface Request {
+    // TODO: create the schemas
     /**
      * @description
      * Mongoose Review Query passed
@@ -9,8 +12,10 @@ declare namespace Express {
      * @description
      * Mongoose Review Query passed
      */
-    documents?: any;
-    resizedImages?: any;
+    documents?: Record<string, Model>;
+    // resizedImages?: any;
+
+    // _remoteAddress?: string;
   }
 }
 
@@ -20,6 +25,6 @@ declare namespace Express {
  */
 declare module 'http' {
   export interface IncomingMessage {
-    rawBody: any;
+    rawBody: Buffer;
   }
 }

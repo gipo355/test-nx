@@ -88,5 +88,6 @@ const main = async function main() {
 };
 
 main().catch((error) => {
+  Logger.error('😱 error');
   Logger.error(JSON.stringify(error, null, 2));
 });

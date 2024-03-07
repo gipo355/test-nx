@@ -15,7 +15,7 @@ import {
   updateUserData,
 } from '../../../controllers';
 import { catchAsync } from '../../../helpers';
-import { poolProxy } from '../../../workers';
+import { workerPoolProxy } from '../../../workers/workerPools.js';
 
 const router = Router();
 
@@ -23,7 +23,7 @@ router.use(alertParser);
 
 // TODO: remove testing routes
 const createHash = catchAsync(async function createHash(_req, res) {
-  const hash = await poolProxy.encryptPasswordWorker('asdfsadf', 12);
+  const hash = await workerPoolProxy.encryptPasswordWorker('asdfsadf', 12);
   // Logger.info(pool1.stats());
   res.status(200).json({
     status: 'success',

@@ -1,4 +1,5 @@
-import express from 'express';
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import express, { json } from 'express';
 
 import { IS_PROXY_ENABLED, NUMBERS_OF_PROXIES } from './config';
 import { globalErrorController, webhookCheckout } from './controllers';
@@ -17,59 +18,60 @@ import {
 async function createApp() {
   const App = express();
 
+  // prevent fingerprinting
   App.disable('x-powered-by');
 
   /**
-   * ## GET SECURE COOKIES FROM PROXIES
-   */
-  // App.enable('trust proxy');
-  // App.set('trust proxy', 1); // trust first proxy
-
-  /**
-   * ## IMP: this line will forward info from the load balancer / proxy to the App
+   * ## GET SECURE COOKIES FROM PROXIES if behind a proxy
+   * ## this line will forward info from the load balancer / proxy to the App
    * things like https cookies (nginx to node is http). also the IP address is the nginx IP address
    */
   if (IS_PROXY_ENABLED) App.set('trust proxy', NUMBERS_OF_PROXIES);
 
   /**
-   * ## set views path to root dir to solve relative path problems?
+   * ## STRIPE WEBHOOK
+   * after middleware, before routes, requires raw body
+   * MUST BE BEFORE JSON BODY PARSER or SET req.rawBody
+   * check global middleware
    */
-  // TODO: refactor for tsc
-  App.set('views', '../views'); // requires webpack copying the views folder to dist
-
-  App.set('view engine', 'pug');
+  App.post(
+    '/webhook-checkout',
+    json({
+      limit: '10kb',
+      verify: (req, _, buf) => {
+        req.rawBody = buf;
+      },
+    }),
+    webhookCheckout
+  );
 
   /**
    * ## Global middleware
    */
   await handleGlobalMiddleware(App);
 
-  // TODO: debugging global middleware, remove
-
   /**
-   * ## ROUTES
+   * ## VIEWS
    */
-
-  /**
-   * ## STRIPE WEBHOOK
-   * after middleware, before routes
-   * MUST BE BEFORE JSON BODY PARSER or SET req.rawBody
-   */
-  App.post('/webhook-checkout', webhookCheckout);
-
-  // generic router for pug templates, static, folders etc
+  App.set('views', '../views');
+  App.set('view engine', 'pug');
+  // TODO: refactor for tsc
   App.use('/', viewsRouter);
 
-  // static
+  /**
+   * ## STATIC FILES
+   */
   // ! serving the public folder static files, need to copy it as it's path relative
   // TODO: refactor for tsc
   App.use('/', staticsRouter);
 
-  // ROUTES
+  /**
+   * ## API
+   */
 
   App.use('/api/v1/tours', toursRouterV1);
 
-  App.use('/api/v1/users', usersRouterV1); // this becomes the / in usersRouterV1
+  App.use('/api/v1/users', usersRouterV1);
 
   App.use('/api/v1/reviews', reviewRouterV1);
 

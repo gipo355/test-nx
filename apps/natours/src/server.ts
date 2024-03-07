@@ -13,6 +13,7 @@ async function createServer() {
   Logger.info('🤯 creating server...');
 
   Logger.info(`🍀 NODE_ENV = ${process.env.NODE_ENV}`);
+
   Logger.info(`🍀 Main ThreadPool size: ${process.env.UV_THREADPOOL_SIZE}`);
 
   Logger.info('🔥 connecting to mongoose...');
@@ -23,7 +24,6 @@ async function createServer() {
     NATOUR_HOST = '127.0.0.1',
   } = SECRETS;
 
-  // mongoose
   const mongoAuthString = NATOUR_MONGO_CONNECTION_STRING.replace(
     '<PASSWORD>',
     NATOUR_MONGO_PASSWORD
@@ -36,20 +36,22 @@ async function createServer() {
 
   Logger.info('MongoDB connection established');
 
-  /**
-   * ## Init worker pools
-   */
   Logger.info('🔥 initializing worker pools...');
 
+  // TODO: fix pools to create types, refactor folders
   await workerPoolInit();
   await bullmqPoolInit();
   await imagePoolInit();
 
+  Logger.info('🔥 creating express app...');
+
   const App = await createApp();
+
+  Logger.info('🚀 starting server...');
 
   return App.listen(Number(NATOUR_PORT), NATOUR_HOST, () => {
     Logger.info(
-      `app running and server listening @ http://${NATOUR_HOST}:${NATOUR_PORT} ...`
+      `✅ app running and server listening @ ${NATOUR_HOST}:${NATOUR_PORT} ...`
     );
     if (process.send) process.send('ready'); // send ready to pm2
   });
