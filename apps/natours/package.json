@@ -60,7 +60,7 @@
     "@types/workerpool": "6.4.5"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "main": "./src/main.ts",
   "prisma": {
@@ -83,7 +83,8 @@
     "debug2": "NODE_ENV=development npm-run-all --sequential build-dev-debug --parallel build-dev:watch:webpack-debug dev0-debug",
     "debug:dev": "NODE_ENV=development DEBUG=true npm-run-all --sequential build-dev-debug --parallel build-dev:watch:webpack-debug dev0-debug",
     "debug:prod": "NODE_ENV=production DEBUG=true npm-run-all --sequential build-debug --parallel build-prod:watch:webpack-debug prod0-debug",
-    "dev": "NODE_ENV=development npm-run-all --sequential build-dev --parallel build-dev:watch:webpack dev0",
+    "dev": "NODE_ENV=development tsc --watch && nodemon --exec 'node main.js --experimental-permissions'",
+    "devOld": "NODE_ENV=development npm-run-all --sequential build-dev --parallel build-dev:watch:webpack dev0",
     "dev0": "cd dist && nodemon --exec 'node main.js --experimental-permissions'",
     "dev0-debug": "cd dist && nodemon --exec 'node --expose-gc --inspect-brk --enable-source-maps main.js'",
     "dev00": "cd dist && nodemon --exec 'node --trace-sync-io main.js'",
