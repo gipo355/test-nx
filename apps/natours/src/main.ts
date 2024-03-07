@@ -2,7 +2,6 @@ import 'dotenv-defaults/config';
 
 import cluster from 'node:cluster';
 
-// test comment
 // import { availableParallelism } from 'node:os';
 import { IS_CLUSTER_ENABLED, maxClusters } from './config';
 import { Logger } from './loggers';
@@ -10,18 +9,6 @@ import { Logger } from './loggers';
 Logger.info('starting app');
 if (process.env.NODE_ENV === 'development') Logger.warn('development mode');
 
-// import cluster from 'node:cluster';
-// import { availableParallelism } from 'node:os';
-// import process from 'node:process';
-
-/**
- * ## MUST WRAP IN ASYNC FUNCTION
- * WOULD NOT AWAIT SINGLE LINES OTHERWISE
- * maybe because of top level await in entrypoint module?
- * maybe because i wasnt' using await import?
- * infisical injection wouldn't work without this
- * how does global error handling work with this?
- */
 const main = async function main() {
   /**
    * ## Must come before everything else

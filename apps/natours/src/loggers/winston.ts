@@ -1,4 +1,9 @@
-import winston from 'winston';
+import {
+  addColors,
+  createLogger,
+  format as winstonFormat,
+  transports,
+} from 'winston';
 
 const levels = {
   error: 0,
@@ -9,7 +14,7 @@ const levels = {
 };
 
 const level = () => {
-  const environment = process.env.NODE_ENV || 'development';
+  const environment = process.env.NODE_ENV ?? 'development';
   const isDevelopment = environment === 'development';
   return isDevelopment ? 'debug' : 'http';
 };
@@ -22,99 +27,73 @@ const colors = {
   debug: 'blue',
 };
 
-winston.addColors(colors);
+addColors(colors);
 
-const format = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DDTHH:mm:ss.msZ' }),
-  winston.format.colorize({ all: true }),
-  winston.format.printf(
-    // (info) => `${info.timestamp} ${info.level}: ${info.message}`
+const format = winstonFormat.combine(
+  winstonFormat.timestamp({ format: 'YYYY-MM-DDTHH:mm:ss.msZ' }),
+  winstonFormat.colorize({ all: true }),
+  winstonFormat.printf(
     (info) =>
       `${info.timestamp}, ${info.component}, ${info.level}, ${info.message}`
   )
 );
-const formatJSON = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DDTHH:mm:ss.msZ' }),
-  // winston.format.colorize({ all: true }),
-  winston.format.json()
-  // winston.format.printf(
-  //     // (info) => `${info.timestamp} ${info.level}: ${info.message}`
-  //     (info) =>
-  //         `${info.timestamp}, ${info.component}, ${info.level}, ${info.message}`
-  // )
+const formatJSON = winstonFormat.combine(
+  winstonFormat.timestamp({ format: 'YYYY-MM-DDTHH:mm:ss.msZ' }),
+  winstonFormat.json()
 );
 
-// const LEVEL = Symbol.for('http');
-// function filterOnly(levelToFilter: string) {
-//     return winston.format(function innerFunction(info) {
-//         if (info[LEVEL] === levelToFilter) {
-//             return info;
-//         }
-//     })();
-// }
-// filterOnly();
-
-// handle main transports
-const transportsCombinedDev = [new winston.transports.Console()];
+const transportsCombinedDev = [new transports.Console()];
 
 const transportsCombinedProd = [
-  // new winston.transports.Console(),
   ...transportsCombinedDev,
 
-  // log errors in json
-  new winston.transports.File({
-    format: winston.format.combine(
-      winston.format(function filterHttpOnly(info: any) {
+  new transports.File({
+    format: winstonFormat.combine(
+      winstonFormat(function filterHttpOnly(info) {
         if (info[Symbol.for('level')] === 'error') {
           return info;
         }
         return false;
       })(),
-      winston.format.timestamp({
+      winstonFormat.timestamp({
         format: 'YYYY-MM-DDTHH:mm:ss.msZ',
       }),
-      winston.format.json()
+      winstonFormat.json()
     ),
     filename: 'logs/error.log',
     level: 'error',
   }),
 
-  // log http in json
-  new winston.transports.File({
-    format: winston.format.combine(
-      winston.format(function filterHttpOnly(info: any) {
+  new transports.File({
+    format: winstonFormat.combine(
+      winstonFormat(function filterHttpOnly(info) {
         if (info[Symbol.for('level')] === 'http') {
           return info;
         }
         return false;
       })(),
-      winston.format.timestamp({
+      winstonFormat.timestamp({
         format: 'YYYY-MM-DDTHH:mm:ss.msZ',
       }),
-      winston.format.json()
+      winstonFormat.json()
     ),
     filename: 'logs/http.log',
     level: 'http',
   }),
 
-  // log everything else in json but filter out http
-  new winston.transports.File({
+  new transports.File({
     filename: 'logs/all.log',
-    format: winston.format.combine(
-      winston.format(function filterHttpOnly(info: any) {
-        if (
-          info[Symbol.for('level')] === 'http'
-          // ||
-          // info[Symbol.for('level')] === 'error'
-        ) {
+    format: winstonFormat.combine(
+      winstonFormat(function filterHttpOnly(info) {
+        if (info[Symbol.for('level')] === 'http') {
           return false;
         }
         return info;
       })(),
-      winston.format.timestamp({
+      winstonFormat.timestamp({
         format: 'YYYY-MM-DDTHH:mm:ss.msZ',
       }),
-      winston.format.json()
+      winstonFormat.json()
     ),
   }),
 ];
@@ -124,18 +103,17 @@ const transportsCombined =
     ? transportsCombinedProd
     : transportsCombinedDev;
 
-// handle exceptions
-const exceptionHandlersDev = [new winston.transports.Console()];
+const exceptionHandlersDev = [new transports.Console()];
 
 const exceptionHandlersProd = [
   ...exceptionHandlersDev,
-  new winston.transports.File({
+  new transports.File({
     filename: 'exceptions.log',
-    format: winston.format.combine(
-      winston.format.timestamp({
+    format: winstonFormat.combine(
+      winstonFormat.timestamp({
         format: 'YYYY-MM-DDTHH:mm:ss.msZ',
       }),
-      winston.format.json()
+      winstonFormat.json()
     ),
   }),
 ];
@@ -145,7 +123,7 @@ const exceptionHandlers =
     ? exceptionHandlersProd
     : exceptionHandlersDev;
 
-const Logger = winston.createLogger({
+const Logger = createLogger({
   level: level(),
   defaultMeta: { component: 'combined' },
   levels,
@@ -154,7 +132,7 @@ const Logger = winston.createLogger({
   exceptionHandlers,
 });
 
-const JSONLogger = winston.createLogger({
+const JSONLogger = createLogger({
   levels,
   level: level(),
   transports: transportsCombined,
