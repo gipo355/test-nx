@@ -65,9 +65,18 @@ async function createApp() {
   // TODO: refactor for tsc
   App.use('/', staticsRouter);
 
+  // TODO: redis sessions, oauth, better frontend (astro,react,svelte?)
+
   /**
    * ## API
    */
+
+  App.get('/healthz', (_req, res) => {
+    res.status(200).json({
+      status: 'success',
+      uptime: process.uptime(),
+    });
+  });
 
   App.use('/api/v1/tours', toursRouterV1);
 

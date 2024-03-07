@@ -1,5 +1,7 @@
 import { Model } from 'mongoose';
 
+// import { Booking, Tour, User } from '../models';
+
 declare namespace Express {
   export interface Request {
     // TODO: create the schemas
@@ -7,7 +9,7 @@ declare namespace Express {
      * @description
      * Mongoose Review Query passed
      */
-    user?: Record<string, any>;
+    user?: Record<string, number | string>;
     /**
      * @description
      * Mongoose Review Query passed

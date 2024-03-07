@@ -14,37 +14,11 @@ import {
   protectRoute,
   updateUserData,
 } from '../../../controllers';
-import { catchAsync } from '../../../helpers';
-import { workerPoolProxy } from '../../../workers/workerPools.js';
 
 const router = Router();
 
 router.use(alertParser);
 
-// TODO: remove testing routes
-const createHash = catchAsync(async function createHash(_req, res) {
-  const hash = await workerPoolProxy.encryptPasswordWorker('asdfsadf', 12);
-  // Logger.info(pool1.stats());
-  res.status(200).json({
-    status: 'success',
-    data: {
-      hash,
-    },
-  });
-});
-
-// testing autocannon
-router.route('/bcrypto').get(createHash);
-router.route('/test-load').get((_req, res) => {
-  res.status(200).send('ok'.repeat(1000));
-});
-
-// __webpack_public_path__ = '/';
-
-/**
- * ## we can't put this here, overview will trigger many requests on its own and it will trigger for everything, even css and images
- */
-// router.use(isLoggedInAndPassUserData);
 /**
  * ## PUG built-in
  */

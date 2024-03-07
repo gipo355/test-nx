@@ -40,7 +40,7 @@ const getViewsOverview = catchAsync(async function getOverview(
   // console.log(req.user);
 
   // step 2 and 3
-  return res.status(statusCodes.ok).render('overview', {
+  res.status(statusCodes.ok).render('overview', {
     title: 'Natour',
     // tour: 'All Tours',
     tours, // this is the step 2, we pass the tour
@@ -75,10 +75,10 @@ const getViewsTour = catchAsync(async function getTour(
   // .populate('reviews', '-tour -__v');
   // console.log(tour);
 
-  if (!tour)
-    return next(
-      new AppError('There is no tour with that name', statusCodes.notFound)
-    );
+  if (!tour) {
+    next(new AppError('There is no tour with that name', statusCodes.notFound));
+    return;
+  }
 
   /**
    * IMP: ###### CONTENT SECURITY POLICY OVERWRITE
@@ -247,7 +247,7 @@ const getMyBookings = catchAsync(async function getMyBookings(
   // bookings only gives us tour ids [tourid1, tourid2]
   // create array of all the tour ids
   // query for tours that have 1 of these ids: tours where tourid is in one of [tourid1, tourid2]
-  const tourIds = bookings.map((element) => element.tour?.id);
+  const tourIds = bookings.map((element) => element.tour.id);
 
   // get the tour corresponding to the tour id
   // new operator, can't use findbyid
@@ -258,7 +258,7 @@ const getMyBookings = catchAsync(async function getMyBookings(
   /**
    * ## render the page
    */
-  return res.status(statusCodes.ok).render('overview', {
+  res.status(statusCodes.ok).render('overview', {
     title: 'My Tours | My Tours',
     tours,
   });
@@ -277,18 +277,24 @@ const alertParser = function alertParser(
   next: NextFunction
 ): void {
   const { alert } = req.query;
-  if (!alert) return next();
+  if (!alert) {
+    next();
+    return;
+  }
 
   const alertTypeSwitch = {
     booking:
       'Your booking was successful! Please check your email for a confirmation. If your booking does not show up here immediatly, please come back later.',
   };
 
-  if (!Object.keys(alertTypeSwitch).includes(alert as string)) return next();
+  if (!Object.keys(alertTypeSwitch).includes(alert as string)) {
+    next();
+    return;
+  }
 
   res.locals.alert = alertTypeSwitch[alert as keyof typeof alertTypeSwitch];
 
-  return next();
+  next();
 };
 
 export {

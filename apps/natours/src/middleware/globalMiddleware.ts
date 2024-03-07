@@ -18,7 +18,9 @@ import {
 import { SECRETS } from '../environment.js';
 import { Logger, morganLogger } from '../loggers';
 
-export const handleGlobalMiddleware = async function middleware(App: Express) {
+export const handleGlobalMiddleware = async function handleGlobalMiddleware(
+  App: Express
+) {
   /**
    * ## Helmet
    */
@@ -187,13 +189,9 @@ export const handleGlobalMiddleware = async function middleware(App: Express) {
   // prefer nginx compression over this if possible ( huge stress on event loop )
   if (COMPRESSION_ENABLED) App.use(compression());
 
+  // TODO: req types for TS
   App.use((req: Request, _, next) => {
-    // eslint-disable-next-line no-param-reassign
     req.requestTime = new Date();
     next();
   });
-
-  // for others check tours route ( specific middleware per route)
-  // middleware can be used on use(), any method(e.g. get()) and can be path specific
 };
-// paths are cascading  (e.g. /api/tours will trigger /api/tours/id)
