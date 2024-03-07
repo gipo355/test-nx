@@ -4,7 +4,18 @@
 //     var app: any;
 // } // declare function require( name: string );
 declare module 'pg';
-declare module 'hpp';
+// declare module 'hpp';
+
+declare namespace hpp {
+  interface Options {
+    checkBody?: boolean | undefined;
+    checkBodyOnlyForContentType?: string | undefined;
+    checkQuery?: boolean | undefined;
+    whitelist?: string | string[] | undefined;
+  }
+}
+declare function hpp(options?: hpp.Options): express.RequestHandler;
+
 declare module 'xss-clean';
 declare module 'dotenv-defaults';
 

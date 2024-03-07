@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/node';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { type Express, json, urlencoded } from 'express';
+import { type Express, json, Request, urlencoded } from 'express';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 import helmet, { contentSecurityPolicy } from 'helmet';
 import hpp from 'hpp';
@@ -184,24 +184,12 @@ export const handleGlobalMiddleware = async function middleware(App: Express) {
     })
   );
 
-  if (COMPRESSION_ENABLED) App.use(compression()); // prefer nginx compression over this if possible ( huge stress on event loop )
+  // prefer nginx compression over this if possible ( huge stress on event loop )
+  if (COMPRESSION_ENABLED) App.use(compression());
 
-  // creating our own global middleware function
-  // App.use((_req: any, _res: any, next: any) => {
-  //
-  // Logger.info('hello from the middleware');
-
-  // ! IF WE DON'T CALL NEXT, THE REQ RES CYCLE GETS STUCK
-  //     next();
-  // });
-
-  // ! another one to manipulate req object
-  // this is how morgan works
-  // adding a prop to the request using a middleware on all requests
-
-  App.use((_req: any, _res: any, next: any) => {
+  App.use((req: Request, _, next) => {
     // eslint-disable-next-line no-param-reassign
-    _req.requestTime = new Date().toISOString();
+    req.requestTime = new Date();
     next();
   });
 

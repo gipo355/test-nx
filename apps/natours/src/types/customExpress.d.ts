@@ -15,6 +15,8 @@ declare namespace Express {
     documents?: Record<string, Model>;
     // resizedImages?: any;
 
+    requestTime: Date;
+
     // _remoteAddress?: string;
   }
 }
