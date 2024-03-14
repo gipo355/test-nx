@@ -99,13 +99,14 @@ async function createApp() {
 
   /**
    * ## Error handling
-   * contains:
    * - unsupportedMethodRouter
+   * contains:
    * - pageNotFoundController
    * - Sentry error handler
    * - globalErrorController
    */
   App.use('*', errorsRouter, globalErrorController);
+
   return App;
 }
 
