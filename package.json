@@ -147,6 +147,7 @@
     "xss-clean": "0.1.1"
   },
   "devDependencies": {
+    "@angular-devkit/core": "~17.2.0",
     "@changesets/cli": "2.27.1",
     "@fastify/autoload": "5.8.0",
     "@fastify/sensible": "5.5.0",
@@ -157,6 +158,7 @@
     "@nx-go/nx-go": "2.8.0",
     "@nx-golang/gin": "0.7.0",
     "@nx-plus/docusaurus": "15.0.0-rc.0",
+    "@nx/angular": "18.1.2",
     "@nx/cypress": "18.1.2",
     "@nx/devkit": "18.1.2",
     "@nx/esbuild": "18.1.2",
