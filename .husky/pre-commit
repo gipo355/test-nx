@@ -1,6 +1,10 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo '########## detect-secrets...'
+git diff --staged --name-only -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline
+gitleaks protect -v --staged
+
 echo '########## lint-staged...'
 pnpm lint-staged
 echo '########## done lint-staged'
