@@ -33,6 +33,14 @@ import { defineConfig } from 'vitest/config';
 
 // export default defineConfig((configEnv) => ({
 export default defineConfig(() => ({
+  root: __dirname,
+  build: {
+    outDir: '../../dist/apps/spotify',
+    reportCompressedSize: true,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  },
   // root: "",
   // base: "/",
   // mode: "development",
@@ -105,6 +113,11 @@ export default defineConfig(() => ({
     // // 	// 	// }
   },
   test: {
+    reporters: ['default'],
+    coverage: {
+      reportsDirectory: '../../coverage/apps/spotify',
+      provider: 'v8',
+    },
     include: ['src/**/*.{test,spec}.{js,ts}'],
     // coverage: {
     //   provider: 'v8',

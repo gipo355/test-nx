@@ -17,12 +17,10 @@
     },
     "build": {
       "executor": "@nx/vite:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/test-sveltekit-app"
+        "outputPath": "dist/apps/spotify"
       },
       "configurations": {
         "development": {
@@ -37,15 +35,15 @@
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "test-sveltekit-app:build"
+        "buildTarget": "spotify:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "test-sveltekit-app:build:development",
+          "buildTarget": "spotify:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "test-sveltekit-app:build:production",
+          "buildTarget": "spotify:build:production",
           "hmr": false
         }
       }
@@ -54,36 +52,29 @@
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "test-sveltekit-app:build"
+        "buildTarget": "spotify:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "test-sveltekit-app:build:development"
+          "buildTarget": "spotify:build:development"
         },
         "production": {
-          "buildTarget": "test-sveltekit-app:build:production"
+          "buildTarget": "spotify:build:production"
         }
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": [
-        "{options.reportsDirectory}"
-      ],
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/apps/test-sveltekit-app"
+        "reportsDirectory": "../../coverage/apps/spotify"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
       "options": {
-        "lintFilePatterns": [
-          "apps/test-sveltekit-app/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/spotify/**/*.ts"]
       }
     }
   }

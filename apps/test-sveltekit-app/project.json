@@ -73,10 +73,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/test-sveltekit-app/**/*.ts"]
-      }
+      "outputs": ["{options.outputFile}"]
     }
   }
 }
